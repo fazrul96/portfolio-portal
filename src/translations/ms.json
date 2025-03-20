@@ -1,0 +1,256 @@
+{
+  "header": {
+    "donation": "Tambah Rekod Sumbangan Baharu",
+    "logistic": "Tambah Rekod Logistik Baharu"
+  },
+  "languageSwitcher": {
+    "text": "Tukar ke Bahasa Inggeris"
+  },
+  "confirmation": {
+    "delete": {
+      "title": "Adakah anda pasti?",
+      "text": "Tindakan ini tidak boleh dibatalkan. Adakah anda ingin memadam rekod ini?",
+      "confirmButtonText": "Ya, padamkan!",
+      "cancelButtonText": "Tidak, simpan"
+    }
+  },
+  "buttons": {
+    "save": "Simpan",
+    "addDonation": "Tambah Sumbangan",
+    "addLogistic": "Tambah Logistik",
+    "adding": "Menambah...",
+    "delete": "Padam",
+    "cancel": "Batal",
+    "add": "Tambah",
+    "update": "Kemas Kini",
+    "edit": "Edit",
+    "download": "Muat Turun",
+    "close": "Tutup",
+    "confirm": "Sahkan",
+    "addNewProject": "Tambah Projek Baharu",
+    "deleteProject": "Padam Projek"
+  },
+  "search": {
+    "label": "Cari Mengikut Nama, Alamat, atau Kod Item"
+  },
+  "dialog": {
+    "donation": {
+      "title": "Butiran Rekod Sumbangan",
+      "form": {
+        "name": "Nama Penerima",
+        "nric": "NRIC Penerima",
+        "date": "Tarikh",
+        "address": "Alamat Penerima",
+        "donationAmount": "Jumlah Sumbangan (RM)"
+      },
+      "tooltip": {
+        "name": "Masukkan nama penuh penerima",
+        "nric": "Masukkan NRIC penerima",
+        "date": "Pilih tarikh sumbangan",
+        "address": "Masukkan alamat penerima",
+        "donation": "Masukkan jumlah sumbangan",
+        "addDonation": "Klik untuk tambah sumbangan baharu"
+      }
+    },
+    "logistic": {
+      "title": "Butiran Rekod Logistik",
+      "form": {
+        "itemName": "Nama Item",
+        "itemCode": "Kod Item",
+        "status": "Status Item",
+        "description": "Deskripsi Item",
+        "quantity": "Kuantiti",
+        "supplier": "Nama Pembekal",
+        "dateReceived": "Tarikh Diterima",
+        "storageLocation": "Lokasi Penyimpanan",
+        "available": "Tersedia",
+        "inUse": "Digunakan",
+        "outOfStock": "Habis Stok"
+      },
+      "tooltip": {
+        "itemName": "Masukkan nama item",
+        "itemCode": "Masukkan kod item yang unik",
+        "status": "Masukkan status item",
+        "description": "Masukkan deskripsi item",
+        "quantity": "Masukkan jumlah item diterima",
+        "supplier": "Masukkan nama pembekal",
+        "dateReceived": "Pilih tarikh item diterima",
+        "storageLocation": "Masukkan lokasi penyimpanan item",
+        "addLogistic": "Klik untuk tambah rekod logistik baharu"
+      }
+    }
+  },
+  "tableHeaders": {
+    "donation": {
+      "title": "Butiran Rekod Sumbangan",
+      "name": "Nama Penerima",
+      "address": "Alamat Penerima",
+      "nric": "NRIC Penerima",
+      "donation": "Jumlah Sumbangan (RM)",
+      "date": "Tarikh",
+      "age": "Umur"
+    },
+    "logistic": {
+      "title": "Butiran Rekod Logistik",
+      "itemName": "Nama Item",
+      "itemCode": "Kod Item",
+      "quantity": "Kuantiti",
+      "supplier": "Nama Pembekal",
+      "dateReceived": "Tarikh Diterima",
+      "storageLocation": "Lokasi Penyimpanan"
+    },
+    "action": "Tindakan"
+  },
+  "pagination": {
+    "rowsPerPage": "Baris per halaman",
+    "option10": "10",
+    "option25": "25",
+    "option50": "50",
+    "pageInfo": "Memaparkan {{start}}-{{end}} daripada {{total}}"
+  },
+  "homepage": {
+    "title": "Sistem Pengurusan Masjid",
+    "subtitle": "Permudahkan operasi masjid dengan mudah dan cekap."
+  },
+  "breadcrumb": {
+    "home": "Laman Utama",
+    "mosqueManagement": "Pengurusan Masjid",
+    "mosque": "Masjid",
+    "donationManagement": "Pengurusan Sumbangan",
+    "logisticManagement": "Pengurusan Logistik"
+  },
+  "sections": {
+    "donations": {
+      "title": "Pengurusan Sumbangan",
+      "description": "Urus sumbangan ke masjid.",
+      "button": "Urus Sumbangan",
+      "comingSoon": "Ciri sumbangan akan datang!"
+    },
+    "logistics": {
+      "title": "Pengurusan Logistik",
+      "description": "Jejak sumber, inventori dan bekalan masjid.",
+      "button": "Urus Logistik",
+      "comingSoon": "Ciri logistik akan datang!"
+    },
+    "sponsors": {
+      "title": "Penaja",
+      "description": "Lihat dan uruskan butiran dan sumbangan penaja.",
+      "button": "Urus Penaja",
+      "comingSoon": "Ciri penaja akan datang!"
+    },
+    "events": {
+      "title": "Acara",
+      "description": "Jadual dan jejak acara.",
+      "button": "Urus Acara",
+      "comingSoon": "Ciri acara akan datang!"
+    },
+    "prayerTimes": {
+      "title": "Waktu Solat",
+      "description": "Lihat waktu solat harian untuk masjid.",
+      "button": "Lihat Waktu Solat",
+      "comingSoon": "Ciri waktu solat akan datang!",
+      "inCity": "Waktu Solat di",
+      "selectState": "Negeri",
+      "selectCity": "Bandar",
+      "city": "Bandar",
+      "Fajr": "Fajr",
+      "Sunrise": "Terbit Matahari",
+      "Dhuhr": "Dhuhr",
+      "Asr": "Asr",
+      "Maghrib": "Maghrib",
+      "Isha": "Isha",
+      "nextPrayer": "Solat Seterusnya",
+      "remainingTime": "Masa Tersisa"
+    },
+    "announcements": {
+      "title": "Pengumuman",
+      "description": "Uruskan pengumuman masjid.",
+      "button": "Urus Pengumuman",
+      "comingSoon": "Ciri pengumuman akan datang!"
+    }
+  },
+  "tabs": {
+    "donation": {
+      "donationManagement": "Pengurusan Sumbangan",
+      "addDonation": "Tambah Rekod Sumbangan",
+      "viewDonations": "Lihat Rekod Sumbangan",
+      "donationAnalysis": "Analisis Sumbangan"
+    },
+    "logistic": {
+      "logisticManagement": "Pengurusan Logistik",
+      "addLogistic": "Tambah Rekod Logistik",
+      "viewLogistics": "Urus Rekod Logistik",
+      "logisticAnalysis": "Analisis & Wawasan",
+      "logisticReport": "Laporan & Tetapan"
+    }
+  },
+  "projects": {
+    "categories": {
+      "title": "Kategori Projek",
+      "description": "Urus dan kategorikan projek anda.",
+      "button": "Tambah Kategori",
+      "comingSoon": "Ciri kategori akan datang!"
+    },
+    "categoryTypes": {
+      "education": "Pendidikan",
+      "healthcare": "Kesihatan",
+      "community": "Komuniti",
+      "infrastructure": "Infrastruktur",
+      "others": "Lain-lain"
+    },
+    "delete": {
+      "title": "Padam Projek",
+      "confirmationText": "Adakah anda pasti ingin memadam projek ini? Tindakan ini tidak boleh dibatalkan.",
+      "cancelButtonText": "Batal",
+      "confirmButtonText": "Ya, padamkan!"
+    },
+    "addNew": {
+      "title": "Tambah Projek Baharu",
+      "form": {
+        "name": "Nama Projek",
+        "description": "Deskripsi Projek",
+        "category": "Kategori Projek",
+        "status": "Status Projek",
+        "tags": "Tag Projek",
+        "dateCreated": "Tarikh Dicipta"
+      },
+      "button": "Tambah Projek"
+    }
+  },
+  "analysis": {
+    "donation": {
+      "x-axis": "Sumbangan Tahunan",
+      "y-axis": "Jumlah Sumbangan (RM)",
+      "title": "Analisis Sumbangan",
+      "description": "Graf di bawah menunjukkan jumlah sumbangan yang diterima oleh individu sepanjang tahun. Ini membantu dalam memahami tren dan corak sumbangan."
+    },
+    "topDonors": {
+      "x-axis": "Penerima Teratas",
+      "y-axis": "Jumlah Sumbangan (RM)",
+      "title": "Analisis Penerima Teratas",
+      "description": "Graf di bawah menunjukkan 5 individu teratas yang menerima jumlah sumbangan tertinggi."
+    },
+    "logistic": {
+      "x-axis": "Item Teratas",
+      "y-axis": "Jumlah Kuantiti",
+      "title": "Analisis Inventori Logistik",
+      "description": "Graf di bawah menunjukkan item yang paling banyak diuruskan dalam inventori masjid, membantu memahami pola penggunaan item."
+    }
+  },
+  "user": {
+    "addSuccess": "Pengguna berjaya ditambah",
+    "addError": "Ralat menambah pengguna",
+    "deleteSuccess": "Pengguna berjaya dipadam",
+    "deleteError": "Ralat memadam pengguna"
+  },
+  "error": {
+    "nameRequired": "Name is required",
+    "donationRequired": "Donation amount is required",
+    "dateRequired": "Date is required",
+    "nricFormat": "Format NRIC tidak sah. Format yang dijangka: 901010101234",
+    "saveFailed": "Gagal menyimpan data. Sila cuba lagi.",
+    "deleteFailed": "Gagal memadam data. Sila cuba lagi.",
+    "fetchFailed": "Gagal memuatkan data. Sila semak sambungan internet anda atau cuba lagi nanti.",
+    "missingData": "Some required fields are missing. Please fill out all fields and try again."
+  }
+}
