@@ -69,6 +69,17 @@ export const PUBLIC_NAVIGATION = [
                 action: createChip("Dev", "warning")
             },
             {
+                segment: '',
+                title: "Mosque v2",
+                icon: SIDEBAR_ICONS.mosque,
+                route: '',
+                action: (
+                    <a href="https://mosque-portal.mfzrl.cyou" target="_blank" rel="noopener noreferrer">
+                        <Chip label="Completed" color="success" size="small" />
+                    </a>
+                ),
+            },
+            {
                 segment: SIDEBAR_TEXT.public.guard.toLocaleLowerCase(),
                 title: SIDEBAR_TEXT.public.guard,
                 icon: SIDEBAR_ICONS.guard,

@@ -78,10 +78,9 @@ const PortfolioContent = () => {
                                             Welcome to My Portfolio!
                                         </Typography>
                                         <Typography variant="body1" sx={{ fontFamily: 'Inter, sans-serif', lineHeight: 1.8, color: '#444' }}>
-                                            I’m a full-stack developer with 4+ years of experience in creating user-friendly and
-                                            efficient applications across diverse industries. Skilled in both frontend and backend
-                                            technologies, I’m passionate about delivering seamless digital experiences. Explore my work,
-                                            and feel free to reach out!
+                                            Please note that my website is currently undergoing a migration framework process and integration with AWS to enhance performance, scalability, and overall user experience.
+                                            During this time, some features may be temporarily unavailable or in development.
+                                            Thank you for your patience and understanding! Feel free to reach out if you have any questions or need assistance.
                                         </Typography>
                                     </Grid2>
                                     <Grid2 size={{ xs: 12, sm: 12, md: 12 }}>
