@@ -1,11 +1,12 @@
-import React, { useState } from 'react';
-import { Grid2, Typography, Paper, Tabs, Tab, Box, useMediaQuery, useTheme } from '@mui/material';
+import React, {useState} from 'react';
+import {Box, Grid2, Paper, Tab, Tabs, Typography, useMediaQuery, useTheme,} from '@mui/material';
+
 import ProfileCard from './ProfileCard';
 import SummaryList from './SummaryList';
 import SkillsList from './SkillsList';
 import RolesList from './RolesList';
 import IndustryList from './IndustryList';
-import { SUMMARIES, SKILLS, ROLES, INDUSTRIES } from '../../../data/portfolioData';
+import {INDUSTRIES, ROLES, SKILLS, SUMMARIES} from '../../../data/portfolioData';
 import profileImage from '../../../assets/img/profile-img.jpg';
 
 const PortfolioContent = () => {
@@ -64,7 +65,6 @@ const PortfolioContent = () => {
                             }}
                         >
                             <Tab label="Overview" />
-                            <Tab label="Experience" />
                         </Tabs>
                     </Box>
 

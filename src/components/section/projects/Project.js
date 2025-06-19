@@ -89,10 +89,10 @@ const Project = () => {
             try {
                 await apiService.deleteResource(PROJECTS, id);
                 setData((prevData) => prevData.filter((project) => project.id !== id));
-                Alert.success('Deleted!', t('project.deleted'));
+                await Alert.success('Deleted!', t('project.deleted'));
             } catch (error) {
                 console.error('Error deleting project:', error);
-                Alert.error('Error', t('error.deleteProject'));
+                await Alert.error('Error', t('error.deleteProject'));
             }
         }
     };

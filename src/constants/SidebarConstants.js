@@ -6,6 +6,7 @@ import ViewModuleIcon from '@mui/icons-material/ViewModule';
 import BackupIcon from '@mui/icons-material/Backup';
 import MenuBookIcon from '@mui/icons-material/MenuBook';
 import MosqueIcon from '@mui/icons-material/Mosque';
+import GppGoodIcon from '@mui/icons-material/GppGood';
 import LocalPoliceIcon from '@mui/icons-material/LocalPolice';
 import PieChartIcon from '@mui/icons-material/PieChart';
 import WorkspacePremiumIcon from '@mui/icons-material/WorkspacePremium';
@@ -41,6 +42,7 @@ export const SIDEBAR_ICONS = {
     medium: <MediumIcon />,
     module: <ViewModuleIcon />,
     mosque: <MosqueIcon />,
+    insurance: <GppGoodIcon />,
     guard: <LocalPoliceIcon />,
     dietitian: <PieChartIcon />,
     ml: <AutoAwesomeIcon />,

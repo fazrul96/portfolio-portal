@@ -1,20 +1,26 @@
-import React, { useEffect, useState, useMemo, useCallback } from 'react';
+import React, {useCallback, useEffect, useMemo, useState} from 'react';
 import {
-    Breadcrumbs, Box, TextField, Grid2, Link, InputLabel,
-    CircularProgress, Snackbar, Alert, FormControl, Select, MenuItem
+    Alert,
+    Box,
+    Breadcrumbs,
+    CircularProgress,
+    FormControl,
+    Grid2,
+    InputLabel,
+    Link,
+    MenuItem,
+    Select,
+    Snackbar,
+    TextField,
 } from '@mui/material';
-import { useAuth0 } from '@auth0/auth0-react';
+import {useAuth0} from '@auth0/auth0-react';
 
 import FileGrid from './FileGrid';
 import FileList from './FileList';
 import Filepond from './../filepond/Filepond';
-import { isFolder } from './utils';
 import ApiService from './../../services/ApiService';
-import { VIEW_TYPES, SORT_OPTIONS, FILE_TYPE_FILTERS } from '../../constants/AppConstants';
-import {
-    API_BASE_URL, API_PRIVATE_URL, MINIO_LIST_FILES,
-    MINIO_DOWNLOAD_FILE, MINIO_UPLOAD_FILES, MINIO_DELETE_FILE
-} from '../../constants/ApiConstants';
+import {FILE_TYPE_FILTERS, SORT_OPTIONS, VIEW_TYPES} from '../../constants/AppConstants';
+import {API_BASE_URL, API_PRIVATE_URL, MINIO} from '../../constants/ApiConstants';
 
 const MinIo = () => {
     const [data, setData] = useState([]);
@@ -33,8 +39,8 @@ const MinIo = () => {
         setIsLoading(true);
         try {
             const response = prefix
-                ? await apiService.fetchResourceWithParams(MINIO_LIST_FILES, { prefix })
-                : await apiService.fetchResource(MINIO_LIST_FILES);
+                ? await apiService.fetchResourceWithParams(MINIO.LIST_FILES, { prefix })
+                : await apiService.fetchResource(MINIO.LIST_FILES);
             setData(response || []);
         } catch (error) {
             console.error('Failed to fetch files:', error);
@@ -53,7 +59,7 @@ const MinIo = () => {
             const formData = new FormData();
             formData.append('fileName', file.originalName);
 
-            await apiService.fetchResourceWithFormData(MINIO_DOWNLOAD_FILE, formData);
+            await apiService.fetchResourceWithFormData(MINIO.DOWNLOAD_FILE, formData);
             setSnackbar({ open: true, message: `${file.alias} downloaded successfully!`, severity: 'success' });
         } catch (error) {
             console.error('Failed to download file:', error);
@@ -63,7 +69,7 @@ const MinIo = () => {
 
     const handleDelete = async (file) => {
         try {
-			await apiService.deleteResourceFile(MINIO_DELETE_FILE, { fileName: file.originalName });
+			await apiService.deleteResourceFile(MINIO.DELETE_FILE, { fileName: file.originalName });
             setData(data.filter((item) => item.originalName !== file.originalName));
             setSnackbar({ open: true, message: `${file.alias} deleted successfully!`, severity: 'success' });
         } catch (error) {
@@ -85,7 +91,7 @@ const MinIo = () => {
             formData.append('file', file.file);
             formData.append('path', currentPath);
             console.info('formData:', formData);
-            await apiService.createResource(MINIO_UPLOAD_FILES, formData);
+            await apiService.createResource(MINIO.UPLOAD_FILES, formData);
             setSnackbar({ open: true, message: `Upload initiated for ${file.name}`, severity: 'info' });
             fetchFiles(currentPath); // Refresh the file list
         } catch (error) {
@@ -122,13 +128,10 @@ const MinIo = () => {
             // Compare the aliases textually first
             const textComparison = a.alias.localeCompare(b.alias, undefined, { numeric: true, sensitivity: 'base' });
             if (textComparison !== 0) return textComparison;
-
-            // If the textual parts are the same, compare the numbers
             const numA = extractNumber(a.alias);
             const numB = extractNumber(b.alias);
             return numA - numB;
         };
-
         return sortBy === SORT_OPTIONS.NAME ? [...filteredFiles].sort(compareFn) : filteredFiles;
     }, [filteredFiles, sortBy]);
 

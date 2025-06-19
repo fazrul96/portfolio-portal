@@ -1,5 +1,5 @@
 import React from 'react';
-import Portfolio from './../components/section/portfolios/Portfolio';
+import Portfolio from '../components/section/portfolios/Portfolio';
 import Project from './../components/section/projects/Project';
 //import Experience from './../components/section/experiences/Experience';
 //import Education from './../components/section/educations/Education';
@@ -7,7 +7,6 @@ import Project from './../components/section/projects/Project';
 //import Skills from './../components/section/skills/Skill';
 //import Contact from './../components/section/Contact';
 import {Divider,} from '@mui/material';
-import Backlog from "../components/section/portfolios/Backlog";
 
 const HomePage = ({ projects, educations, certifications, skills, error }) => {
 	return (

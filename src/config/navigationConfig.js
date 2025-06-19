@@ -60,46 +60,7 @@ export const PUBLIC_NAVIGATION = [
                 icon: SIDEBAR_ICONS.component,
                 route: ROUTE_COMPONENT,
                 action: createChip("Dev", "warning")
-            },
-            {
-                segment: SIDEBAR_TEXT.public.mosque.toLocaleLowerCase(),
-                title: SIDEBAR_TEXT.public.mosque,
-                icon: SIDEBAR_ICONS.mosque,
-                route: ROUTE_MOSQUE,
-                action: createChip("Dev", "warning")
-            },
-            {
-                segment: '',
-                title: "Mosque v2",
-                icon: SIDEBAR_ICONS.mosque,
-                route: '',
-                action: (
-                    <a href="https://mosque-portal.mfzrl.cyou" target="_blank" rel="noopener noreferrer">
-                        <Chip label="Completed" color="success" size="small" />
-                    </a>
-                ),
-            },
-            {
-                segment: SIDEBAR_TEXT.public.guard.toLocaleLowerCase(),
-                title: SIDEBAR_TEXT.public.guard,
-                icon: SIDEBAR_ICONS.guard,
-                route: ROUTE_GUARD,
-                action: createChip("Pending", "error")
-            },
-            {
-                segment: SIDEBAR_TEXT.public.dietitian.toLocaleLowerCase(),
-                title: SIDEBAR_TEXT.public.dietitian,
-                icon: SIDEBAR_ICONS.dietitian,
-                route: ROUTE_DIETITIAN,
-                action: createChip("Pending", "error")
-            },
-            {
-                segment: SIDEBAR_TEXT.public.ml.toLocaleLowerCase(),
-                title: SIDEBAR_TEXT.public.ml,
-                icon: SIDEBAR_ICONS.ml,
-                route: ROUTE_ML,
-                action: createChip("Pending", "error")
-            },
+            }
         ],
     },
     {

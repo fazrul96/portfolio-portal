@@ -20,10 +20,7 @@ export const publicSidebarItems = [
         icon: SIDEBAR_ICONS.module,
         route: ROUTE_MODULE,
         children: [
-            { text: SIDEBAR_TEXT.public.component, icon: SIDEBAR_ICONS.component, route: ROUTE_COMPONENT },
-            { text: SIDEBAR_TEXT.public.mosque, icon: SIDEBAR_ICONS.mosque, route: ROUTE_MOSQUE },
-            { text: SIDEBAR_TEXT.public.guard, icon: SIDEBAR_ICONS.guard, route: ROUTE_GUARD },
-            { text: SIDEBAR_TEXT.public.dietitian, icon: SIDEBAR_ICONS.dietitian, route: ROUTE_DIETITIAN },
+            { text: SIDEBAR_TEXT.public.component, icon: SIDEBAR_ICONS.component, route: ROUTE_COMPONENT }
         ],
     },
 ];

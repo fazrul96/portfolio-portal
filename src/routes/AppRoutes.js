@@ -11,27 +11,21 @@ import OpenApiPage from '../pages/OpenApiPage';
 import WebtoonChaptersPage from '../pages/WebtoonChaptersPage';
 import WebtoonReaderPage from '../pages/WebtoonReaderPage';
 import WebtoonPage from "../pages/WebtoonPage";
-import MosquePage from "../pages/MosquePage";
-import DonationManagementPage from "../components/section/mosque/DonationManagementPage";
-import LogisticManagementPage from "../components/section/mosque/LogisticManagementPage";
-import PrayerTimesPage from "../components/section/mosque/PrayerTimesPage";
 import {
   ROUTE_CHAPTER,
   ROUTE_CHAPTERS,
-  ROUTE_COMPONENT, ROUTE_INBOX,
-  ROUTE_LOGISTIC,
-  ROUTE_MEDIUM, ROUTE_ML,
+  ROUTE_COMPONENT,
+  ROUTE_INBOX,
+  ROUTE_MEDIUM,
+  ROUTE_ML,
   ROUTE_MODULE,
-  ROUTE_MOSQUE,
   ROUTE_OCR,
   ROUTE_OPENAPI,
-  ROUTE_PRAYER_TIMES,
   ROUTE_PROFILE,
   ROUTE_SERIES,
   ROUTE_SETTINGS,
   ROUTE_SPACE,
   ROUTE_STORAGE,
-  ROUTE_USERS,
   ROUTE_WEBTOON,
   ROUTE_WORKSPACE
 } from "../constants/AppRoutes";
@@ -44,12 +38,7 @@ export const publicRoutes = [
   { path: ROUTE_MODULE, component: <ModulePage /> },
   { path: ROUTE_MODULE + ROUTE_COMPONENT, component: <ComponentPage /> },
   { path: ROUTE_MODULE + ROUTE_OCR, component: <OCRPage /> },
-  { path: ROUTE_MODULE + ROUTE_MOSQUE, component: <MosquePage /> },
   { path: ROUTE_MODULE + ROUTE_ML, component: <MachineLearningPage /> },
-
-  { path: ROUTE_MOSQUE + ROUTE_USERS, component: <DonationManagementPage /> },
-  { path: ROUTE_MOSQUE + ROUTE_LOGISTIC, component: <LogisticManagementPage /> },
-  { path: ROUTE_MOSQUE + ROUTE_PRAYER_TIMES, component: <PrayerTimesPage /> },
 //  { path: '/module/calendar', component: <CalendarPage /> },
 ];
 

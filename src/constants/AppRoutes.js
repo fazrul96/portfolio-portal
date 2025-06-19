@@ -12,9 +12,6 @@ export const ROUTE_USERS = '/users';
 export const ROUTE_LOGISTIC = '/logistic';
 export const ROUTE_PRAYER_TIMES = '/prayerTimes';
 
-export const ROUTE_GUARD = '/guard';
-export const ROUTE_DIETITIAN = '/dietitian';
-
 export const ROUTE_SPACE = '/space';
 export const ROUTE_WEBTOON = '/webtoon';
 export const ROUTE_SERIES = '/series';

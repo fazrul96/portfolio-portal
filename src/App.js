@@ -1,12 +1,10 @@
 import React, {useState} from 'react';
 import {BrowserRouter as Router, Route, Routes} from 'react-router-dom';
 import './App.css';
-import {Box, CssBaseline, Typography} from '@mui/material';
 import {useAuth0} from '@auth0/auth0-react';
 import {protectedRoutes, publicRoutes} from './routes/AppRoutes';
 import HomePage from './pages/HomePage';
 import ProtectedRoute from './components/ProtectedRoute';
-import AppBarResponsive from './components/AppBar';
 import DashboardLayoutWrapper from "./components/common/DashboardLayoutWrapper";
 import {PRIVATE_NAVIGATION, PUBLIC_NAVIGATION} from "./config/navigationConfig";
 import {ROUTE_HOME} from "./constants/AppRoutes";

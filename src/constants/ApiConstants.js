@@ -38,7 +38,29 @@ export const CACHE_EXPIRATION_TIME = 60 * 60 * 1000; // 1 hour
 
 export const LOCAL_STORAGE_KEY = 'webtoon-images-cache';
 
-export const MINIO_LIST_FILES = 'listFiles';
-export const MINIO_DOWNLOAD_FILE = 'downloadFile';
-export const MINIO_UPLOAD_FILES = 'uploadFiles';
-export const MINIO_DELETE_FILE = 'deleteFile';
+const BASE_MINIO = 'minio';
+const BASE_S3 = 's3';
+
+export const PORTFOLIO = {
+
+}
+
+export const AUTH0 = {
+
+}
+
+export const S3 = {
+    BASE: BASE_S3 ,
+    UPLOAD_FILES: `${BASE_S3}/uploadFiles`,
+    DELETE_FILE: `${BASE_S3}/deleteFile`,
+    DOWNLOAD_FILE: `${BASE_S3}/downloadFile`,
+    LIST_FILES: `${BASE_S3}/listFiles`
+};
+
+export const MINIO = {
+    BASE: BASE_MINIO ,
+    UPLOAD_FILES: `${BASE_MINIO}/uploadFiles`,
+    DELETE_FILE: `${BASE_MINIO}/deleteFile`,
+    DOWNLOAD_FILE: `${BASE_MINIO}/downloadFile`,
+    LIST_FILES: `${BASE_MINIO}/listFiles`
+};

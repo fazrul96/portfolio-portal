@@ -1,7 +1,7 @@
 import React, {useEffect, useRef, useState} from "react";
 import {FilePond, registerPlugin} from "react-filepond";
 import {useAuth0} from "@auth0/auth0-react"; // Import Auth0 hook
-import {API_BASE_URL, API_PRIVATE_URL, MINIO_UPLOAD_FILES} from '../../constants/ApiConstants';
+import {API_BASE_URL, API_PRIVATE_URL, MINIO} from '../../constants/ApiConstants';
 import ApiService from './../../services/ApiService'; // Assuming this is a helper for API calls
 import "filepond/dist/filepond.min.css"; // FilePond styles
 import FilePondPluginImageExifOrientation from "filepond-plugin-image-exif-orientation";
@@ -63,7 +63,7 @@ const Filepond = () => {
 
             // Call the upload API (ensure correct headers and endpoint)
             const response = await apiService.createResource(
-                MINIO_UPLOAD_FILES,
+                MINIO.UPLOAD_FILES,
                 formData,
                 true,
                 { Authorization: `Bearer ${accessToken}` }
