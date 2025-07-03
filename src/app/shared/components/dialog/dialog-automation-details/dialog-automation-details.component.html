@@ -1,0 +1,16 @@
+<div class="card-bg" [ngStyle]="{ 'background-image': 'url(assets/images/' + project.id + '.jpg)' }"></div>
+<h2 mat-dialog-title>{{ project.title }} {{ project.icon }}</h2>
+<mat-dialog-content class="mat-typography">
+  <h3>Develop across all platforms</h3>
+  <p> {{ project.description }}</p>
+
+<!--  <mat-dialog-actions align="end">-->
+<!--    <button matButton mat-dialog-close>Cancel</button>-->
+<!--    <button matButton [mat-dialog-close]="true" cdkFocusInitial>Install</button>-->
+<!--  </mat-dialog-actions>-->
+</mat-dialog-content>
+
+
+
+
+

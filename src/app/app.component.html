@@ -1,0 +1,18 @@
+<div class="site-wrapper">
+  <app-loading-spinner></app-loading-spinner>
+  <div class="cursor-glitter" id="globalGlitter"></div>
+
+  @if (showHeaderFooter) {
+    <div class="site-header" #siteHeader>
+      <app-header [isLoggedIn]="isLoggedIn()"></app-header>
+    </div>
+  }
+
+  <router-outlet></router-outlet>
+
+  @if (showHeaderFooter) {
+    <div class="site-footer" #siteFooter>
+      <app-footer></app-footer>
+    </div>
+  }
+</div>

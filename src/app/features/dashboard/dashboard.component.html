@@ -1,0 +1,10 @@
+<div fxLayout='column'>
+  <app-card-profile-intro></app-card-profile-intro>
+  <app-card-profile-summary></app-card-profile-summary>
+  <app-card-project></app-card-project>
+  @if (this.featureFlags?.showAchievementComponent) {
+    <app-card-achievement></app-card-achievement>
+  }
+  <app-card-experience></app-card-experience>
+  <app-card-faq></app-card-faq>
+</div>

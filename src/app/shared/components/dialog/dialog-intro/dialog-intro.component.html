@@ -1,0 +1,18 @@
+<div class="dialog-header">
+  <h2 mat-dialog-title>Personal Profile</h2>
+  <app-resume [type]="currentPdfType"></app-resume>
+</div>
+
+<mat-tab-group mat-stretch-tabs class="example-stretched-tabs mat-elevation-z4"
+               (selectedIndexChange)="onTabChange($event)">
+  <mat-tab label="CV">
+    <mat-dialog-content>
+      <app-pdf-viewer [type]="PdfType.CV"></app-pdf-viewer>
+    </mat-dialog-content>
+  </mat-tab>
+  <mat-tab label="SNAPSYNCH">
+    <mat-dialog-content>
+      <app-pdf-viewer [type]="PdfType.SNAPSYNCH"></app-pdf-viewer>
+    </mat-dialog-content>
+  </mat-tab>
+</mat-tab-group>

@@ -1,0 +1,9 @@
+@if (environment.enableRecaptcha) {
+  <ngx-recaptcha2
+    theme="dark"
+    size="normal"
+    [siteKey]="siteKey"
+    [useGlobalDomain]="false"
+    [formControl]="captchaControl">
+  </ngx-recaptcha2>
+}

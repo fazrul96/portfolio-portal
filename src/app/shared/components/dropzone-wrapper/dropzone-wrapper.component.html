@@ -1,0 +1,8 @@
+<dropzone class="dropzone-container flex"
+          [config]="config"
+          [disabled]="disabled"
+          [message]="'Drag and drop files here, or Browse <br> Support all file types'"
+          (init)="onUploadInit($event)"
+          (error)="onUploadError($event)"
+          (success)="onUploadSuccess($event)">
+</dropzone>

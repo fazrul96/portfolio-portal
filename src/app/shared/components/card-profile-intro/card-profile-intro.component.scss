@@ -1,0 +1,174 @@
+.intro-hero-container {
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: top center;
+  height: 420px;
+
+  .image-wrapper {
+    .profile-img {
+      max-width: 550px;
+      height: auto;
+      pointer-events: none;
+    }
+
+    app-button-menu.floating-menu {
+      position: absolute;
+      top: 30rem;
+      left: 0;
+      pointer-events: auto;
+      z-index: 10;
+    }
+  }
+
+  .intro-text-tile {
+    font-size: 1.2rem;
+
+    h2 {
+      font-size: 3rem;
+      margin-bottom: 0.5rem;
+    }
+
+    p {
+      line-height: 1.6;
+    }
+  }
+}
+
+.profile-card {
+  position: relative;
+  overflow: hidden;
+  border-radius: 16px;
+  padding: 2.5rem;
+  backdrop-filter: blur(8px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+  transition: transform 0.4s ease, box-shadow 0.4s ease;
+  animation: fadeInCard 0.6s ease-in-out;
+
+  &:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 16px 32px rgba(0, 0, 0, 0.15);
+  }
+
+  h2 {
+    font-family: monospace;
+    white-space: nowrap;
+    overflow: hidden;
+    width: 0;
+    border-right: 2px solid #333;
+    animation:
+      typing 2s steps(20, end) forwards;
+    font-size: 2.25rem;
+    margin-bottom: 0.3rem;
+  }
+
+  h3 {
+    opacity: 0;
+    animation: clipReveal 1s ease-out forwards;
+    animation-delay: 2.3s;
+    font-size: 1.4rem;
+    margin-top: 0;
+  }
+
+  .header-flex {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 1.75rem;
+
+    @media (max-width: 768px) {
+      justify-content: center;
+      gap: 1.25rem;
+    }
+
+    .avatar-block {
+      flex: 0 0 auto;
+      margin-right: 2rem;
+
+      @media (max-width: 768px) {
+        margin-right: 0;
+        order: -1;
+      }
+
+      .avatar-flex {
+        border-radius: 50%;
+        width: 130px;
+        height: 130px;
+        object-fit: cover;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        transition: transform 0.3s ease;
+
+        &:hover {
+          transform: scale(1.1);
+        }
+      }
+
+      .push-right {
+        margin-left: 9rem;
+
+        @media (max-width: 768px) {
+          margin: auto;
+        }
+      }
+    }
+
+    .main-info-block {
+      .details-block {
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+
+        h2, h3 {
+          margin: 0;
+        }
+
+        .status-chips, .skill-chips {
+          opacity: 0;
+          animation: fadeStagger 0.8s ease-out forwards;
+          animation-delay: 3s;
+        }
+      }
+    }
+
+    .info-block {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      flex: 1 1 180px;
+      opacity: 0;
+      transform: translateY(20px);
+      animation: fadeStagger 0.6s ease-out forwards;
+
+      &:nth-child(3) {
+        animation-delay: 3.4s;
+      }
+
+      &:nth-child(4) {
+        animation-delay: 3.6s;
+      }
+
+      &:nth-child(5) {
+        animation-delay: 3.8s;
+      }
+
+      @media (max-width: 768px) {
+        flex: 1 1 250px;
+        min-width: 240px;
+      }
+
+
+      .file-icon {
+        background-color: darkgoldenrod;
+        border-radius: 50%;
+        padding: 0.5rem;
+        font-size: 16px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        width: 36px;
+        height: 36px;
+      }
+    }
+  }
+}

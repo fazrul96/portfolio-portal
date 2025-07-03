@@ -1,0 +1,136 @@
+.intro-text-tile {
+  margin-top: 7rem;
+  position: relative;
+  font-size: 1.1rem;
+
+  h2 {
+    font-size: 3rem;
+    margin-bottom: 0.5rem;
+  }
+}
+
+@media (max-width: 1200px) {
+  .project-card {
+    mat-card-title {
+      font-size: 1.3rem;
+    }
+    mat-card-content {
+      font-size: 1rem;
+    }
+  }
+}
+
+@media (max-width: 900px) {
+  .project-card {
+    .card-overlay {
+      padding: 1rem;
+    }
+    mat-card-title {
+      font-size: 1.2rem;
+    }
+  }
+}
+
+@media (max-width: 600px) {
+  .project-card {
+    .card-overlay {
+      padding: 0.8rem;
+    }
+    mat-card-title {
+      font-size: 1rem;
+    }
+
+    mat-card-content {
+      font-size: 0.9rem;
+    }
+
+    mat-card-actions {
+      flex-direction: column;
+      gap: 0.5rem;
+
+      a[mat-button] {
+        width: 100%;
+        text-align: center;
+      }
+    }
+  }
+}
+
+.example-accordion {
+  display: block;
+  width: 60%;
+  margin: 0 auto;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.example-accordion-item {
+  display: block;
+  border: solid 1px #ccc;
+  transition: border-color 0.3s ease-in-out;
+  border-radius: 6px;
+  margin-bottom: 8px;
+}
+
+.example-accordion-item-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  background-color: palegoldenrod;
+  border: none;
+  padding: 16px;
+  text-align: left;
+  font-weight: 600;
+  color: #333;
+  font-size: 1rem;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.3s ease-in-out;
+}
+
+.example-accordion-item-header:hover {
+  background-color: #ddd;
+}
+
+.example-accordion-item-body {
+  padding: 16px;
+  font-size: 1.1em;
+  background-color: rgba(80, 79, 79, 0.3);
+  border-top: 1px solid #ddd;
+  color: #ccc8c8;
+  opacity: 0.5;
+  line-height: 1.6;
+  transition: opacity 0.3s ease, max-height 0.3s ease;
+}
+
+/* For expanded state */
+.example-accordion-item-body[ngStyle] {
+  opacity: 1;  /* Visible after animation */
+  max-height: 500px;  /* Maximum height when expanded */
+  overflow: visible;  /* Allows full text visibility when expanded */
+}
+
+.example-accordion-item-body p {
+  margin: 0;
+}
+
+.example-accordion-item:first-child {
+  border-top-left-radius: 6px;
+  border-top-right-radius: 6px;
+}
+
+.example-accordion-item:last-child {
+  border-bottom-left-radius: 6px;
+  border-bottom-right-radius: 6px;
+}
+
+.example-accordion-item-body[ngStyle] {
+  opacity: 1;
+  max-height: 500px;
+}
+
+.faq-category {
+  color:goldenrod;
+  margin-bottom: 1.5rem;
+}

@@ -1,0 +1,32 @@
+<h2 mat-dialog-title class="dialog-title">Add Social Link</h2>
+
+<form [formGroup]="socialLinkForm" (ngSubmit)="onSubmit()" class="form-container">
+  <mat-form-field appearance="outline" class="full-width">
+    <mat-label>Platform Name</mat-label>
+    <input matInput formControlName="name" placeholder="e.g. LinkedIn, GitHub, Twitter..." required />
+  </mat-form-field>
+
+  <mat-form-field appearance="outline" class="full-width">
+    <mat-label>Profile URL</mat-label>
+    <input matInput formControlName="link" placeholder="https://..." required />
+  </mat-form-field>
+
+  <mat-form-field appearance="outline" class="full-width">
+    <mat-label>Icon Path</mat-label>
+    <input matInput formControlName="icon" placeholder="assets/images/icons/..." />
+  </mat-form-field>
+
+  @if (socialLinkForm.value.icon) {
+    <div class="preview-container">
+      <img [src]="socialLinkForm.value.icon" alt="Icon preview" />
+      <span>Icon Preview</span>
+    </div>
+  }
+
+  <div mat-dialog-actions class="dialog-actions">
+    <button mat-stroked-button color="warn" mat-dialog-close>Cancel</button>
+    <button mat-flat-button color="primary" type="submit" [disabled]="socialLinkForm.invalid">
+      Save
+    </button>
+  </div>
+</form>

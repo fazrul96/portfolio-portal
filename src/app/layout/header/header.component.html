@@ -1,0 +1,91 @@
+<mat-drawer-container autosize>
+  <mat-drawer-content class="app-content">
+    <mat-toolbar class="app-toolbar">
+      <div style="display: flex; align-items: center; justify-content: space-between; gap: 2rem; padding: 0.5rem 1rem;">
+        <div style="display: flex; align-items: center; gap: 1rem;">
+          <a (click)="home()" class="brand-link">
+            <h2 class="brand-title">mfzrl.dev</h2>
+          </a>
+        </div>
+
+        <div class="nav-links">
+          <a (click)="dashboard()" class="nav-link">Dashboard</a>
+          <a (click)="about()" class="nav-link">About</a>
+          <a (click)="blog()" class="nav-link">Blog</a>
+          <a (click)="achievement()" class="nav-link">Achievement</a>
+          <a (click)="resources()" class="nav-link">Resources</a>
+          <a (click)="contact()" class="nav-link">Contact</a>
+        </div>
+      </div>
+
+      <div style="display: flex; align-items: center; gap: 1rem;">
+        @if (isLoggedIn) {
+          <button matIconButton [matMenuTriggerFor]="notifications">
+            <mat-icon matBadge="{{notificationList.length}}" matBadgeColor="warn">
+              <i class="fa fa-bell" aria-hidden="true"></i>
+            </mat-icon>
+          </button>
+
+          <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="User Menu">
+            @if (hasProfileImage) {
+              <figure class="avatar-figure">
+                <img
+                  [src]="profileImage"
+                  alt="Profile"
+                  (error)="onImageError()"
+                />
+              </figure>
+            } @else {
+              <span>{{ userInitials }}</span>
+            }
+          </button>
+        } @else {
+          <app-login></app-login>
+        }
+      </div>
+    </mat-toolbar>
+  </mat-drawer-content>
+
+</mat-drawer-container>
+
+<mat-menu #notifications="matMenu">
+  @if (notificationList.length === 0) {
+    <button mat-menu-item style="width:220px; text-align: center" disabled>
+      <span>No new notifications</span>
+    </button>
+  } @else {
+    <button mat-menu-item style="width:220px; text-align: center"  disabled>
+      <span>Got new notifications</span>
+    </button>
+
+    @for (item of notificationList; track item;) {
+      <button mat-menu-item style="width:300px">
+        <span>{{item.message}}</span>
+      </button>
+    }
+  }
+</mat-menu>
+
+<mat-menu #menu="matMenu">
+  <button mat-menu-item (click)="profile()">
+    <mat-icon matBadge="1" matBadgeSize="small"><i class="fa fa-user" aria-hidden="true"></i></mat-icon>
+    <span>Profile</span>
+  </button>
+  <app-switcher-dark-mode></app-switcher-dark-mode>
+  <button mat-menu-item (click)="settings()">
+    <mat-icon matBadge="1" matBadgeSize="small"><i class="fa fa-cog" aria-hidden="true"></i></mat-icon>
+    <span>Settings</span>
+  </button>
+  @if (this.featureFlags?.showWorkspaceComponent) {
+    <hr>
+    <button mat-menu-item (click)="workspace()">
+      <mat-icon matBadge="1" matBadgeSize="small"><i class="fa fa-cogs" aria-hidden="true"></i></mat-icon>
+      <span>Workspace</span>
+    </button>
+  }
+  <hr>
+  <button mat-menu-item (click)="logout()">
+    <mat-icon><i class="fa fa-sign-out" aria-hidden="true"></i></mat-icon>
+    <span>Logout</span>
+  </button>
+</mat-menu>

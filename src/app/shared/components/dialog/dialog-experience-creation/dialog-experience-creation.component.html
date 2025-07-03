@@ -1,0 +1,128 @@
+<form [formGroup]="experienceForm" (ngSubmit)="onSubmit()" class="form-container">
+  <h2 mat-dialog-title>Add Experience</h2>
+  <div class="inline-row">
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Alias</mat-label>
+      <input matInput type="text" formControlName="alias" placeholder="accenture-fsd-2022"/>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Role</mat-label>
+      <input matInput type="text" formControlName="role" placeholder="Full Stack Developer"/>
+    </mat-form-field>
+  </div>
+
+  <mat-form-field appearance="outline" class="full-width">
+    <mat-label>Company Name</mat-label>
+    <input matInput formControlName="companyName" placeholder="Accenture Solutions Sdn. Bhd." />
+  </mat-form-field>
+
+  <div class="inline-row">
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Company Type</mat-label>
+      <mat-select formControlName="companyType">
+        @for (type of companyTypes; track type;) {
+          <mat-option [value]="type">{{ type }}</mat-option>
+        }
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Category</mat-label>
+      <mat-select formControlName="categoryId">
+        @for (category of categories; track category;) {
+          <mat-option [value]="category.id">
+            {{ category.name }}
+          </mat-option>
+        }
+      </mat-select>
+    </mat-form-field>
+  </div>
+
+  <div class="inline-row">
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Industry</mat-label>
+      <mat-select formControlName="industry">
+        @for (industry of industries; track industry;) {
+          <mat-option [value]="industry">{{ industry }}</mat-option>
+        }
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Location</mat-label>
+      <mat-select formControlName="location">
+        @for (loc of locations; track loc;) {
+          <mat-option [value]="loc">{{ loc }}</mat-option>
+        }
+      </mat-select>
+    </mat-form-field>
+  </div>
+
+  <div class="inline-row">
+    <mat-form-field appearance="outline" class="half-width">
+      <mat-label>Start Date</mat-label>
+      <input matInput formControlName="startDate" [matDatepicker]="dpStartDate">
+      <mat-hint>MM/YYYY</mat-hint>
+      <mat-datepicker-toggle matIconSuffix [for]="dpStartDate"></mat-datepicker-toggle>
+      <mat-datepicker #dpStartDate
+                      startView="multi-year"
+                      (monthSelected)="setMonthAndYear($event, 'startDate', dpStartDate)"
+                      panelClass="month-picker">
+      </mat-datepicker>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="half-width">
+      <mat-label>End Date</mat-label>
+      <input
+        matInput
+        formControlName="endDate"
+        [matDatepicker]="dpEndDate"
+        [disabled]="experienceForm.get('isCurrent')?.value"
+        placeholder="{{ experienceForm.get('isCurrent')?.value ? 'Present' : 'MM/YYYY' }}"
+      >
+      <mat-hint>MM/YYYY</mat-hint>
+      <mat-datepicker-toggle matIconSuffix [for]="dpEndDate"></mat-datepicker-toggle>
+      <mat-datepicker
+        #dpEndDate
+        startView="multi-year"
+        (monthSelected)="setMonthAndYear($event, 'endDate', dpEndDate)"
+        panelClass="month-picker">
+      </mat-datepicker>
+    </mat-form-field>
+  </div>
+
+  <mat-checkbox formControlName="isCurrent">Current Position</mat-checkbox>
+
+  <div class="inline-row">
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Icon (Emoji)</mat-label>
+      <input matInput formControlName="icon" placeholder="💼" />
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Company Logo URL</mat-label>
+      <input matInput formControlName="image" placeholder="assets/images/icons/acn.png" />
+    </mat-form-field>
+  </div>
+
+  <mat-form-field appearance="outline" class="full-width">
+    <mat-label>Summary</mat-label>
+    <textarea matInput formControlName="summary" rows="3" placeholder="Brief summary of the role"></textarea>
+  </mat-form-field>
+
+  <mat-form-field appearance="outline" class="full-width">
+    <mat-label>Responsibilities (comma separated)</mat-label>
+    <textarea matInput formControlName="responsibilities" rows="4" placeholder="E.g. Led projects, automated testing..."></textarea>
+  </mat-form-field>
+
+  <mat-form-field appearance="outline" class="full-width">
+    <mat-label>Achievements (comma separated)</mat-label>
+    <textarea matInput formControlName="achievements" rows="4" placeholder="E.g. Reduced regression time, won awards..."></textarea>
+  </mat-form-field>
+
+  <div mat-dialog-actions class="dialog-actions">
+    <button mat-stroked-button color="warn" mat-dialog-close>Cancel</button>
+    <button mat-flat-button color="primary" type="submit" [disabled]="experienceForm.invalid">Save</button>
+  </div>
+</form>

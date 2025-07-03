@@ -1,0 +1,34 @@
+.card-actions {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.5rem;
+}
+
+.action-title {
+  font-size: 17px;
+  font-weight: 400;
+}
+
+.action-subtitle {
+  font-size: 14px;
+  font-weight: 400;
+}
+
+.header-flex {
+  padding: 0.3rem;
+  margin-bottom: 0.5rem;
+  gap: 0.5rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.avatar-flex {
+  margin: 0 auto;
+  width: 36px;
+  height: 36px;
+  padding: 0.3rem;
+  border-radius: 40%;
+  background-color: white;
+}

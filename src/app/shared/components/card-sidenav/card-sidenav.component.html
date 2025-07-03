@@ -1,0 +1,54 @@
+<mat-card style="margin: 0.5rem; padding: 0.5rem">
+  <mat-card-actions class="card-actions">
+    <mat-card-subtitle class="action-title">Recent Experience</mat-card-subtitle>
+    @if (isAdmin()) {
+      <button mat-icon-button matTooltip="Add Experience" (click)="openAddExpDialog()">
+        <mat-icon>add</mat-icon>
+      </button>
+    }
+  </mat-card-actions>
+
+  @for (experience of experienceList; track experience) {
+    <div
+      class="header-flex"
+      matTooltip="More Details {{experience.companyName}}"
+      (click)="openDetailsExpDialog(experience)"
+      (keydown)="onExperienceKeyDown($event, experience)"
+    >
+      <img [src]="experience.image" class="avatar-flex"
+           alt="Profile" />
+      <div class="title-block">
+        <mat-card-subtitle class="action-title">{{experience.role ?? 'Full Stack Developer'}}</mat-card-subtitle>
+        <mat-card-subtitle class="action-subtitle">
+          {{ experience.category?.title ?? 'Full-Time' }}
+        </mat-card-subtitle>
+        <mat-card-subtitle class="action-subtitle">
+          {{ experience.startDate }} - {{ experience.endDate || 'Present' }} • {{ getDuration(experience.startDate, experience.endDate) || 'N/A' }}
+        </mat-card-subtitle>
+      </div>
+    </div>
+  }
+</mat-card>
+
+<mat-card style="margin: 0.5rem; padding: 0.5rem">
+  <mat-card-actions class="card-actions">
+    <mat-card-subtitle class="action-title">Social Link</mat-card-subtitle>
+    @if (isAdmin()) {
+      <button mat-icon-button matTooltip="Add Social" (click)="openAddSocialDialog()">
+        <mat-icon>add</mat-icon>
+      </button>
+    }
+  </mat-card-actions>
+
+  <div class="header-flex">
+    @for (socialLink of socialLinkList; track socialLink) {
+      <a
+         [href]="socialLink.link"
+         target="_blank"
+         rel="noopener"
+         matTooltip="{{ socialLink.name }}">
+        <img [src]="socialLink.icon" class="avatar-flex" alt="{{ socialLink.name }}"/>
+      </a>
+    }
+  </div>
+</mat-card>

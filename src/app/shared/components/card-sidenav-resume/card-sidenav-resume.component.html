@@ -1,0 +1,58 @@
+<mat-card class="cv-card">
+  <mat-card-subtitle class="card-title">Resume / CV</mat-card-subtitle>
+  <div class="resume-entry">
+    <mat-card
+      class="mat-elevation-z8"
+      matTooltip="Profile"
+      tabindex="0"
+      (click)="openDialog()"
+      (keydown.enter)="openDialog()"
+      (keydown.space)="openDialog()"
+    >
+      <div class="header-flex">
+        <div class="left-block">
+          <mat-icon class="file-icon">
+            <i class="fa fa-file" aria-hidden="true"></i>
+          </mat-icon>
+          <div class="details-block">
+            <span>Latest Upload</span>
+            <span>CV ATS 2025</span>
+          </div>
+        </div>
+        <mat-icon class="circular-icon">
+          <i class="fa fa-check" aria-hidden="true"></i>
+        </mat-icon>
+      </div>
+    </mat-card>
+
+    <div class="header-flex">
+      <div class="left-block">
+        <mat-icon class="file-icon">
+          <i class="fa fa-file" aria-hidden="true"></i>
+        </mat-icon>
+        <div class="details-block">
+          <span class="upload-title">Latest Upload</span>
+          <span class="upload-role">CV_2023</span>
+        </div>
+      </div>
+      <button matButton="elevated" color="primary" class="select-btn">
+        Use this file
+      </button>
+    </div>
+  </div>
+
+  <mat-card-subtitle class="card-title">
+    Upload Resume / CV
+    <mat-icon
+      matTooltip="Upload a new version of your resume. Accepted formats: PDF, DOCX. Max size: 2MB."
+      matTooltipPosition="above"
+      class="info-icon"
+    >
+      info
+    </mat-icon>
+  </mat-card-subtitle>
+
+  <div class="resume-upload">
+    <app-dropzone-wrapper></app-dropzone-wrapper>
+  </div>
+</mat-card>

@@ -1,0 +1,33 @@
+export enum CurrencyCode {
+  MYR = 'MYR',
+  USD = 'USD',
+  EUR = 'EUR',
+  GBP = 'GBP',
+  SGD = 'SGD',
+  AUD = 'AUD',
+  JPY = 'JPY',
+  CNY = 'CNY',
+  INR = 'INR',
+  THB = 'THB',
+  IDR = 'IDR',
+  KRW = 'KRW',
+  HKD = 'HKD',
+  CAD = 'CAD',
+}
+
+export const CurrencyLabels: Record<CurrencyCode, string> = {
+  [CurrencyCode.MYR]: 'Malaysian Ringgit',
+  [CurrencyCode.USD]: 'US Dollar',
+  [CurrencyCode.EUR]: 'Euro',
+  [CurrencyCode.GBP]: 'British Pound',
+  [CurrencyCode.SGD]: 'Singapore Dollar',
+  [CurrencyCode.AUD]: 'Australian Dollar',
+  [CurrencyCode.JPY]: 'Japanese Yen',
+  [CurrencyCode.CNY]: 'Chinese Yuan',
+  [CurrencyCode.INR]: 'Indian Rupee',
+  [CurrencyCode.THB]: 'Thai Baht',
+  [CurrencyCode.IDR]: 'Indonesian Rupiah',
+  [CurrencyCode.KRW]: 'South Korean Won',
+  [CurrencyCode.HKD]: 'Hong Kong Dollar',
+  [CurrencyCode.CAD]: 'Canadian Dollar',
+};

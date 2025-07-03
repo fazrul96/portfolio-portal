@@ -1,0 +1,51 @@
+<div class="dialog-header">
+  <h2 mat-dialog-title>{{ data.role }}</h2>
+
+  @if (isAdmin()) {
+    <button mat-icon-button matTooltip="Delete Experience" (click)="deleteExperience()">
+      <mat-icon>delete</mat-icon>
+    </button>
+  }
+</div>
+
+<mat-dialog-content>
+  <div class="experience-header">
+    <img [src]="data.image" alt="{{ data.companyName }}" />
+    <div class="company-info">
+      <h3>{{ data.companyName }}</h3>
+      <p>{{ data.location }} • {{ data.companyType }} • {{ data.industry }}</p>
+      <p><strong>{{ data.startDate }} - {{ data.endDate }}</strong></p>
+    </div>
+  </div>
+
+  <section class="section">
+    <h4>Summary</h4>
+    <p>{{ data.summary }}</p>
+  </section>
+
+  @if (data.responsibilities?.length) {
+    <section class="section">
+      <h4>Responsibilities</h4>
+      <ul>
+        @for (item of data.responsibilities; track item;) {
+          <li>{{ item }}</li>
+        }
+      </ul>
+    </section>
+  }
+
+  @if (data.achievements?.length) {
+    <section class="section">
+      <h4>Achievements</h4>
+      <ul>
+        @for (item of data.achievements; track item;) {
+          <li>{{ item }}</li>
+        }
+      </ul>
+    </section>
+  }
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+  <button mat-button mat-dialog-close>Close</button>
+</mat-dialog-actions>

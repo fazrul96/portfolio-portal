@@ -1,0 +1,193 @@
+.project-card {
+  position: relative;
+  overflow: hidden;
+  border-radius: 12px;
+  color: white;
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 1);
+  transition: transform 0.4s ease, box-shadow 0.4s ease;
+  cursor: pointer;
+  margin-bottom: 1rem;
+
+  &:hover {
+    transform: translateY(-8px);
+    animation: glowPulse 2.5s infinite alternate;
+  }
+
+  .card-bg {
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background-size: cover;
+    background-position: center;
+    filter: brightness(0.2);
+    transition: transform 0.5s ease, filter 0.4s ease;
+    will-change: transform;
+    z-index: 1;
+
+    .project-card:hover & {
+      transform: scale(1.08);
+      filter: brightness(0.55);
+    }
+  }
+
+  .card-overlay {
+    position: relative;
+    z-index: 3;
+    padding: 1.5rem;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    backdrop-filter: blur(3px);
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 12px;
+    overflow: hidden;
+
+    &::after {
+      content: "";
+      position: absolute;
+      top: var(--mouse-y, 50%);
+      left: var(--mouse-x, 50%);
+      width: 180px;
+      height: 180px;
+      background: radial-gradient(circle at center, rgba(255, 215, 0, 0.3), transparent 80%);
+      transform: translate(-50%, -50%);
+      pointer-events: none;
+      transition: top 0.1s ease, left 0.1s ease;
+      border-radius: 50%;
+      filter: blur(16px);
+      z-index: 1;
+    }
+
+    mat-card-header {
+      padding: 0;
+      margin-bottom: 1rem;
+    }
+
+    mat-card-title {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 0.9rem;
+    }
+
+    mat-card-subtitle {
+      font-size: 0.9rem;
+      color: #ddd;
+    }
+
+    mat-list-item {
+      mat-icon {
+        transform: translateY(6px);
+        color: palegoldenrod;
+      }
+    }
+
+    mat-card-content {
+      flex-grow: 1;
+      font-size: 1.2rem;
+      overflow-y: auto;
+    }
+
+    .tags-status {
+      mat-chip {
+        font-size: 0.75rem;
+        animation: fadeInUp 0.4s ease forwards;
+        &:nth-child(1) { animation-delay: 0.05s; }
+        &:nth-child(2) { animation-delay: 0.1s; }
+        &:nth-child(3) { animation-delay: 0.15s; }
+      }
+    }
+
+    mat-chip-listbox {
+      display: flex;
+      flex-wrap: wrap;
+
+      mat-chip {
+        background-color: rgba(255, 255, 255, 0.1);
+        color: #f0f0f0;
+        margin: 0.25rem;
+        font-size: 0.8rem;
+
+        img[matChipAvatar] {
+          width: 20px;
+          height: 20px;
+          border-radius: 50%;
+        }
+      }
+    }
+
+    mat-card-actions {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+
+      a[mat-button] {
+        border: 1px solid #fff3;
+        background-color: rgba(255, 255, 255, 0.1);
+        transition: background 0.3s ease;
+
+        &:hover {
+          background-color: rgba(255, 255, 255,0.5);
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: 1200px) {
+  .project-card {
+    mat-card-title {
+      font-size: 1.3rem;
+    }
+    mat-card-content {
+      font-size: 1rem;
+    }
+  }
+}
+
+@media (max-width: 900px) {
+  .project-card {
+    .card-overlay {
+      padding: 1rem;
+    }
+    mat-card-title {
+      font-size: 1.2rem;
+    }
+  }
+}
+
+@media (max-width: 600px) {
+  .project-card {
+    .card-overlay {
+      padding: 0.8rem;
+    }
+    mat-card-title {
+      font-size: 1rem;
+    }
+
+    mat-card-content {
+      font-size: 0.9rem;
+    }
+
+    mat-card-actions {
+      flex-direction: column;
+      gap: 0.5rem;
+
+      a[mat-button] {
+        width: 100%;
+        text-align: center;
+      }
+    }
+  }
+}
+
+.intro-text-tile {
+  margin-top: 7rem;
+  position: relative;
+  font-size: 1.1rem;
+
+  h2 {
+    font-size: 3rem;
+    margin-bottom: 0.5rem;
+  }
+}

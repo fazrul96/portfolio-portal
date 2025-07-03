@@ -1,0 +1,119 @@
+.cursor-glitter {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  pointer-events: none;
+  z-index: 9999;
+}
+
+.cursor-glitter .particle {
+  position: absolute;
+  width: 6px;
+  height: 6px;
+  background: radial-gradient(circle, rgba(255, 215, 0, 1) 0%, rgba(255, 215, 0, 0) 70%);
+  border-radius: 50%;
+  filter: drop-shadow(0 0 3px rgba(255, 215, 0, 0.8));
+  animation: sparkleFade 1s forwards;
+  opacity: 1;
+  pointer-events: none;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes glowPulse {
+  0% {
+    box-shadow:
+      0 0 8px 2px rgba(255, 215, 0, 0.4),
+      0 0 24px 6px rgba(255, 215, 0, 0.2);
+  }
+  100% {
+    box-shadow:
+      0 0 16px 4px rgba(255, 215, 0, 0.6),
+      0 0 32px 8px rgba(255, 215, 0, 0.4);
+  }
+}
+
+@keyframes sparkleFade {
+  0% {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(0.3) translateY(-10px);
+  }
+}
+
+@keyframes glitterMove {
+  0% {
+    background-position: 0 0;
+  }
+  100% {
+    background-position: 400px 400px;
+  }
+}
+
+@keyframes glitterRotate {
+  from { transform: translate(-25%, -25%) rotate(0deg); }
+  to   { transform: translate(-25%, -25%) rotate(360deg); }
+}
+
+@keyframes fadeInCard {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes typing {
+  from {
+    width: 0;
+  }
+  to {
+    width: 100%;
+  }
+}
+
+@keyframes blink {
+  50% {
+    border-color: transparent;
+  }
+}
+
+@keyframes clipReveal {
+  0% {
+    clip-path: inset(0 100% 0 0);
+    opacity: 0;
+  }
+  100% {
+    clip-path: inset(0 0 0 0);
+    opacity: 1;
+  }
+}
+
+@keyframes fadeStagger {
+  0% {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+

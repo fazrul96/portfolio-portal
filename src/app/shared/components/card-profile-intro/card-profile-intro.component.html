@@ -1,0 +1,88 @@
+<!--<div fxFlex="100%">-->
+<!--  <div class="intro-hero-container">-->
+<!--    <div fxFlex="40%" fxHide.xs fxHide.sm>-->
+<!--    <div class="image-wrapper">-->
+<!--      <img class="profile-img" src="assets/images/profile/profile-img-transparent.png" alt="Profile Photo" />-->
+<!--      </div>-->
+<!--    </div>-->
+<!--    <div fxFlex.xs="100%">-->
+<!--      <div class="intro-text-tile">-->
+<!--        <h2>Hey there! 👋</h2>-->
+<!--        <p><strong>I’m Fazrul Romli</strong>, a full-stack developer (with a bit of DevOps on the side).</p>-->
+<!--        <p>-->
+<!--          This site is currently being upgraded and integrated with AWS for better performance and scalability.-->
+<!--          Some features may be temporarily unavailable — thanks for your patience!-->
+<!--          Feel free to reach out anytime.-->
+<!--        </p>-->
+<!--        <button mat-stroked-button color="accent">Let’s Connect</button>-->
+<!--      </div>-->
+<!--    </div>-->
+<!--  </div>-->
+<!--</div>-->
+
+<div fxLayout="row wrap" fxLayoutGap="2rem" fxLayoutAlign="center">
+  <div
+    fxFlex.xs="100%"
+    fxFlex.sm="100%"
+    fxFlex.md="100%"
+    fxFlex.lg="100%"
+    fxFlex.xl="100%"
+  >
+    <mat-card class="mat-elevation-z8 profile-card">
+      <div class="header-flex">
+        <div class="info-block avatar-block">
+          <img src="assets/images/profile/profile-img.jpg"
+               alt="Profile" class="avatar-flex push-right" />
+        </div>
+
+        <div class="info-block main-info-block">
+          <div class="details-block">
+            <mat-chip-listbox class="status-chips">
+              <mat-chip selected>Available</mat-chip>
+              <mat-chip selected>6Y + XP</mat-chip>
+            </mat-chip-listbox>
+
+            <h2>Fazrul Romli</h2>
+            <h3>Full-Stack Developer at ACN</h3>
+
+            <mat-chip-listbox class="skill-chips">
+              <mat-chip color="primary">Angular</mat-chip>
+              <mat-chip color="primary">React</mat-chip>
+              <mat-chip color="primary">Spring Boot</mat-chip>
+              <mat-chip color="primary">AWS</mat-chip>
+            </mat-chip-listbox>
+          </div>
+        </div>
+
+        <div class="info-block main-info-block">
+          <mat-icon class="file-icon">
+            <i class="fa fa-graduation-cap" aria-hidden="true"></i>
+          </mat-icon>
+          <div class="details-block">
+            <span>Universiti Kebangsaan Malaysia</span>
+            <span>BSC SE (Information System) 2019</span>
+          </div>
+        </div>
+
+        <div class="info-block">
+          <mat-icon class="file-icon">
+            <i class="fa fa-certificate" aria-hidden="true"></i>
+          </mat-icon>
+          <div class="details-block">
+            <span>CPRE (FL)</span><br>
+            <span>Android Developer</span>
+          </div>
+        </div>
+
+        <div class="info-block">
+          <mat-icon class="file-icon">
+            <i class="fa fa-location" aria-hidden="true"></i>
+          </mat-icon>
+          <div class="details-block">
+            <span>BBST, Selangor, Malaysia</span>
+          </div>
+        </div>
+      </div>
+    </mat-card>
+  </div>
+</div>

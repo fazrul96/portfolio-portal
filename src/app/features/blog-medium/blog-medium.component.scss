@@ -1,0 +1,57 @@
+.intro-text-tile {
+  margin-top: 7rem;
+  position: relative;
+  font-size: 1.1rem;
+
+  h2 {
+    font-size: 3rem;
+    margin-bottom: 0.5rem;
+  }
+}
+
+@media (max-width: 1200px) {
+  .project-card {
+    mat-card-title {
+      font-size: 1.3rem;
+    }
+    mat-card-content {
+      font-size: 1rem;
+    }
+  }
+}
+
+@media (max-width: 900px) {
+  .project-card {
+    .card-overlay {
+      padding: 1rem;
+    }
+    mat-card-title {
+      font-size: 1.2rem;
+    }
+  }
+}
+
+@media (max-width: 600px) {
+  .project-card {
+    .card-overlay {
+      padding: 0.8rem;
+    }
+    mat-card-title {
+      font-size: 1rem;
+    }
+
+    mat-card-content {
+      font-size: 0.9rem;
+    }
+
+    mat-card-actions {
+      flex-direction: column;
+      gap: 0.5rem;
+
+      a[mat-button] {
+        width: 100%;
+        text-align: center;
+      }
+    }
+  }
+}
