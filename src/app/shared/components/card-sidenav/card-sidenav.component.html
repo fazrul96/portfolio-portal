@@ -1,6 +1,6 @@
-<mat-card style="margin: 0.5rem; padding: 0.5rem">
+<mat-card class="mat-elevation-z4 card-container">
   <mat-card-actions class="card-actions">
-    <mat-card-subtitle class="action-title">Recent Experience</mat-card-subtitle>
+    <mat-card-subtitle class="card-title">Recent Experience</mat-card-subtitle>
     @if (isAdmin()) {
       <button mat-icon-button matTooltip="Add Experience" (click)="openAddExpDialog()">
         <mat-icon>add</mat-icon>
@@ -17,8 +17,8 @@
     >
       <img [src]="experience.image" class="avatar-flex"
            alt="Profile" />
-      <div class="title-block">
-        <mat-card-subtitle class="action-title">{{experience.role ?? 'Full Stack Developer'}}</mat-card-subtitle>
+      <div class="inline-grid">
+        <mat-card-subtitle class="card-title">{{experience.role ?? 'Full Stack Developer'}}</mat-card-subtitle>
         <mat-card-subtitle class="action-subtitle">
           {{ experience.category?.title ?? 'Full-Time' }}
         </mat-card-subtitle>
@@ -30,9 +30,9 @@
   }
 </mat-card>
 
-<mat-card style="margin: 0.5rem; padding: 0.5rem">
+<mat-card class="card-container">
   <mat-card-actions class="card-actions">
-    <mat-card-subtitle class="action-title">Social Link</mat-card-subtitle>
+    <mat-card-subtitle class="card-title">Social Link</mat-card-subtitle>
     @if (isAdmin()) {
       <button mat-icon-button matTooltip="Add Social" (click)="openAddSocialDialog()">
         <mat-icon>add</mat-icon>
@@ -46,9 +46,12 @@
          [href]="socialLink.link"
          target="_blank"
          rel="noopener"
+         class="avatar-inline"
          matTooltip="{{ socialLink.name }}">
         <img [src]="socialLink.icon" class="avatar-flex" alt="{{ socialLink.name }}"/>
       </a>
     }
   </div>
 </mat-card>
+
+<app-card-sidenav-resume></app-card-sidenav-resume>

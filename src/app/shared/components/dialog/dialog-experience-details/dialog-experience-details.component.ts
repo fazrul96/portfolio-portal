@@ -56,7 +56,7 @@ export class DialogExperienceDetailsComponent {
     }
 
     this.store.dispatch(new DeleteExperience(this.data.id)).subscribe({
-      next: (): void => {
+      complete: (): void => {
         this.snackBar.open('Experience deleted successfully!', 'Close', { duration: 3000 });
         this.dialogRef.close({ deleted: true, id: this.data.id });
       },

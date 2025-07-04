@@ -1,44 +1,43 @@
-<mat-card class="cv-card">
+<mat-card class="mat-elevation-z4 card-container">
   <mat-card-subtitle class="card-title">Resume / CV</mat-card-subtitle>
-  <div class="resume-entry">
-    <mat-card
-      class="mat-elevation-z8"
-      matTooltip="Profile"
-      tabindex="0"
-      (click)="openDialog()"
-      (keydown.enter)="openDialog()"
-      (keydown.space)="openDialog()"
-    >
-      <div class="header-flex">
-        <div class="left-block">
-          <mat-icon class="file-icon">
-            <i class="fa fa-file" aria-hidden="true"></i>
-          </mat-icon>
-          <div class="details-block">
-            <span>Latest Upload</span>
-            <span>CV ATS 2025</span>
-          </div>
-        </div>
-        <mat-icon class="circular-icon">
-          <i class="fa fa-check" aria-hidden="true"></i>
-        </mat-icon>
-      </div>
-    </mat-card>
 
+  <mat-card
+    class="mat-elevation-z8"
+    matTooltip="Open Profile"
+    tabindex="0"
+    (click)="openDialog()"
+    (keydown.enter)="openDialog()"
+    (keydown.space)="openDialog()"
+  >
     <div class="header-flex">
       <div class="left-block">
         <mat-icon class="file-icon">
           <i class="fa fa-file" aria-hidden="true"></i>
         </mat-icon>
         <div class="details-block">
-          <span class="upload-title">Latest Upload</span>
-          <span class="upload-role">CV_2023</span>
+          <span>Latest Upload</span>
+          <span>CV ATS 2025</span>
         </div>
       </div>
-      <button matButton="elevated" color="primary" class="select-btn">
-        Use this file
-      </button>
+      <mat-icon class="circular-icon">
+        <i class="fa fa-check" aria-hidden="true"></i>
+      </mat-icon>
     </div>
+  </mat-card>
+
+  <div class="header-flex">
+    <div class="left-block">
+      <mat-icon class="file-icon">
+        <i class="fa fa-file" aria-hidden="true"></i>
+      </mat-icon>
+      <div class="details-block">
+        <span class="upload-title">Latest Upload</span>
+        <span class="upload-role">CV_2023</span>
+      </div>
+    </div>
+    <button matButton="elevated" color="primary" class="select-btn">
+      Use this file
+    </button>
   </div>
 
   <mat-card-subtitle class="card-title">

@@ -1,24 +1,29 @@
 <div fxLayout="row wrap" fxLayoutGap="2rem" fxLayoutAlign="center">
-  <div fxFlex="100%" style="text-align: center">
-    <div class="intro-text-tile">
-      <h2>
-        Frequently <span style="color: darkgoldenrod;">Asked Get in Questions</span>
-      </h2>
-      <h3>
-        Find answers to common questions about my services, collaborations, and how we can work together.
-      </h3>
-    </div>
+  <div
+    fxFlex.xs="100%"
+    fxFlex.sm="100%"
+    fxFlex.md="100%"
+    fxFlex.lg="100%"
+    fxFlex.xl="100%"
+    class="section"
+  >
+    <h2 class="section-title">
+      Frequently <span class="highlight-name">Asked Get in Questions</span>
+    </h2>
+    <h3 class="section-subtitle">
+      Find answers to common questions about my services, collaborations, and how we can work together.
+    </h3>
   </div>
 
-  <cdk-accordion class="example-accordion">
+  <cdk-accordion class="accordion">
     <div class="faq-category">
       <h2>General</h2>
     </div>
     @for (item of faqItems.general; track item;) {
       <ng-container>
-        <cdk-accordion-item #accordionItem="cdkAccordionItem" class="example-accordion-item">
+        <cdk-accordion-item #accordionItem="cdkAccordionItem" class="accordion-item">
           <button
-            class="example-accordion-item-header"
+            class="accordion-item-header"
             (click)="accordionItem.toggle()"
             tabindex="0"
             [attr.id]="'accordion-header-' + item"
@@ -33,7 +38,7 @@
 
           @if (accordionItem.expanded) {
             <div
-              class="example-accordion-item-body"
+              class="accordion-item-body"
               role="region"
               [@expandCollapse]="accordionItem.expanded ? 'expanded' : 'collapsed'"
               [attr.id]="'accordion-body-' + item"
@@ -51,9 +56,9 @@
     </div>
     @for (item of faqItems.services; track item;) {
       <ng-container>
-        <cdk-accordion-item #accordionItem="cdkAccordionItem" class="example-accordion-item">
+        <cdk-accordion-item #accordionItem="cdkAccordionItem" class="accordion-item">
           <button
-            class="example-accordion-item-header"
+            class="accordion-item-header"
             (click)="accordionItem.toggle()"
             tabindex="0"
             [attr.id]="'accordion-header-' + item"
@@ -68,7 +73,7 @@
 
           @if (accordionItem.expanded) {
             <section
-              class="example-accordion-item-body"
+              class="accordion-item-body"
               [@expandCollapse]="accordionItem.expanded ? 'expanded' : 'collapsed'"
               [attr.id]="'accordion-body-' + item"
               [attr.aria-labelledby]="'accordion-header-' + item"
@@ -85,9 +90,9 @@
     </div>
     @for (item of faqItems.projects; track item;) {
       <ng-container>
-        <cdk-accordion-item #accordionItem="cdkAccordionItem" class="example-accordion-item">
+        <cdk-accordion-item #accordionItem="cdkAccordionItem" class="accordion-item">
           <button
-            class="example-accordion-item-header"
+            class="accordion-item-header"
             (click)="accordionItem.toggle()"
             tabindex="0"
             [attr.id]="'accordion-header-' + item"
@@ -102,7 +107,7 @@
 
           @if (accordionItem.expanded) {
             <div
-              class="example-accordion-item-body"
+              class="accordion-item-body"
               role="region"
               [@expandCollapse]="accordionItem.expanded ? 'expanded' : 'collapsed'"
               [attr.id]="'accordion-body-' + item"

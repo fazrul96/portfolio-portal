@@ -1,12 +1,53 @@
+.section {
+  margin: 1rem;
+  padding: 1rem 0;
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.4s ease, box-shadow 0.4s ease;
+  animation: fadeInCard 0.6s ease-in-out;
+
+  .section-title {
+    text-align: center;
+    margin-bottom: 0.25rem;
+    font-size: 3.5rem;
+
+    .highlight-name {
+      color: goldenrod;
+      font-size: 2.8rem;
+    }
+  }
+
+  .section-subtitle {
+    text-align: center;
+    font-weight: 300;
+    font-size: 1.5rem;
+    color: #bcb9b9;
+  }
+
+  .header-flex {
+    gap: 0.5rem;
+    display: flex;
+    justify-content: center;
+    transition: all 0.3s ease;
+  }
+
+  .file-icon {
+    display: flex;
+    width: 30px;
+    height: 30px;
+  }
+}
+
 .project-card {
+  margin: 0.5rem;
   position: relative;
+  height: 27rem;
   overflow: hidden;
   border-radius: 12px;
-  color: white;
-  box-shadow: 0 10px 24px rgba(0, 0, 0, 1);
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.3);
   transition: transform 0.4s ease, box-shadow 0.4s ease;
-  cursor: pointer;
-  margin-bottom: 1rem;
 
   &:hover {
     transform: translateY(-8px);
@@ -15,11 +56,9 @@
 
   .card-bg {
     position: absolute;
-    top: 0; left: 0;
     width: 100%; height: 100%;
     background-size: cover;
-    background-position: center;
-    filter: brightness(0.2);
+    filter: brightness(0.15);
     transition: transform 0.5s ease, filter 0.4s ease;
     will-change: transform;
     z-index: 1;
@@ -33,7 +72,7 @@
   .card-overlay {
     position: relative;
     z-index: 3;
-    padding: 1.5rem;
+    padding: 1.2rem;
     height: 100%;
     display: flex;
     flex-direction: column;
@@ -58,16 +97,11 @@
       z-index: 1;
     }
 
-    mat-card-header {
-      padding: 0;
-      margin-bottom: 1rem;
-    }
-
     mat-card-title {
       font-size: 1.5rem;
       font-weight: 700;
       color: #fff;
-      margin-bottom: 0.9rem;
+      margin: 1rem 0 1rem;
     }
 
     mat-card-subtitle {
@@ -76,9 +110,9 @@
     }
 
     mat-list-item {
+      color: palegoldenrod;
       mat-icon {
-        transform: translateY(6px);
-        color: palegoldenrod;
+        transform: translateY(4px);
       }
     }
 
@@ -113,6 +147,10 @@
           height: 20px;
           border-radius: 50%;
         }
+
+        span {
+          color: palegoldenrod
+        }
       }
     }
 
@@ -134,40 +172,10 @@
   }
 }
 
-.project-list-button {
-  border-radius: 50%;
-  padding: 1rem 1.5rem;
-  gap: 1rem;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: all 0.3s ease;
-
-  .mat-icon {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 50%;
-    transition: all 0.3s ease;
-  }
-}
-
-.profile-img {
-  display: block;
-  width: 100%;
-  height: 130px;
-  object-fit: cover;
-  border-radius: 5%;
-  margin: auto;
-}
-
 .file-icon {
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
   width: 36px;
   height: 36px;
+  transform: translateY(6px) translateX(8px);
 }
 
 @media (max-width: 1200px) {
@@ -214,16 +222,5 @@
         text-align: center;
       }
     }
-  }
-}
-
-.intro-text-tile {
-  margin-top: 7rem;
-  position: relative;
-  font-size: 1.1rem;
-
-  h2 {
-    font-size: 3rem;
-    margin-bottom: 0.5rem;
   }
 }

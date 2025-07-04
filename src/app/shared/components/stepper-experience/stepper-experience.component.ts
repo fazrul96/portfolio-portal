@@ -7,6 +7,8 @@ import {ExperienceState} from '../../../store/experience/experience.state';
 import {COMMON_CONSTANTS} from '../../constants/common.constants';
 import {Store} from '@ngxs/store';
 import {ExperiencePortal} from '../../types/portal.type';
+import {EnvironmentFeatureFlags} from '../../../core/models/configuration.model';
+import {environment} from '../../../../environments/environment';
 
 @Component({
   selector: 'app-stepper-experience',
@@ -20,6 +22,7 @@ export class StepperExperienceComponent implements OnInit, OnDestroy {
   private readonly store: Store = inject(Store);
   private readonly unsubscribe$ = new Subject();
   experienceList: ExperiencePortal[] | undefined = [];
+  featureFlags?: EnvironmentFeatureFlags = environment.featureFlags;
 
   ngOnInit(): void {
     this.store.select(ExperienceState.getExperiences).subscribe(experienceList => {

@@ -13,7 +13,6 @@ import {MatTabsModule} from '@angular/material/tabs';
 import {MatDialog} from '@angular/material/dialog';
 import {PROFILE_CONTENT, PROFILE_DETAILS} from '../../data/profile.data';
 import {CardSidenavComponent} from '../card-sidenav/card-sidenav.component';
-import {CardSidenavResumeComponent} from '../card-sidenav-resume/card-sidenav-resume.component';
 import {MatIcon} from '@angular/material/icon';
 import {MatTooltip} from '@angular/material/tooltip';
 
@@ -30,7 +29,6 @@ import {MatTooltip} from '@angular/material/tooltip';
     DefaultLayoutAlignDirective,
     DefaultLayoutGapDirective,
     CardSidenavComponent,
-    CardSidenavResumeComponent,
     MatIcon,
     MatTooltip,
   ],

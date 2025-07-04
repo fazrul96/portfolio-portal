@@ -5,7 +5,7 @@
     fxFlex.md="55%"
     fxFlex.lg="55%"
     fxFlex.xl="55%"
-    class="resume-section"
+    class="section"
   >
     <h2 class="section-title">
       Hi, I’m <span class="highlight-name">Fazrul Romli</span>
@@ -20,11 +20,14 @@
       }
     </ul>
 
-    <p class="section-subtitle">{{ profileContent.description }} <br> {{ profileContent.belief }}</p>
+    <p class="section-subtitle">
+      {{ profileContent.description }}
+      <br>
+      {{ profileContent.belief }}
+    </p>
 
-    <mat-card class="mat-elevation-z4 detail-container">
-      <h3 class="section-title" style="margin-bottom: 1rem;">
-        Career Overview
+    <mat-card class="mat-elevation-z4 card-container">
+      <h3 class="section-title">Career Overview
         <mat-icon
           matTooltip="A high-level summary of my professional background, compensation expectations, and work eligibility"
           matTooltipPosition="above"
@@ -53,9 +56,8 @@
     fxFlex.md="33%"
     fxFlex.lg="23%"
     fxFlex.xl="20%"
-    class="resume-section"
+    class="section"
   >
     <app-card-sidenav></app-card-sidenav>
-    <app-card-sidenav-resume></app-card-sidenav-resume>
   </div>
 </div>

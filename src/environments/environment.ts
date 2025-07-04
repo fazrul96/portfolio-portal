@@ -42,6 +42,7 @@ export const environment: EnvironmentConfig = {
   featureFlags: {
     showAchievementComponent: false,
     showWorkspaceComponent: false,
+    showExperienceTabStepperComponent : false,
   }
 };
 

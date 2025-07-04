@@ -117,25 +117,4 @@ button:focus {
 }
 
 /* Animations */
-@keyframes rotate {
-  to {
-    transform: rotate(360deg);
-  }
-}
 
-@keyframes ringSpin {
-  to {
-    transform: rotate(360deg);
-  }
-}
-
-@keyframes fadeSlideUp {
-  from {
-    opacity: 0;
-    transform: translateY(20px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}

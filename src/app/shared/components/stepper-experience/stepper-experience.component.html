@@ -1,69 +1,72 @@
-<div class="tab-group-wrapper">
-  <mat-tab-group>
-    <mat-tab label="Experience">
+<mat-tab-group class="tab-group-wrapper">
+  <mat-tab label="Experience">
+    <ng-template mat-tab-label>
+      <h3>Experience</h3>
+    </ng-template>
+    <mat-stepper orientation="vertical">
+      @for (experience of experienceList; track experience) {
+        <mat-step [label]="experience.companyName">
+          <ng-template matStepContent>
+            <div class="experience-details">
+              <div class="experience-header">
+                <img [src]="experience.image" alt="Company Logo" class="company-logo" />
+                <h4 class="experience-subtitle">
+                  {{ experience.companyName }}
+                <br>
+                  {{ experience.role }}
+                <br>
+                  {{ experience.startDate }} - {{ experience.isCurrent ? 'Present' : experience.endDate }} | {{ experience.location }}
+                </h4>
+              </div>
+
+              <p>{{ experience.summary }}</p>
+
+              <ul>
+                @for (responsibility of experience.responsibilities; track responsibility) {
+                  <li>{{ responsibility }}</li>
+                }
+              </ul>
+
+              <h4>Key Achievements:</h4>
+              <ul>
+                @for (achievement of experience.achievements; track achievement) {
+                  <li>{{ achievement }}</li>
+                }
+              </ul>
+            </div>
+          </ng-template>
+        </mat-step>
+      }
+    </mat-stepper>
+  </mat-tab>
+  @if (this.featureFlags?.showExperienceTabStepperComponent) {
+    <mat-tab label="Education">
       <ng-template mat-tab-label>
-        <h3>Experience</h3>
+        <h3>Education</h3>
       </ng-template>
       <mat-stepper orientation="vertical">
-        @for (experience of experienceList; track experience) {
-          <mat-step [label]="experience.companyName">
-            <ng-template matStepContent>
-              <div class="experience-details">
-                <div class="experience-header">
-                  <img [src]="experience.image" alt="Company Logo" class="company-logo" />
-                  <div>
-                    <h4>{{ experience.role }} at {{ experience.companyName }}</h4>
-                    <p>{{ experience.startDate }} - {{ experience.isCurrent ? 'Present' : experience.endDate }} | {{ experience.location }}</p>
-                  </div>
-                </div>
+        <mat-step>
+          <ng-template matStepContent>
+            <div>
 
-                <p>{{ experience.summary }}</p>
-
-                <ul>
-                  @for (responsibility of experience.responsibilities; track responsibility) {
-                    <li>{{ responsibility }}</li>
-                  }
-                </ul>
-
-                <h4>Key Achievements:</h4>
-                <ul>
-                  @for (achievement of experience.achievements; track achievement) {
-                    <li>{{ achievement }}</li>
-                  }
-                </ul>
-              </div>
-            </ng-template>
-          </mat-step>
-        }
+            </div>
+          </ng-template>
+        </mat-step>
       </mat-stepper>
     </mat-tab>
-<!--    <mat-tab label="Education">-->
-<!--      <ng-template mat-tab-label>-->
-<!--        <h3>Education</h3>-->
-<!--      </ng-template>-->
-<!--      <mat-stepper orientation="vertical">-->
-<!--        <mat-step>-->
-<!--          <ng-template matStepContent>-->
-<!--            <div>-->
+    <mat-tab label="Activities">
+    <ng-template mat-tab-label>
+      <h3>Activities</h3>
+    </ng-template>
+    <mat-stepper orientation="vertical">
+      <mat-step>
+        <ng-template matStepContent>
+          <div>
 
-<!--            </div>-->
-<!--          </ng-template>-->
-<!--        </mat-step>-->
-<!--      </mat-stepper>-->
-<!--    </mat-tab>-->
-<!--    <mat-tab label="Activities">-->
-<!--      <ng-template mat-tab-label>-->
-<!--        <h3>Activities</h3>-->
-<!--      </ng-template>-->
-<!--      <mat-stepper orientation="vertical">-->
-<!--        <mat-step>-->
-<!--          <ng-template matStepContent>-->
-<!--            <div>-->
-
-<!--            </div>-->
-<!--          </ng-template>-->
-<!--        </mat-step>-->
-<!--      </mat-stepper>-->
-<!--    </mat-tab>-->
-  </mat-tab-group>
-</div>
+          </div>
+        </ng-template>
+      </mat-step>
+    </mat-stepper>
+  </mat-tab>
+  }
+</mat-tab-group>

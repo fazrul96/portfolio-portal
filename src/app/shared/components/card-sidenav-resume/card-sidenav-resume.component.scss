@@ -1,6 +1,9 @@
-.cv-card {
-  margin: 0.5rem;
-  padding: 0.5rem;
+.card-container {
+  padding: 0.5rem 1.5rem 1rem;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.3);
 
   .card-title {
     margin: 0.5rem;
@@ -8,14 +11,8 @@
     font-weight: 400;
   }
 
-  .resume-entry,
   .resume-upload {
-    display: flex;
-    flex-direction: column;
-  }
-
-  .resume-upload {
-    padding: 1rem;
+    padding: 0.5rem;
   }
 
   .left-block {
@@ -57,8 +54,8 @@
   }
 
   .header-flex {
-    margin: 1rem;
-    padding: 1rem;
+    margin: 0.5rem;
+    padding: 0.9rem;
     display: flex;
     align-items: center;
     justify-content: space-between;

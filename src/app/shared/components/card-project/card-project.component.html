@@ -1,17 +1,23 @@
 <div fxLayout="row wrap" fxLayoutGap="2rem" fxLayoutAlign="center">
-  <div fxFlex="100%" style="text-align: center">
-    <div class="intro-text-tile">
-      <h2>
-        My <span style="color: darkgoldenrod;">Projects</span>
-      </h2>
-      <h3>
-        Explore my portfolio of innovative solutions across various domains and technologies
-      </h3>
-    </div>
-    <div class="project-list-button">
+  <div
+    fxFlex.xs="100%"
+    fxFlex.sm="100%"
+    fxFlex.md="100%"
+    fxFlex.lg="100%"
+    fxFlex.xl="100%"
+    class="section"
+  >
+    <h2 class="section-title">
+      My <span class="highlight-name">Projects</span>
+    </h2>
+    <h3 class="section-subtitle">
+      Explore my portfolio of innovative solutions across various domains and technologies
+    </h3>
+
+    <div class="header-flex">
       @for (button of buttonConfigs; track button;) {
         <button
-          matFab
+          mat-fab
           extended
           [style.background-color]="button.backgroundColor"
           [class.active]="button.isActive"
@@ -50,23 +56,21 @@
             <mat-chip-listbox class="tags-status">
               @for (tech of project.status; let i = $index; track tech) {
                 <mat-chip color="primary" selected>
-                      <span [ngStyle]="{ 'color': getStatusColor(i) }">
-                          {{ tech }}
-                      </span>
+                  <span [ngStyle]="{ 'color': getStatusColor(i) }">
+                      {{ tech }}
+                  </span>
                 </mat-chip>
               }
             </mat-chip-listbox>
           </mat-card-header>
           <mat-card-content>
-            <mat-card-title style="margin-top: 1rem;">{{ project.title }} {{ project.icon }}</mat-card-title>
+            <mat-card-title>{{ project.title }} {{ project.icon }}</mat-card-title>
             {{ project.description }}
 
             @for (feature of project.features; track feature) {
               <mat-list-item>
                 <mat-icon inline>check_circle</mat-icon>
-                <span style="color: palegoldenrod">
-                        {{ feature }}
-                    </span>
+                {{ feature }}
               </mat-list-item>
             }
 
@@ -74,7 +78,7 @@
               @for (tech of project.techStack; track tech) {
                 <mat-chip>
                   <img matChipAvatar [src]="tech.avatar" [alt]="tech.name + ' logo'" />
-                  <span style="color: palegoldenrod">{{ tech.name }}</span>
+                  <span>{{ tech.name }}</span>
                 </mat-chip>
               }
             </mat-chip-listbox>
@@ -89,8 +93,15 @@
   }
 
   @if (fullstackProjects!.length > visibleProjectsCount) {
-    <div fxFlex="100%" style="text-align: center">
-        <button mat-stroked-button color="primary" (click)="toggleShowMore()" style="align-items: center">
+    <div
+      fxFlex.xs="100%"
+      fxFlex.sm="100%"
+      fxFlex.md="100%"
+      fxFlex.lg="100%"
+      fxFlex.xl="100%"
+      style="text-align: center"
+    >
+        <button mat-stroked-button color="primary" (click)="toggleShowMore()" style="margin-top: 1rem">
           <mat-icon class="file-icon">
             <i class="fa-solid fa-layer-group"></i>
           </mat-icon>

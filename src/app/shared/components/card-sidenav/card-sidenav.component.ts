@@ -24,6 +24,7 @@ import {GetProject} from '../../../store/project/project.action';
 import {UserState} from '../../../store/user/user.state';
 import {User} from '@auth0/auth0-angular';
 import {environment} from '../../../../environments/environment';
+import {CardSidenavResumeComponent} from '../card-sidenav-resume/card-sidenav-resume.component';
 
 @Component({
   selector: 'app-card-sidenav',
@@ -33,7 +34,8 @@ import {environment} from '../../../../environments/environment';
     MatCardSubtitle,
     MatIcon,
     MatIconButton,
-    MatTooltip
+    MatTooltip,
+    CardSidenavResumeComponent
   ],
   templateUrl: './card-sidenav.component.html',
   styleUrl: './card-sidenav.component.scss'

@@ -17,6 +17,7 @@ import {Store} from '@ngxs/store';
 import {Subject} from 'rxjs';
 import {ProjectState} from '../../../store/project/project.state';
 import {BUTTON_CONFIGS, ButtonConfig} from '../../data/project.data';
+import {PROFILE_CONTENT} from '../../data/profile.data';
 
 @Component({
   selector: 'app-card-project',
@@ -106,4 +107,6 @@ export class CardProjectComponent implements OnInit, OnDestroy {
     this.unsubscribe$.next('');
     this.unsubscribe$.complete();
   }
+
+  protected readonly profileContent = PROFILE_CONTENT;
 }
