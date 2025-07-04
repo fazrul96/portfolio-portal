@@ -16,12 +16,22 @@
     }
   }
 
-  .section-subtitle {
+  .section-intro,
+  .section-subtitle,
+  .section-skill {
     font-weight: 300;
     font-size: 1.25rem;
     color: #bcb9b9;
+    text-align: justify;
   }
 
+  .section-intro {
+    padding: 0 0.5rem;
+  }
+
+  .section-subtitle {
+    padding: 0 0.5rem;
+  }
 
   .card-container {
     padding: 0 1.5rem 1.5rem;
@@ -116,6 +126,13 @@
   }
 
   @media (max-width: 600px) {
+    .section-title {
+      font-size: 1.6rem;
+      .highlight-name {
+        font-size: 1.8rem;
+      }
+    }
+
     .card-container {
       .inline-grid {
         display: block;

@@ -10,21 +10,18 @@
     <h2 class="section-title">
       Hi, I’m <span class="highlight-name">Fazrul Romli</span>
     </h2>
-    <h3 class="section-subtitle">
+    <h3 class="section-intro">
       {{ profileContent.introText }}
     </h3>
 
-    <ul class="section-subtitle">
+    <ul class="section-skill">
       @for (skill of profileContent.skills; track skill) {
         <li>{{ skill }}</li>
       }
     </ul>
 
-    <p class="section-subtitle">
-      {{ profileContent.description }}
-      <br>
-      {{ profileContent.belief }}
-    </p>
+    <p class="section-subtitle">{{ profileContent.description }}</p>
+    <p class="section-subtitle">{{ profileContent.belief }}</p>
 
     <mat-card class="mat-elevation-z4 card-container">
       <h3 class="section-title">Career Overview

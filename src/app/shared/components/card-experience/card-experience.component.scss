@@ -24,3 +24,15 @@
     color: #bcb9b9;
   }
 }
+
+@media (max-width: 600px) {
+  .section {
+    .section-title {
+      font-size: 2.3rem;
+
+      .highlight-name {
+        font-size: 2.5rem;
+      }
+    }
+  }
+}
