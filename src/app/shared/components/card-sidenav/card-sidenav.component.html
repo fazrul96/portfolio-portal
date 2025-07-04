@@ -8,7 +8,7 @@
     }
   </mat-card-actions>
 
-  @for (experience of experienceList; track experience) {
+  @for (experience of experienceList; track experience.id) {
     <div
       class="header-flex"
       matTooltip="More Details {{experience.companyName}}"
@@ -41,7 +41,7 @@
   </mat-card-actions>
 
   <div class="header-flex">
-    @for (socialLink of socialLinkList; track socialLink) {
+    @for (socialLink of socialLinkList; track socialLink.id) {
       <a
          [href]="socialLink.link"
          target="_blank"

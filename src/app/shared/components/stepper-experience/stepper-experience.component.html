@@ -4,7 +4,7 @@
       <h3>Experience</h3>
     </ng-template>
     <mat-stepper orientation="vertical">
-      @for (experience of experienceList; track experience) {
+      @for (experience of experienceList; track experience.id) {
         <mat-step [label]="experience.companyName">
           <ng-template matStepContent>
             <div class="experience-details">
@@ -22,14 +22,14 @@
               <p>{{ experience.summary }}</p>
 
               <ul>
-                @for (responsibility of experience.responsibilities; track responsibility) {
+                @for (responsibility of experience.responsibilities; track $index) {
                   <li>{{ responsibility }}</li>
                 }
               </ul>
 
               <h4>Key Achievements:</h4>
               <ul>
-                @for (achievement of experience.achievements; track achievement) {
+                @for (achievement of experience.achievements; track $index) {
                   <li>{{ achievement }}</li>
                 }
               </ul>

@@ -18,6 +18,7 @@ import {Subject} from 'rxjs';
 import {ProjectState} from '../../../store/project/project.state';
 import {BUTTON_CONFIGS, ButtonConfig} from '../../data/project.data';
 import {PROFILE_CONTENT} from '../../data/profile.data';
+import {COMMON_CONSTANTS} from '../../constants/common.constants';
 
 @Component({
   selector: 'app-card-project',
@@ -104,9 +105,7 @@ export class CardProjectComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.unsubscribe$.next('');
+    this.unsubscribe$.next(COMMON_CONSTANTS.EMPTY_STRING);
     this.unsubscribe$.complete();
   }
-
-  protected readonly profileContent = PROFILE_CONTENT;
 }

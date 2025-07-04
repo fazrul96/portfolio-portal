@@ -45,21 +45,27 @@ import {NgClass} from '@angular/common';
 export class CardFaqComponent {
   faqItems = {
     general: [
-      { question: 'Are you available for hire?',
+      { id: 1,
+        question: 'Are you available for hire?',
         answer: 'Yes, I am open to work opportunities. Feel free to reach out!' },
-      { question: 'Are you open to collaborations?',
+      { id: 2,
+        question: 'Are you open to collaborations?',
         answer: 'Absolutely! I\'m always open to interesting collaborations.' }
     ],
     services: [
-      { question: 'Do you provide learning materials or recommend resources?',
+      { id: 1,
+        question: 'Do you provide learning materials or recommend resources?',
         answer: 'Yes, I can share useful resources!' },
     ],
     projects: [
-      { question: 'Where can I find examples of your previous work?',
+      { id: 1,
+        question: 'Where can I find examples of your previous work?',
         answer: 'You can check my portfolio or GitHub.' },
-      { question: 'Can I propose a custom project or service?',
+      { id: 2,
+        question: 'Can I propose a custom project or service?',
         answer: 'Yes, I\'m open to custom project proposals.' },
-      { question: 'How can I stay updated on your latest projects?',
+      { id: 3,
+        question: 'How can I stay updated on your latest projects?',
         answer: 'Follow me on LinkedIn or my blog.' }
     ]
   };

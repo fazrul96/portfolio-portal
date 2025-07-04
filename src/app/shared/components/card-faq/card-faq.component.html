@@ -19,7 +19,7 @@
     <div class="faq-category">
       <h2>General</h2>
     </div>
-    @for (item of faqItems.general; track item;) {
+    @for (item of faqItems.general; track item.id) {
       <ng-container>
         <cdk-accordion-item #accordionItem="cdkAccordionItem" class="accordion-item">
           <button
@@ -54,7 +54,7 @@
     <div class="faq-category">
       <h2>Services</h2>
     </div>
-    @for (item of faqItems.services; track item;) {
+    @for (item of faqItems.services; track item.id) {
       <ng-container>
         <cdk-accordion-item #accordionItem="cdkAccordionItem" class="accordion-item">
           <button
@@ -88,7 +88,7 @@
     <div class="faq-category">
       <h2>Projects</h2>
     </div>
-    @for (item of faqItems.projects; track item;) {
+    @for (item of faqItems.projects; track item.id) {
       <ng-container>
         <cdk-accordion-item #accordionItem="cdkAccordionItem" class="accordion-item">
           <button

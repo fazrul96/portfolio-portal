@@ -15,7 +15,7 @@
     </h3>
 
     <div class="header-flex">
-      @for (button of buttonConfigs; track button;) {
+      @for (button of buttonConfigs; track button.id;) {
         <button
           mat-fab
           extended
@@ -34,7 +34,7 @@
     </div>
   </div>
 
-  @for (project of fullstackProjects?.slice(0, visibleProjectsCount); track project) {
+  @for (project of fullstackProjects?.slice(0, visibleProjectsCount); track $index) {
     <div
       fxFlex.xs="100%"
       fxFlex.sm="100%"
@@ -54,7 +54,7 @@
         <div class="card-overlay">
           <mat-card-header>
             <mat-chip-listbox class="tags-status">
-              @for (tech of project.status; let i = $index; track tech) {
+              @for (tech of project.status; let i = $index; track $index) {
                 <mat-chip color="primary" selected>
                   <span [ngStyle]="{ 'color': getStatusColor(i) }">
                       {{ tech }}
@@ -67,7 +67,7 @@
             <mat-card-title>{{ project.title }} {{ project.icon }}</mat-card-title>
             {{ project.description }}
 
-            @for (feature of project.features; track feature) {
+            @for (feature of project.features; track $index) {
               <mat-list-item>
                 <mat-icon inline>check_circle</mat-icon>
                 {{ feature }}
@@ -75,7 +75,7 @@
             }
 
             <mat-chip-listbox aria-label="Tech Stack" style="margin: 0.5rem;">
-              @for (tech of project.techStack; track tech) {
+              @for (tech of project.techStack; track $index) {
                 <mat-chip>
                   <img matChipAvatar [src]="tech.avatar" [alt]="tech.name + ' logo'" />
                   <span>{{ tech.name }}</span>

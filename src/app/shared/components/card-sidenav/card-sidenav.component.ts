@@ -76,12 +76,9 @@ export class CardSidenavComponent implements OnInit, OnDestroy {
   }
 
   onExperienceKeyDown(event: KeyboardEvent, experience: any): void {
-    // You can check for specific keys here, for example, if the user presses 'Enter':
     if (event.key === 'Enter') {
       this.openDetailsExpDialog(experience);
     }
-    // You can also handle other keys like 'ArrowUp', 'ArrowDown', etc.
-    console.log('Key pressed: ', event.key);
   }
 
   openAddExpDialog(): void {

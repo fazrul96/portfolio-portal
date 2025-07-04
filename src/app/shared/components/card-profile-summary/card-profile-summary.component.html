@@ -15,7 +15,7 @@
     </h3>
 
     <ul class="section-skill">
-      @for (skill of profileContent.skills; track skill) {
+      @for (skill of profileContent.skills; track $index) {
         <li>{{ skill }}</li>
       }
     </ul>

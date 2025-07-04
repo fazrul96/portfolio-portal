@@ -131,26 +131,31 @@ export const EXPERIENCES = [
 
 export const SOCIAL_LINKS = [
   {
+    id: 1,
     name: 'LinkedIn',
     icon: 'assets/images/icons/linkedin.png',
     link: 'https://www.linkedin.com/in/fazrul-romli-79138415b/'
   },
   {
+    id: 2,
     name: 'GitHub',
     icon: 'assets/images/icons/github.png',
     link: 'https://github.com/fazrul96/'
   },
   {
+    id: 3,
     name: 'Bitbucket',
     icon: 'assets/images/icons/bitbucket.png',
     link: 'https://bitbucket.org/fazrulromli'
   },
   {
+    id: 4,
     name: 'Gitlab',
     icon: 'assets/images/icons/gitlab.png',
     link: 'https://gitlab.com/greda'
   },
   {
+    id: 5,
     name: 'Medium',
     icon: 'assets/images/icons/medium.png',
     link: 'https://medium.com/@mfbr'
@@ -158,6 +163,7 @@ export const SOCIAL_LINKS = [
 ];
 
 export interface ButtonConfig {
+  id: number;
   label: string;
   icon: string;
   backgroundColor: string;
@@ -166,30 +172,35 @@ export interface ButtonConfig {
 
 export const BUTTON_CONFIGS: ButtonConfig[] = [
   {
+    id: 1,
     label: 'All',
     icon: '',
     backgroundColor: 'darkgoldenrod',
     isActive: true,
   },
   {
+    id: 2,
     label: 'Web',
     icon: 'fa fa-globe',
     backgroundColor: '',
     isActive: false,
   },
   {
+    id: 3,
     label: 'Backend',
     icon: 'fa fa-database',
     backgroundColor: '',
     isActive: false,
   },
   {
+    id: 4,
     label: 'Frontend',
     icon: 'fa-solid fa-palette',
     backgroundColor: '',
     isActive: false,
   },
   {
+    id: 5,
     label: 'Automation',
     icon: 'fa fa-cogs',
     backgroundColor: '',

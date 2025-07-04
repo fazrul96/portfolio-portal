@@ -50,7 +50,6 @@ export class HeaderComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.initializeUserData();
     this.detectScreenSize();
-    this.observeScreenSizeChanges();
   }
 
   ngOnDestroy(): void {
@@ -68,25 +67,8 @@ export class HeaderComponent implements OnInit, OnDestroy {
       .pipe(takeUntil(this.unsubscribe$))
       .subscribe(result => {
         this.isSmallScreen = result.matches;
-        this.updateDrawerMode();
         this.cdr.detectChanges();
       });
-  }
-
-  private updateDrawerMode(): void {
-    if (this.isSmallScreen) {
-      this.drawer.mode = 'over';
-      this.drawer.close();
-    } else {
-      this.drawer.mode = 'side';
-    }
-  }
-
-  private observeScreenSizeChanges(): void {
-    this.observer.observe(['(max-width: 800px)']).subscribe(res => {
-      this.drawer.mode = res.matches ? 'over' : 'side';
-      this.drawer.close();
-    });
   }
 
   get userInitials(): string {

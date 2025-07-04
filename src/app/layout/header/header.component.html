@@ -63,7 +63,7 @@
       <span>Got new notifications</span>
     </button>
 
-    @for (item of notificationList; track item;) {
+    @for (item of notificationList; track item.id;) {
       <button mat-menu-item style="width:300px">
         <span>{{item.message}}</span>
       </button>
@@ -73,18 +73,24 @@
 
 <mat-menu #menu="matMenu">
   <button mat-menu-item (click)="navigateTo(ROUTE_PATHS.profile)">
-    <mat-icon matBadge="1" matBadgeSize="small"><i class="fa fa-user" aria-hidden="true"></i></mat-icon>
+    <mat-icon matBadge="1" matBadgeSize="small" aria-hidden="false">
+      <i class="fa fa-user" aria-hidden="true"></i>
+    </mat-icon>
     <span>Profile</span>
   </button>
   <app-switcher-dark-mode></app-switcher-dark-mode>
   <button mat-menu-item (click)="navigateTo(ROUTE_PATHS.setting)">
-    <mat-icon matBadge="1" matBadgeSize="small"><i class="fa fa-cog" aria-hidden="true"></i></mat-icon>
+    <mat-icon matBadge="1" matBadgeSize="small" aria-hidden="false">
+      <i class="fa fa-cog" aria-hidden="true"></i>
+    </mat-icon>
     <span>Settings</span>
   </button>
   @if (this.featureFlags?.showWorkspaceComponent) {
     <hr>
     <button mat-menu-item (click)="navigateTo(ROUTE_PATHS.workspace)">
-      <mat-icon matBadge="1" matBadgeSize="small"><i class="fa fa-cogs" aria-hidden="true"></i></mat-icon>
+      <mat-icon matBadge="1" matBadgeSize="small" aria-hidden="false">
+        <i class="fa fa-cogs" aria-hidden="true"></i>
+      </mat-icon>
       <span>Workspace</span>
     </button>
   }
