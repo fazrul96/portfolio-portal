@@ -1,24 +1,30 @@
 <mat-drawer-container autosize>
   <mat-drawer-content class="app-content">
     <mat-toolbar class="app-toolbar">
-      <div style="display: flex; align-items: center; justify-content: space-between; gap: 2rem; padding: 0.5rem 1rem;">
-        <div style="display: flex; align-items: center; gap: 1rem;">
-          <a (click)="home()" class="brand-link">
-            <h2 class="brand-title">mfzrl.dev</h2>
+      <div class="toolbar-wrapper">
+        @if (isSmallScreen) {
+          <a mat-icon-button [matMenuTriggerFor]="menuSmallSc" aria-label="Menu" style="transform: translateY(2px)">
+            <mat-icon>menu</mat-icon>
           </a>
-        </div>
+        }
 
-        <div class="nav-links">
-          <a (click)="dashboard()" class="nav-link">Dashboard</a>
-          <a (click)="about()" class="nav-link">About</a>
-          <a (click)="blog()" class="nav-link">Blog</a>
-          <a (click)="achievement()" class="nav-link">Achievement</a>
-          <a (click)="resources()" class="nav-link">Resources</a>
-          <a (click)="contact()" class="nav-link">Contact</a>
-        </div>
+        <a (click)="navigateTo(COMMON_CONSTANTS.SLASH)" style="transform: translateY(6px)">
+          <h2 class="brand-title">mfzrl.dev</h2>
+        </a>
       </div>
 
-      <div style="display: flex; align-items: center; gap: 1rem;">
+      @if (!isSmallScreen) {
+        <div class="nav-links">
+          <a (click)="navigateTo(ROUTE_PATHS.dashboard)" class="nav-link">Dashboard</a>
+          <a (click)="navigateTo(ROUTE_PATHS.about)" class="nav-link">About</a>
+          <a (click)="navigateTo(ROUTE_PATHS.blog)" class="nav-link">Blog</a>
+          <a (click)="navigateTo(ROUTE_PATHS.achievement)" class="nav-link">Achievement</a>
+          <a (click)="navigateTo(ROUTE_PATHS.resources)" class="nav-link">Resources</a>
+          <a (click)="navigateTo(ROUTE_PATHS.contact)" class="nav-link">Contact</a>
+        </div>
+      }
+
+      <div class="user-actions">
         @if (isLoggedIn) {
           <button matIconButton [matMenuTriggerFor]="notifications">
             <mat-icon matBadge="{{notificationList.length}}" matBadgeColor="warn">
@@ -45,7 +51,6 @@
       </div>
     </mat-toolbar>
   </mat-drawer-content>
-
 </mat-drawer-container>
 
 <mat-menu #notifications="matMenu">
@@ -67,18 +72,18 @@
 </mat-menu>
 
 <mat-menu #menu="matMenu">
-  <button mat-menu-item (click)="profile()">
+  <button mat-menu-item (click)="navigateTo(ROUTE_PATHS.profile)">
     <mat-icon matBadge="1" matBadgeSize="small"><i class="fa fa-user" aria-hidden="true"></i></mat-icon>
     <span>Profile</span>
   </button>
   <app-switcher-dark-mode></app-switcher-dark-mode>
-  <button mat-menu-item (click)="settings()">
+  <button mat-menu-item (click)="navigateTo(ROUTE_PATHS.setting)">
     <mat-icon matBadge="1" matBadgeSize="small"><i class="fa fa-cog" aria-hidden="true"></i></mat-icon>
     <span>Settings</span>
   </button>
   @if (this.featureFlags?.showWorkspaceComponent) {
     <hr>
-    <button mat-menu-item (click)="workspace()">
+    <button mat-menu-item (click)="navigateTo(ROUTE_PATHS.workspace)">
       <mat-icon matBadge="1" matBadgeSize="small"><i class="fa fa-cogs" aria-hidden="true"></i></mat-icon>
       <span>Workspace</span>
     </button>
@@ -88,4 +93,13 @@
     <mat-icon><i class="fa fa-sign-out" aria-hidden="true"></i></mat-icon>
     <span>Logout</span>
   </button>
+</mat-menu>
+
+<mat-menu #menuSmallSc="matMenu">
+  <button mat-menu-item (click)="navigateTo(ROUTE_PATHS.dashboard)">Dashboard</button>
+  <button mat-menu-item (click)="navigateTo(ROUTE_PATHS.about)">About</button>
+  <button mat-menu-item (click)="navigateTo(ROUTE_PATHS.blog)">Blog</button>
+  <button mat-menu-item (click)="navigateTo(ROUTE_PATHS.achievement)">Achievement</button>
+  <button mat-menu-item (click)="navigateTo(ROUTE_PATHS.resources)">Resources</button>
+  <button mat-menu-item (click)="navigateTo(ROUTE_PATHS.contact)">Contact</button>
 </mat-menu>

@@ -2,15 +2,19 @@ import {Routes} from '@angular/router';
 import {CallbackComponent} from './shared/components/callback/callback.component';
 
 export const ROUTE_PATHS = {
-  root: '',
-  dashboard: 'dashboard',
+  about: 'about',
   achievement: 'achievement',
-  callback: 'callback',
-  profile: 'profile',
-  setting: 'settings',
-  login: 'login',
-  registration: 'registration',
   blog: 'blog-medium',
+  callback: 'callback',
+  contact: 'contact',
+  dashboard: 'dashboard',
+  login: 'login',
+  profile: 'profile',
+  registration: 'registration',
+  resources: 'resources',
+  setting: 'settings',
+  workspace: 'workspace',
+  root: '',
 };
 
 export const routes: Routes = [

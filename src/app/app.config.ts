@@ -1,5 +1,5 @@
 import {ApplicationConfig, importProvidersFrom, provideZoneChangeDetection} from '@angular/core';
-import {provideRouter, withComponentInputBinding, withRouterConfig} from '@angular/router';
+import {provideRouter, withComponentInputBinding} from '@angular/router';
 import {provideHttpClient, withInterceptors} from '@angular/common/http';
 import {provideAnimations} from '@angular/platform-browser/animations';
 import {provideStore} from '@ngxs/store';
@@ -36,7 +36,6 @@ export const appConfig: ApplicationConfig = {
     provideZoneChangeDetection({ eventCoalescing: true }),
     provideRouter(
       routes,
-      withRouterConfig({ onSameUrlNavigation: 'reload' }),
       withComponentInputBinding()
     ),
     provideAnimations(),

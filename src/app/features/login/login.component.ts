@@ -9,6 +9,7 @@ import {UserLoginAuth0} from '../../store/user/user.action';
 import {UserRole} from '../../shared/enums/user-role.enum';
 import {MobilePrefix} from '../../shared/enums/mobile-prefix.enum';
 import {IdType} from '../../shared/enums/id-type.enum';
+import {ROUTE_PATHS} from '../../app.routes';
 
 @Component({
   selector: 'app-login',
@@ -56,7 +57,7 @@ export class LoginComponent {
 
               this.store.dispatch(new UserLoginAuth0(registrationPayload)).subscribe({
                 next: val => {
-                  this.router.navigate(['']);
+                  this.router.navigate([ROUTE_PATHS.dashboard]);
                 }
               });
             } else {

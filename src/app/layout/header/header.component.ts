@@ -1,7 +1,6 @@
-import {AfterViewInit, Component, computed, inject, Input, OnInit, signal, Signal, ViewChild} from '@angular/core';
+import {ChangeDetectorRef, Component, inject, Input, OnDestroy, OnInit, signal, Signal, ViewChild} from '@angular/core';
 import {MatButtonModule} from '@angular/material/button';
 import {MatDrawer, MatSidenavModule} from '@angular/material/sidenav';
-import {BreakpointObserver} from '@angular/cdk/layout';
 import {Router} from '@angular/router';
 import {MatIcon} from '@angular/material/icon';
 import {MatToolbar} from '@angular/material/toolbar';
@@ -15,44 +14,75 @@ import {UserState} from '../../store/user/user.state';
 import {UserAuth0} from '../../core/models/user.model';
 import {COMMON_CONSTANTS} from '../../shared/constants/common.constants';
 import {MatCardModule} from '@angular/material/card';
-import {User} from '@auth0/auth0-angular';
 import {environment} from '../../../environments/environment';
 import {EnvironmentFeatureFlags} from '../../core/models/configuration.model';
+import {Subject, takeUntil} from 'rxjs';
+import {BreakpointObserver, Breakpoints} from '@angular/cdk/layout';
+import {ROUTE_PATHS} from '../../app.routes';
 
 @Component({
   selector: 'app-header',
   imports: [
     MatSidenavModule, MatButtonModule, MatIcon, MatToolbar, MatMenu, MatMenuItem,
     MatMenuTrigger, MatBadge, SwitcherDarkModeComponent, LoginComponent,
-    MatCardModule, MatButtonModule
+    MatCardModule
   ],
   templateUrl: './header.component.html',
   styleUrl: './header.component.scss'
 })
-export class HeaderComponent implements OnInit, AfterViewInit {
+export class HeaderComponent implements OnInit, OnDestroy {
+  @Input() isLoggedIn: boolean = false;
   @ViewChild('drawer') drawer!: MatDrawer;
-  @Input()isLoggedIn: boolean = false;
 
   private readonly store: Store = inject(Store);
   private readonly router: Router = inject(Router);
   private readonly observer: BreakpointObserver = inject(BreakpointObserver);
+  private readonly cdr: ChangeDetectorRef = inject(ChangeDetectorRef);
+  private readonly unsubscribe$ = new Subject();
 
-  username: Signal<string> = signal(COMMON_CONSTANTS.EMPTY_STRING)
+  username: Signal<string> = signal(COMMON_CONSTANTS.EMPTY_STRING);
   imageFailed = signal(false);
+  featureFlags?: EnvironmentFeatureFlags = environment.featureFlags;
   userInfo: UserAuth0 = {};
   notificationList: any[] = [];
-  featureFlags?: EnvironmentFeatureFlags = environment.featureFlags;
+  isSmallScreen: boolean = false;
 
   ngOnInit(): void {
-    this.username = this.store.selectSignal(UserState.getUsername);
-    this.userInfo = this.store.selectSnapshot(UserState.getUser);
-    // this.store.dispatch(new LoadAllNotifications()).subscribe();
-    // this.store.select(PolicyProductState.getNotificationList).subscribe(notificationList => {
-    //   this.notificationList = notificationList;
-    // });
+    this.initializeUserData();
+    this.detectScreenSize();
+    this.observeScreenSizeChanges();
   }
 
-  ngAfterViewInit(): void {
+  ngOnDestroy(): void {
+    this.unsubscribe$.next(COMMON_CONSTANTS.EMPTY_STRING);
+    this.unsubscribe$.complete();
+  }
+
+  private initializeUserData(): void {
+    this.username = this.store.selectSignal(UserState.getUsername);
+    this.userInfo = this.store.selectSnapshot(UserState.getUser);
+  }
+
+  private detectScreenSize(): void {
+    this.observer.observe([Breakpoints.XSmall, Breakpoints.Small, Breakpoints.Medium])
+      .pipe(takeUntil(this.unsubscribe$))
+      .subscribe(result => {
+        this.isSmallScreen = result.matches;
+        this.updateDrawerMode();
+        this.cdr.detectChanges();
+      });
+  }
+
+  private updateDrawerMode(): void {
+    if (this.isSmallScreen) {
+      this.drawer.mode = 'over';
+      this.drawer.close();
+    } else {
+      this.drawer.mode = 'side';
+    }
+  }
+
+  private observeScreenSizeChanges(): void {
     this.observer.observe(['(max-width: 800px)']).subscribe(res => {
       this.drawer.mode = res.matches ? 'over' : 'side';
       this.drawer.close();
@@ -82,44 +112,8 @@ export class HeaderComponent implements OnInit, AfterViewInit {
     this.imageFailed.set(true);
   }
 
-  home(): void {
-    this.router.navigate([COMMON_CONSTANTS.SLASH]);
-  }
-
-  dashboard(): void {
-    this.router.navigate(['dashboard']);
-  }
-
-  about(): void {
-    this.router.navigate(['about']);
-  }
-
-  blog(): void {
-    this.router.navigate(['blog-medium']);
-  }
-
-  achievement(): void {
-    this.router.navigate(['achievement']);
-  }
-
-  resources(): void {
-    this.router.navigate(['resources']);
-  }
-
-  contact(): void {
-    this.router.navigate(['contact']);
-  }
-
-  profile(): void {
-    this.router.navigate(['profile']);
-  }
-
-  settings(): void {
-    this.router.navigate(['settings']);
-  }
-
-  workspace(): void {
-    this.router.navigate(['workspace']);
+  navigateTo(path: string): void {
+    this.router.navigate([path]);
   }
 
   logout(): void {
@@ -127,4 +121,5 @@ export class HeaderComponent implements OnInit, AfterViewInit {
   }
 
   protected readonly COMMON_CONSTANTS = COMMON_CONSTANTS;
+  protected readonly ROUTE_PATHS = ROUTE_PATHS;
 }

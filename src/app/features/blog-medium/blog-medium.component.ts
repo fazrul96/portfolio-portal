@@ -10,6 +10,7 @@ import {Store} from '@ngxs/store';
 import {GetBlogMediums} from '../../store/blog/blog.action';
 import {BlogState} from '../../store/blog/blog.state';
 import {BlogFeed, BlogItem} from '../../core/models/blog.model';
+import {COMMON_CONSTANTS} from '../../shared/constants/common.constants';
 
 @Component({
   selector: 'app-blog-medium',
@@ -40,7 +41,7 @@ export class BlogMediumComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.unsubscribe$.next('');
+    this.unsubscribe$.next(COMMON_CONSTANTS.EMPTY_STRING);
     this.unsubscribe$.complete();
   }
 }

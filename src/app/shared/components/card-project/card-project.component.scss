@@ -25,10 +25,15 @@
   }
 
   .header-flex {
-    gap: 0.5rem;
-    display: flex;
-    justify-content: center;
-    transition: all 0.3s ease;
+    display: inline-block;
+    text-align: center;
+
+    button[mat-fab] {
+      margin: 0.3rem;
+      background-color: rgba(232, 193, 193, 0.2);
+      box-shadow: none;
+      transition: all 0.3s ease-in-out;
+    }
   }
 
   .file-icon {
@@ -170,12 +175,6 @@
       }
     }
   }
-}
-
-.file-icon {
-  width: 36px;
-  height: 36px;
-  transform: translateY(6px) translateX(8px);
 }
 
 @media (max-width: 1200px) {
