@@ -1,5 +1,6 @@
 import {ProfileDetail} from '../enums/profile.enum';
 import {MenuItem} from '../types/portal.type';
+import {environment} from '../../../environments/environment';
 
 export const PROFILE_DETAILS: ProfileDetail[] = [
   { label: 'Expected Salary', value: 'MYR 102,000 per annum (negotiable)' },
@@ -11,15 +12,12 @@ export const PROFILE_DETAILS: ProfileDetail[] = [
   { label: 'Mobility', value: 'Open to regional/international travel (60–100%)' }
 ];
 
-export const USER_MENU_ITEMS: MenuItem[] = [
-  { label: 'Profile', icon: 'fa-user', route: '/profile' },
-  { label: 'Settings', icon: 'fa-cog', route: '/settings' },
-  { isComponentSwitcher: true },
-  { isDivider: true },
-  { label: 'Logout', icon: 'fa-sign-out', route: '/logout' },
-];
-
 export const PROFILE_CONTENT = {
+  name: "Fazrul Romli",
+  title: "Full-Stack Developer",
+  avatar: 'assets/images/profile/profile-img.jpg',
+  location: "Selangor, Malaysia",
+  email: environment.user?.email,
   introText: "I am a Full Stack Developer with over 6 years of experience. I’m passionate about creating scalable, efficient, and user-friendly software solutions. My expertise lies in:",
   skills: [
     "Building backend systems with Java (Spring Boot) and REST APIs",

@@ -7,6 +7,7 @@ import {FooterComponent} from './layout/footer/footer.component';
 import {NavigationEnd, Router, RouterOutlet} from '@angular/router';
 import {filter} from 'rxjs';
 import {COMMON_CONSTANTS} from './shared/constants/common.constants';
+import {UserSettings, UserSettingsService} from './features/settings/user-settings.service';
 
 @Component({
   selector: 'app-root',
@@ -18,6 +19,7 @@ export class AppComponent implements OnInit, AfterViewInit {
   private readonly store: Store = inject(Store);
   private readonly renderer: Renderer2 = inject(Renderer2);
   private readonly router: Router = inject(Router);
+  private readonly userSettings: UserSettingsService = inject(UserSettingsService);
 
   isLoggedIn: Signal<boolean> = signal(false);
   showHeaderFooter: boolean = false;
@@ -25,10 +27,9 @@ export class AppComponent implements OnInit, AfterViewInit {
 
   ngOnInit(): void {
     this.isLoggedIn = this.store.selectSignal(UserState.isLoggedIn);
-    const isDark: boolean = localStorage.getItem('darkMode') === 'true';
-    if (isDark) {
-      document.body.classList.add('dark-mode');
-    }
+
+    const settings: UserSettings = this.userSettings.getSettings();
+    this.userSettings.applyTheme(settings.theme);
 
     this.router.events.pipe(
       filter(event => event instanceof NavigationEnd)

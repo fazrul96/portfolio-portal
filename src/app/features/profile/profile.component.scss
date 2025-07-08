@@ -50,6 +50,21 @@
       line-height: 1.6;
     }
 
+    .avatar-inline {
+      width: 50%;
+      text-align: left;
+      margin-right: 0.5rem;
+    }
+
+    .avatar-flex {
+      width: 24px;
+      height: 24px;
+      padding: 0.3rem;
+      border-radius: 30%;
+      background-color: white;
+      object-fit: cover;
+    }
+
     .social-links a {
       margin-right: 1rem;
       font-size: 1.4rem;
@@ -78,49 +93,6 @@
     padding: 0.4rem 0.9rem;
     font-size: 0.85rem;
     font-weight: 500;
-  }
-}
-
-.tool-grid {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 1.2rem;
-
-  .tool-item {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    width: 80px;
-    font-size: 0.85rem;
-    text-align: center;
-    color: #444;
-
-    img, i {
-      font-size: 2rem;
-      height: 2.5rem;
-      margin-bottom: 0.5rem;
-    }
-
-    img {
-      max-height: 2.5rem;
-      object-fit: contain;
-    }
-  }
-}
-
-.contact-card {
-  margin-top: 3rem;
-  padding: 1.5rem;
-  background: #f9f9f9;
-  border-left: 4px solid #ffcc00;
-  font-size: 0.95rem;
-
-  p {
-    margin: 0.5rem 0;
-
-    i {
-      margin-right: 0.5rem;
-    }
   }
 }
 

@@ -44,7 +44,7 @@ export class UserSettingsService {
     return this.defaultSettings;
   }
 
-  private applyTheme(theme: 'dark' | 'light'): void {
+  applyTheme(theme: 'dark' | 'light'): void {
     if (theme === 'dark') {
       document.body.classList.add('dark-mode');
       localStorage.setItem('darkMode', 'true');

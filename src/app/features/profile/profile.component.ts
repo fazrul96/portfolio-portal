@@ -1,5 +1,12 @@
-import {Component} from '@angular/core';
+import {Component, inject, OnDestroy, OnInit} from '@angular/core';
 import {MatTooltip} from '@angular/material/tooltip';
+import {PROFILE_CONTENT} from '../../shared/data/profile.data';
+import {DEVOPS_TOOLS, SOCIAL_LINKS, Tool} from '../../shared/data/project.data';
+import {COMMON_CONSTANTS} from '../../shared/constants/common.constants';
+import {Store} from '@ngxs/store';
+import {Subject} from 'rxjs';
+import {SkillState} from '../../store/skill/skill.state';
+import {GetSkill} from '../../store/skill/skill.action';
 
 @Component({
   selector: 'app-profile',
@@ -9,33 +16,25 @@ import {MatTooltip} from '@angular/material/tooltip';
   templateUrl: './profile.component.html',
   styleUrl: './profile.component.scss'
 })
-export class ProfileComponent {
-  profile = {
-    name: 'Your Name',
-    title: 'DevOps & Software Engineer',
-    avatar: 'assets/images/avatar.jpg',
-    location: 'Jakarta, Indonesia',
-    email: 'your.email@example.com',
-    bio: `I'm a passionate engineer who bridges the gap between development and operations.
-          I build scalable, secure, and automated systems.`,
-    github: 'https://github.com/yourhandle',
-    linkedin: 'https://linkedin.com/in/yourhandle',
-    website: 'https://yourportfolio.com',
-  };
+export class ProfileComponent implements OnInit, OnDestroy {
+  private readonly store: Store = inject(Store);
+  private readonly unsubscribe$ = new Subject();
 
-  skills: string[] = [
-    'CI/CD', 'Infrastructure as Code', 'Kubernetes',
-    'AWS & GCP', 'Monitoring & Logging', 'Automation Scripting',
-    'Angular', 'Node.js', 'Python', 'Docker', 'Linux', 'Terraform'
-  ];
+  profileContent: any = PROFILE_CONTENT;
+  socialLinkList: any[] = SOCIAL_LINKS;
+  tools: Tool[] = DEVOPS_TOOLS;
+  skillsList: any[] | undefined = [];
 
-  tools = [
-    { name: 'Jenkins', icon: 'fab fa-jenkins' },
-    { name: 'GitHub Actions', icon: 'fab fa-github' },
-    { name: 'Docker', icon: 'fab fa-docker' },
-    { name: 'Kubernetes', icon: 'fas fa-network-wired' },
-    { name: 'Prometheus', icon: 'assets/images/icons/prometheus.png' },
-    { name: 'Grafana', icon: 'assets/images/icons/grafana.png' },
-    { name: 'Terraform', icon: 'assets/images/icons/terraform.png' }
-  ];
+  ngOnInit(): void {
+    this.store.dispatch(new GetSkill());
+    this.store.select(SkillState.getSkills).subscribe(skillsList => {
+      this.skillsList = skillsList;
+    });
+    this.socialLinkList = SOCIAL_LINKS;
+  }
+
+  ngOnDestroy(): void {
+    this.unsubscribe$.next(COMMON_CONSTANTS.EMPTY_STRING);
+    this.unsubscribe$.complete();
+  }
 }

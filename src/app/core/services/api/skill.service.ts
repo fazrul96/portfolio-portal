@@ -10,7 +10,7 @@ import {PORTFOLIO_API} from '../../../shared/constants/api.constants';
 })
 export class SkillService {
   private readonly http: HttpClient = inject(HttpClient);
-  private readonly apiUrl: string = environment.apiBaseUrl + environment.apiPrivateUrl;
+  private readonly apiUrl: string = environment.apiBaseUrl + environment.apiPublicUrl;
 
   getAllSkills(): Observable<HttpResponseBody> {
     return this.http.get<HttpResponseBody>(

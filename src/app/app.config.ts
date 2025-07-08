@@ -15,14 +15,10 @@ import {loggingHttpInterceptor} from './core/interceptors/logging-http.intercept
 import {errorHandlingInterceptor} from './core/interceptors/error-handling.interceptor';
 import {loadingInterceptor} from './core/interceptors/loading.interceptor';
 import {userAuthInterceptor} from './core/interceptors/user-auth.interceptor';
-import {UserState} from './store/user/user.state';
-import {PaymentState} from './store/payment/payment.state';
 import {PdfViewerModule} from 'ng2-pdf-viewer';
 import {FlexLayoutModule} from 'ng-flex-layout';
-import {ProjectState} from './store/project/project.state';
-import {ExperienceState} from './store/experience/experience.state';
-import {BlogState} from './store/blog/blog.state';
 import {DROPZONE_CONFIG, DropzoneConfigInterface, DropzoneModule} from 'ngx-dropzone-wrapper';
+import {AppStates} from './store';
 
 const DEFAULT_DROPZONE_CONFIG: DropzoneConfigInterface = {
   // Change this to your upload POST address:
@@ -59,7 +55,7 @@ export const appConfig: ApplicationConfig = {
     }),
     provideNgxStripe(environment.stripe.publishableKey),
     provideStore(
-      [UserState, PaymentState, ProjectState, ExperienceState, BlogState],
+      AppStates,
       withNgxsStoragePlugin({
         keys: '*',
         storage: 1,
