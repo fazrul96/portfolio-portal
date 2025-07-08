@@ -1,0 +1,92 @@
+.settings-wrapper {
+  max-width: 700px;
+  margin: 3rem auto;
+  padding: 0 1rem;
+
+  .title {
+    text-align: center;
+    font-weight: 700;
+    font-size: 2rem;
+    margin-bottom: 2rem;
+  }
+
+  .settings-card {
+    border-radius: 16px;
+    padding: 2rem;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+
+    mat-card-content {
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
+    }
+  }
+
+  .setting-section {
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+
+    h3 {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 1.3rem;
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+    }
+
+    .theme-toggle-preview {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+
+      .theme-preview {
+        padding: 0.5rem 1rem;
+        border-radius: 8px;
+        background-color: #f0f0f0;
+        color: #333;
+        font-size: 0.9rem;
+        transition: background-color 0.3s ease;
+
+        &.dark {
+          background-color: #212121;
+          color: #f1f1f1;
+        }
+      }
+    }
+
+    .language-field {
+      width: 100%;
+    }
+
+    .layout-group {
+      display: flex;
+      gap: 2rem;
+      margin-top: 0.5rem;
+
+      mat-radio-button {
+        display: flex;
+        align-items: center;
+        gap: 0.3rem;
+      }
+    }
+
+    .layout-preview {
+      margin-top: 1rem;
+
+      img {
+        max-width: 100%;
+        height: auto;
+        border-radius: 8px;
+        border: 1px solid #ddd;
+      }
+    }
+
+    &.reset-action {
+      display: flex;
+      justify-content: flex-end;
+      margin-top: 2rem;
+    }
+  }
+}

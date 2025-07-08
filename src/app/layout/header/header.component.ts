@@ -6,7 +6,6 @@ import {MatIcon} from '@angular/material/icon';
 import {MatToolbar} from '@angular/material/toolbar';
 import {MatMenu, MatMenuItem, MatMenuTrigger} from '@angular/material/menu';
 import {MatBadge} from '@angular/material/badge';
-import {SwitcherDarkModeComponent} from '../../shared/components/switcher-dark-mode/switcher-dark-mode.component';
 import {LoginComponent} from '../../features/login/login.component';
 import {Store} from '@ngxs/store';
 import {UserLogout} from '../../store/user/user.action';
@@ -24,7 +23,7 @@ import {ROUTE_PATHS} from '../../app.routes';
   selector: 'app-header',
   imports: [
     MatSidenavModule, MatButtonModule, MatIcon, MatToolbar, MatMenu, MatMenuItem,
-    MatMenuTrigger, MatBadge, SwitcherDarkModeComponent, LoginComponent,
+    MatMenuTrigger, MatBadge, LoginComponent,
     MatCardModule
   ],
   templateUrl: './header.component.html',

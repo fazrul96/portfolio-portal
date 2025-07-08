@@ -1,0 +1,136 @@
+<div class="workspace-header">
+  <h2>DevOps Workspace</h2>
+  <div class="filter-controls">
+    <select [(ngModel)]="selectedCategory">
+      <option value="">All Categories</option>
+      @for (c of categories; track $index;) {
+        <option>{{ c }}</option>
+      }
+    </select>
+
+    <button (click)="viewMode = 'grid'" [class.active]="viewMode === 'grid'" title="Grid View">
+      <i class="fas fa-th"></i>
+    </button>
+    <button (click)="viewMode = 'list'" [class.active]="viewMode === 'list'" title="List View">
+      <i class="fas fa-list"></i>
+    </button>
+  </div>
+</div>
+@if (viewMode === 'grid') {
+  <div class="dashboard-grid">
+    @for (tool of filteredTools; track tool.id) {
+      <div class="tool-card" [ngClass]="tool.statusClass">
+        <div class="tool-header">
+          <i [ngClass]="tool.icon" class="tool-icon"></i>
+          <div>
+            <h3>{{ tool.name }}</h3>
+            <small class="tool-version">v{{ tool.version ?? 'N/A' }}</small>
+          </div>
+          <span class="status-chip" [ngClass]="tool.statusClass">{{ tool.status }}</span>
+        </div>
+
+        <p class="tool-description">{{ tool.description }}</p>
+
+        <div class="tags">
+          @for (tag of tool.tags; track $index;) {
+            <span class="tag" [title]="tag.type">{{ tag.label }}</span>
+          }
+
+          @if (userRole === 'admin') {
+            <span class="tag admin-tag" title="Uptime">
+              <i class="fas fa-clock"></i> {{ tool.uptime ?? 'N/A' }}%
+            </span>
+            <span class="tag admin-tag" title="Latency">
+              <i class="fas fa-tachometer-alt"></i> {{ tool.latency ?? 'N/A' }} ms
+            </span>
+
+            @if (tool.riskLevel) {
+              <span class="tag" [ngClass]="getRiskBadgeClass(tool.riskLevel)" title="Risk Level">
+                ⚠️ {{ tool.riskLevel | titlecase }} Risk
+              </span>
+            }
+
+            @if (tool.slaViolations !== undefined) {
+              <span class="tag sla-tag" title="SLA Violations">
+                📉 {{ tool.slaViolations }} SLA Violations
+              </span>
+            }
+
+  <!--          @if (tool.lastIncident) {-->
+  <!--            <span class="tag incident-tag" [title]="tool.lastIncident.description">-->
+  <!--              🛑 Last Incident: {{ tool.lastIncident.date | date:'shortDate' }}-->
+  <!--            </span>-->
+  <!--          }-->
+          }
+        </div>
+
+        @if (tool.status === 'Running' || tool.progress > 0) {
+          <div class="progress-bar" title="{{ tool.progress }}% Complete">
+            <div class="progress-fill" [ngStyle]="{ width: tool.progress + '%' }"></div>
+          </div>
+        }
+
+        <div class="card-footer">
+          <a [href]="tool.url" target="_blank" rel="noopener">
+            Open {{ tool.name }} <i class="fas fa-external-link-alt"></i>
+          </a>
+        </div>
+      </div>
+    }
+  </div>
+}
+
+@if (viewMode === 'list') {
+  <table class="dashboard-table">
+    <thead>
+    <tr>
+      <th style="text-align: left">Name</th>
+      <th>Status</th>
+      <th>Category</th>
+      <th>Progress</th>
+      @if (userRole === 'admin') {
+        <th>Uptime</th>
+        <th>Latency</th>
+        <th>Risk</th>
+        <th>Action</th>
+      }
+    </tr>
+    </thead>
+    <tbody>
+      @for (tool of filteredTools; track tool.id) {
+        <tr [ngClass]="tool.statusClass">
+          <td style="text-align: left">
+            <i [ngClass]="tool.icon" class="tool-icon-sm"></i>
+            {{ tool.name }}
+          </td>
+          <td>
+            <span class="status-chip" [ngClass]="tool.statusClass">{{ tool.status }}</span>
+          </td>
+          <td>{{ tool.category }}</td>
+          <td>
+            <div class="mini-progress">
+              <div class="fill" [ngStyle]="{ width: tool.progress + '%' }"></div>
+            </div>
+            {{ tool.progress }}%
+          </td>
+          @if (userRole === 'admin') {
+            <td>{{ tool.uptime ?? '—' }}%</td>
+            <td>{{ tool.latency ?? '—' }} ms</td>
+            <td>
+              @if (tool.riskLevel) {
+                <span [ngClass]="getRiskBadgeClass(tool.riskLevel)">
+                  {{ tool.riskLevel }}
+                </span>
+              }
+            </td>
+          }
+          <td>
+            <a [href]="tool.url" target="_blank" rel="noopener">
+              <i class="fas fa-external-link-alt"></i>
+            </a>
+          </td>
+        </tr>
+      }
+    </tbody>
+  </table>
+}

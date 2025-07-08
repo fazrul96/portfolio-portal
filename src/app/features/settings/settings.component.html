@@ -1,0 +1,72 @@
+<div class="settings-wrapper">
+  <h2 class="title">⚙️ Personalization Settings</h2>
+
+  <mat-card class="settings-card">
+    <mat-card-content>
+
+      <section class="setting-section">
+        <h3><mat-icon>palette</mat-icon> Appearance</h3>
+        <div class="theme-toggle-preview">
+          <mat-button-toggle-group [(ngModel)]="settings.theme" (change)="onChange()" aria-label="Theme toggle">
+            <mat-button-toggle value="light">☀️ Light</mat-button-toggle>
+            <mat-button-toggle value="dark">🌙 Dark</mat-button-toggle>
+          </mat-button-toggle-group>
+          <div class="theme-preview" [class.dark]="settings.theme === 'dark'">
+            <span>Preview</span>
+          </div>
+        </div>
+      </section>
+
+      <mat-divider></mat-divider>
+
+      <section class="setting-section">
+        <h3><mat-icon>language</mat-icon> Language</h3>
+        <mat-form-field appearance="outline" class="language-field">
+          <mat-label>Select Language</mat-label>
+          <mat-select [(ngModel)]="settings.language" (selectionChange)="onChange()">
+            <mat-option value="en">English</mat-option>
+            <mat-option value="ms">Malay</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </section>
+
+      <mat-divider></mat-divider>
+
+      <!-- Layout Selection -->
+      <section class="setting-section">
+        <h3><mat-icon>dashboard_customize</mat-icon> Layout Preference</h3>
+        <mat-radio-group class="layout-group" [(ngModel)]="settings.layout" (change)="onChange()">
+          <mat-radio-button value="grid">
+            <mat-icon>grid_view</mat-icon> Grid
+          </mat-radio-button>
+          <mat-radio-button value="list">
+            <mat-icon>view_list</mat-icon> List
+          </mat-radio-button>
+        </mat-radio-group>
+
+<!--        <div class="layout-preview">-->
+<!--          @if (settings.layout === 'grid') {-->
+<!--            <ng-container>-->
+<!--              <img src="assets/previews/grid.svg" alt="Grid layout preview">-->
+<!--            </ng-container>-->
+<!--          }-->
+<!--          @if (settings.layout === 'list') {-->
+<!--            <ng-container>-->
+<!--              <img src="assets/previews/list.svg" alt="List layout preview">-->
+<!--            </ng-container>-->
+<!--          }-->
+<!--        </div>-->
+      </section>
+
+      <mat-divider></mat-divider>
+
+      <section class="setting-section reset-action">
+        <button mat-stroked-button color="warn" (click)="onReset()">
+          <mat-icon>restart_alt</mat-icon>
+          Reset to Default
+        </button>
+      </section>
+
+    </mat-card-content>
+  </mat-card>
+</div>

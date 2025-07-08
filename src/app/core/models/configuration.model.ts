@@ -36,6 +36,7 @@ export interface EnvironmentAdmin {
 
 export interface EnvironmentFeatureFlags {
   showAchievementComponent: boolean,
-  showWorkspaceComponent: boolean
+  showProfileComponent: boolean,
+  showWorkspaceComponent: boolean,
   showExperienceTabStepperComponent: boolean
 }

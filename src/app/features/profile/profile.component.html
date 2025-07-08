@@ -1,0 +1,51 @@
+<div class="profile-container">
+  <div class="profile-header">
+    <img [src]="profile.avatar" alt="Profile Photo" class="avatar" />
+    <div class="info">
+      <h1>{{ profile.name }}</h1>
+      <h2>{{ profile.title }}</h2>
+      <p class="location"><i class="fas fa-map-marker-alt"></i> {{ profile.location }}</p>
+      <p class="bio">{{ profile.bio }}</p>
+
+      <div class="social-links">
+        <a [href]="profile.github" target="_blank"><i class="fab fa-github"></i></a>
+        <a [href]="profile.linkedin" target="_blank"><i class="fab fa-linkedin"></i></a>
+        <a [href]="profile.website" target="_blank"><i class="fas fa-globe"></i></a>
+      </div>
+    </div>
+  </div>
+
+  <div class="profile-section">
+    <h3>Core Skills</h3>
+    <div class="chip-list">
+      @for (skill of skills; track $index) {
+        <span class="chip">{{ skill }}</span>
+      }
+    </div>
+  </div>
+
+  <div class="profile-section">
+    <h3>DevOps Toolset</h3>
+    <div class="tool-grid">
+      @for (tool of tools; track $index) {
+        <div class="tool-item" matTooltip="{{ tool.name }}">
+          @if (tool.icon.includes('.')) {
+            <img [src]="tool.icon" [alt]="tool.name" />
+          }
+
+          @if (!tool.icon.includes('.')) {
+            <i [class]="tool.icon"></i>
+          }
+
+          <span>{{ tool.name }}</span>
+        </div>
+      }
+    </div>
+  </div>
+
+  <div class="profile-section contact-card">
+    <h3>Contact</h3>
+    <p><i class="fas fa-envelope"></i> {{ profile.email }}</p>
+    <p><i class="fas fa-map-marker-alt"></i> {{ profile.location }}</p>
+  </div>
+</div>

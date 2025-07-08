@@ -17,7 +17,6 @@ import {Store} from '@ngxs/store';
 import {Subject} from 'rxjs';
 import {ProjectState} from '../../../store/project/project.state';
 import {BUTTON_CONFIGS, ButtonConfig} from '../../data/project.data';
-import {PROFILE_CONTENT} from '../../data/profile.data';
 import {COMMON_CONSTANTS} from '../../constants/common.constants';
 
 @Component({

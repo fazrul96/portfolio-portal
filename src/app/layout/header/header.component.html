@@ -72,13 +72,14 @@
 </mat-menu>
 
 <mat-menu #menu="matMenu">
-  <button mat-menu-item (click)="navigateTo(ROUTE_PATHS.profile)">
-    <mat-icon matBadge="1" matBadgeSize="small" aria-hidden="false">
-      <i class="fa fa-user" aria-hidden="true"></i>
-    </mat-icon>
-    <span>Profile</span>
-  </button>
-  <app-switcher-dark-mode></app-switcher-dark-mode>
+  @if (this.featureFlags?.showProfileComponent) {
+    <button mat-menu-item (click)="navigateTo(ROUTE_PATHS.profile)">
+      <mat-icon matBadge="1" matBadgeSize="small" aria-hidden="false">
+        <i class="fa fa-user" aria-hidden="true"></i>
+      </mat-icon>
+      <span>Profile</span>
+    </button>
+  }
   <button mat-menu-item (click)="navigateTo(ROUTE_PATHS.setting)">
     <mat-icon matBadge="1" matBadgeSize="small" aria-hidden="false">
       <i class="fa fa-cog" aria-hidden="true"></i>

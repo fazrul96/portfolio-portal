@@ -1,0 +1,139 @@
+.profile-container {
+  max-width: 1000px;
+  margin: auto;
+  padding: 2rem;
+  font-family: 'Inter', sans-serif;
+  color: #333;
+
+  h1 {
+    font-size: 2.5rem;
+    margin-bottom: 0.25rem;
+  }
+
+  h2 {
+    font-size: 1.3rem;
+    font-weight: 500;
+    color: #666;
+  }
+
+  h3 {
+    margin-bottom: 1rem;
+    color: #444;
+  }
+}
+
+.profile-header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 2rem;
+  margin-bottom: 3rem;
+
+  .avatar {
+    width: 140px;
+    height: 140px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 4px solid #ffcc00;
+  }
+
+  .info {
+    flex: 1;
+
+    .location {
+      font-size: 0.95rem;
+      color: #777;
+    }
+
+    .bio {
+      margin: 1rem 0;
+      line-height: 1.6;
+    }
+
+    .social-links a {
+      margin-right: 1rem;
+      font-size: 1.4rem;
+      color: #444;
+      transition: color 0.2s;
+
+      &:hover {
+        color: #ffcc00;
+      }
+    }
+  }
+}
+
+.profile-section {
+  margin-top: 2rem;
+}
+
+.chip-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+
+  .chip {
+    background: #e0e0e0;
+    border-radius: 16px;
+    padding: 0.4rem 0.9rem;
+    font-size: 0.85rem;
+    font-weight: 500;
+  }
+}
+
+.tool-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.2rem;
+
+  .tool-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 80px;
+    font-size: 0.85rem;
+    text-align: center;
+    color: #444;
+
+    img, i {
+      font-size: 2rem;
+      height: 2.5rem;
+      margin-bottom: 0.5rem;
+    }
+
+    img {
+      max-height: 2.5rem;
+      object-fit: contain;
+    }
+  }
+}
+
+.contact-card {
+  margin-top: 3rem;
+  padding: 1.5rem;
+  background: #f9f9f9;
+  border-left: 4px solid #ffcc00;
+  font-size: 0.95rem;
+
+  p {
+    margin: 0.5rem 0;
+
+    i {
+      margin-right: 0.5rem;
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .profile-header {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  .info {
+    .social-links {
+      justify-content: center;
+    }
+  }
+}
