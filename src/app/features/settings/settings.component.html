@@ -11,9 +11,6 @@
             <mat-button-toggle value="light">☀️ Light</mat-button-toggle>
             <mat-button-toggle value="dark">🌙 Dark</mat-button-toggle>
           </mat-button-toggle-group>
-          <div class="theme-preview" [class.dark]="settings.theme === 'dark'">
-            <span>Preview</span>
-          </div>
         </div>
       </section>
 
@@ -37,10 +34,10 @@
         <h3><mat-icon>dashboard_customize</mat-icon> Layout Preference</h3>
         <mat-radio-group class="layout-group" [(ngModel)]="settings.layout" (change)="onChange()">
           <mat-radio-button value="grid">
-            <mat-icon>grid_view</mat-icon> Grid
+            <mat-icon>grid_view</mat-icon>
           </mat-radio-button>
           <mat-radio-button value="list">
-            <mat-icon>view_list</mat-icon> List
+            <mat-icon>view_list</mat-icon>
           </mat-radio-button>
         </mat-radio-group>
 

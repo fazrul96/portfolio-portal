@@ -29,15 +29,13 @@
   display: block;
   width: 50%;
   margin: 0 auto;
-  border-radius: 8px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 
   .accordion-item {
+    margin: 0 1rem 8px;
     display: block;
     border: solid 1px #ccc;
     transition: border-color 0.3s ease-in-out;
     border-radius: 6px;
-    margin-bottom: 8px;
   }
 
   .accordion-item-header {
@@ -66,7 +64,6 @@
     font-size: 1.1em;
     background-color: rgba(80, 79, 79, 0.3);
     border-top: 1px solid #ddd;
-    color: #ccc8c8;
     opacity: 0.5;
     line-height: 1.6;
     transition: opacity 0.3s ease, max-height 0.3s ease;

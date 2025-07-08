@@ -2,6 +2,12 @@ import {Component, OnInit} from '@angular/core';
 import {NgClass, NgStyle, TitleCasePipe} from '@angular/common';
 import {DEVOPS_TOOLS, Tool} from '../../shared/data/project.data';
 import {FormsModule} from '@angular/forms';
+import {
+  DefaultFlexDirective,
+  DefaultLayoutAlignDirective,
+  DefaultLayoutDirective,
+  DefaultLayoutGapDirective
+} from 'ng-flex-layout';
 
 @Component({
   selector: 'app-workspace',
@@ -9,7 +15,11 @@ import {FormsModule} from '@angular/forms';
     NgClass,
     NgStyle,
     FormsModule,
-    TitleCasePipe
+    TitleCasePipe,
+    DefaultFlexDirective,
+    DefaultLayoutAlignDirective,
+    DefaultLayoutDirective,
+    DefaultLayoutGapDirective
   ],
   templateUrl: './workspace.component.html',
   styleUrl: './workspace.component.scss'

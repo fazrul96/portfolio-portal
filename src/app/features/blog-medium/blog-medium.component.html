@@ -1,9 +1,18 @@
 <div fxLayout="row wrap" fxLayoutGap="2rem" fxLayoutAlign="center">
-  <div fxFlex="100%" style="text-align: center">
-    <div class="intro-text-tile">
-      <h2>My <span style="color: darkgoldenrod;">Blogs</span></h2>
-      <h3>Explore my insights, technical guides, and project</h3>
-    </div>
+  <div
+      fxFlex.xs="100%"
+      fxFlex.sm="100%"
+      fxFlex.md="100%"
+      fxFlex.lg="100%"
+      fxFlex.xl="100%"
+      class="section"
+    >
+    <h2 class="section-title">
+      My <span class="highlight-name">Blogs</span>
+    </h2>
+    <h3 class="section-subtitle">
+      Explore my insights, technical guides, and project.
+    </h3>
 
     <div class="blog-toolbar">
       <button mat-icon-button [class.active]="viewMode === 'grid'" (click)="viewMode = 'grid'" matTooltip="Grid view">
@@ -13,63 +22,70 @@
         <mat-icon>list</mat-icon>
       </button>
     </div>
+
+  @if (itemList?.length === 0) {
+    <div class="empty-state">
+      <mat-icon>sentiment_dissatisfied</mat-icon>
+      <p>No blogs found at the moment.</p>
+    </div>
+  } @else {
+    @if (viewMode === 'grid') {
+      <div fxLayout="row wrap" class="blog-grid">
+        @for (blog of itemList; track $index) {
+          <div
+            fxFlex.xs="100%"
+            fxFlex.sm="100%"
+            fxFlex.md="30%"
+            fxFlex.lg="30%"
+            fxFlex.xl="30%"
+            class="blog-card"
+          >
+            <mat-card>
+              <mat-card-header>
+                <div mat-card-avatar class="blog-avatar">
+                  <mat-icon>article</mat-icon>
+                </div>
+                <mat-card-title>{{ blog.title }}</mat-card-title>
+                <mat-card-subtitle>{{ blog.pubDate | date: 'mediumDate' }}</mat-card-subtitle>
+              </mat-card-header>
+              <mat-card-content>
+                <p [innerHTML]="blog.description | slice:0:150"></p>
+              </mat-card-content>
+              <mat-card-actions>
+                <a mat-button color="primary" [href]="blog.link" target="_blank">
+                  Read More <mat-icon>open_in_new</mat-icon>
+                </a>
+              </mat-card-actions>
+            </mat-card>
+          </div>
+        }
+      </div>
+    }
+
+    @if (viewMode === 'list') {
+      <div class="blog-list">
+        <table>
+          <thead>
+          <tr>
+            <th>Title</th>
+            <th>Date</th>
+            <th>Link</th>
+          </tr>
+          </thead>
+          <tbody>
+            @for (blog of itemList; track $index) {
+              <tr>
+                <td>{{ blog.title }}</td>
+                <td>{{ blog.pubDate | date: 'mediumDate' }}</td>
+                <td>
+                  <a [href]="blog.link" target="_blank" rel="noopener">Read</a>
+                </td>
+              </tr>
+            }
+          </tbody>
+        </table>
+      </div>
+    }
+  }
   </div>
 </div>
-
-@if (itemList?.length === 0) {
-  <div class="empty-state">
-    <mat-icon>sentiment_dissatisfied</mat-icon>
-    <p>No blogs found at the moment.</p>
-  </div>
-} @else {
-  @if (viewMode === 'grid') {
-    <div fxLayout="row wrap" fxLayoutGap="2rem" class="blog-grid">
-      @for (blog of itemList; track $index) {
-        <div fxFlex="100%" fxFlex.gt-sm="45%" fxFlex.gt-md="30%" class="blog-card">
-          <mat-card class="blog-entry">
-            <mat-card-header>
-              <div mat-card-avatar class="blog-avatar">
-                <mat-icon>article</mat-icon>
-              </div>
-              <mat-card-title>{{ blog.title }}</mat-card-title>
-              <mat-card-subtitle>{{ blog.pubDate | date: 'mediumDate' }}</mat-card-subtitle>
-            </mat-card-header>
-            <mat-card-content>
-              <p [innerHTML]="blog.description | slice:0:150"></p>
-            </mat-card-content>
-            <mat-card-actions>
-              <a mat-button color="primary" [href]="blog.link" target="_blank">
-                Read More <mat-icon>open_in_new</mat-icon>
-              </a>
-            </mat-card-actions>
-          </mat-card>
-        </div>
-      }
-    </div>
-  }
-
-  @if (viewMode === 'list') {
-    <div class="blog-list">
-      <table>
-        <thead>
-        <tr>
-          <th>Title</th>
-          <th>Date</th>
-          <th>Link</th>
-        </tr>
-        </thead>
-        <tbody>
-          @for (blog of itemList; track $index) {
-            <tr>
-              <td>{{ blog.title }}</td>
-              <td>{{ blog.pubDate | date: 'mediumDate' }}</td>
-              <td>
-                <a [href]="blog.link" target="_blank" rel="noopener">Read</a>
-              </td>
-            </tr>
-          }
-        </tbody>
-      </table>
-    </div>
-  }
-}

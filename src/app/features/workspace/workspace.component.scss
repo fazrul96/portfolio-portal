@@ -2,11 +2,18 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 1.8rem;
+  margin: 1.1rem;
   padding: 0 1rem;
   background: linear-gradient(90deg, #f9fbff, #e9f0ff);
   border-radius: 10px;
   box-shadow: 0 3px 6px rgba(33, 150, 243, 0.1);
+
+  @media (max-width: 600px) {
+    flex-direction: column;
+    text-align: center;
+    margin: 1.1rem;
+    padding-bottom: 1.1rem;
+  }
 
   h2 {
     font-weight: 700;
@@ -238,8 +245,6 @@
       }
     }
   }
-
-
 }
 
 .filter-controls {
@@ -260,11 +265,13 @@
 }
 
 .dashboard-table {
+  margin: 1.1rem;
   justify-self: center;
   width: 70%;
   border-collapse: collapse;
 
   th, td {
+    font-size: 18px;
     padding: 0.6rem;
     border-bottom: 1px solid #e0e0e0;
     text-align: center;
@@ -314,6 +321,35 @@
     box-shadow: 0 0 8px rgba(244, 67, 54, 0.6);
   }
 }
+
+.risk-chip {
+  padding: 0.35rem 0.8rem;
+  border-radius: 24px;
+  font-size: 0.8rem;
+  font-weight: 700;
+  white-space: nowrap;
+  text-transform: capitalize;
+  letter-spacing: 0.05em;
+
+  &.risk-low {
+    background-color: #4caf50;
+    color: #fff;
+    box-shadow: 0 0 8px rgba(76, 175, 80, 0.6);
+  }
+
+  &.risk-medium {
+    background-color: #ffc107;
+    color: #333;
+    box-shadow: 0 0 8px rgba(255, 193, 7, 0.6);
+  }
+
+  &.risk-high {
+    background-color: #f44336;
+    color: #fff;
+    box-shadow: 0 0 8px rgba(244, 67, 54, 0.6);
+  }
+}
+
 
 @keyframes progressAnim {
   0% {

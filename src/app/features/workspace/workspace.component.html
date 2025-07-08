@@ -1,21 +1,31 @@
-<div class="workspace-header">
-  <h2>DevOps Workspace</h2>
-  <div class="filter-controls">
-    <select [(ngModel)]="selectedCategory">
-      <option value="">All Categories</option>
-      @for (c of categories; track $index;) {
-        <option>{{ c }}</option>
-      }
-    </select>
+<div fxLayout="row wrap" fxLayoutGap="2rem" fxLayoutAlign="center">
+  <div
+    fxFlex.xs="100%"
+    fxFlex.sm="100%"
+    fxFlex.md="100%"
+    fxFlex.lg="100%"
+    fxFlex.xl="100%"
+    class="workspace-header"
+  >
+    <h2>DevOps Workspace</h2>
+    <div class="filter-controls">
+      <select [(ngModel)]="selectedCategory">
+        <option value="">All Categories</option>
+        @for (c of categories; track $index;) {
+          <option>{{ c }}</option>
+        }
+      </select>
 
-    <button (click)="viewMode = 'grid'" [class.active]="viewMode === 'grid'" title="Grid View">
-      <i class="fas fa-th"></i>
-    </button>
-    <button (click)="viewMode = 'list'" [class.active]="viewMode === 'list'" title="List View">
-      <i class="fas fa-list"></i>
-    </button>
+      <button (click)="viewMode = 'grid'" [class.active]="viewMode === 'grid'" title="Grid View">
+        <i class="fas fa-th"></i>
+      </button>
+      <button (click)="viewMode = 'list'" [class.active]="viewMode === 'list'" title="List View">
+        <i class="fas fa-list"></i>
+      </button>
+    </div>
   </div>
 </div>
+
 @if (viewMode === 'grid') {
   <div class="dashboard-grid">
     @for (tool of filteredTools; track tool.id) {
@@ -115,11 +125,11 @@
           </td>
           @if (userRole === 'admin') {
             <td>{{ tool.uptime ?? '—' }}%</td>
-            <td>{{ tool.latency ?? '—' }} ms</td>
+            <td >{{ tool.latency ?? '—' }} ms</td>
             <td>
               @if (tool.riskLevel) {
-                <span [ngClass]="getRiskBadgeClass(tool.riskLevel)">
-                  {{ tool.riskLevel }}
+                <span class="risk-chip" [ngClass]="getRiskBadgeClass(tool.riskLevel)">
+                  {{ tool.riskLevel | titlecase }}
                 </span>
               }
             </td>
