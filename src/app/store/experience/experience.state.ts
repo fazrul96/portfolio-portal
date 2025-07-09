@@ -4,7 +4,13 @@ import {EXPERIENCE_STATE_DEFAULTS, ExperienceStateModel} from './experience.stat
 import {ExperienceService} from '../../core/services/api/experience.service';
 import {map, tap} from 'rxjs';
 import {HttpResponseBody} from '../../core/models/http-body.model';
-import {DeleteExperience, GetExperience, PatchExperience, PostExperience} from './experience.action';
+import {
+  DeleteExperience,
+  GetExperience,
+  GetExperienceCategories,
+  PatchExperience,
+  PostExperience
+} from './experience.action';
 
 @State<ExperienceStateModel>({
   name: 'ExperienceState',
@@ -20,6 +26,11 @@ export class ExperienceState {
     return state.experiences;
   }
 
+  @Selector()
+  static getExperienceCategories(state: ExperienceStateModel) {
+    return state.experienceCategories;
+  }
+
   @Action(GetExperience)
   getExperiences(ctx: StateContext<ExperienceStateModel>){
     const state: ExperienceStateModel = ctx.getState();
@@ -28,6 +39,20 @@ export class ExperienceState {
         ctx.setState({
           ...state,
           experiences: response.data
+        });
+      }),
+      map((response: HttpResponseBody) => response.message)
+    )
+  }
+
+  @Action(GetExperienceCategories)
+  getExperienceCategories(ctx: StateContext<ExperienceStateModel>){
+    const state: ExperienceStateModel = ctx.getState();
+    return this.experienceService.getAllExperienceCategories().pipe(
+      tap((response: HttpResponseBody): void => {
+        ctx.setState({
+          ...state,
+          experienceCategories: response.data
         });
       }),
       map((response: HttpResponseBody) => response.message)

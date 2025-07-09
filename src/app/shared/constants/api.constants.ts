@@ -20,6 +20,7 @@ type PortfolioEntity = keyof typeof BASE_PATHS;
 const BASE_PATHS = {
   projects: 'projects',
   experiences: 'experiences',
+  experienceCategories: 'experience-categories',
   skills: 'skills',
   educations: 'educations',
   certifications: 'certifications',

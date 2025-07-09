@@ -19,7 +19,7 @@ import {COMMON_CONSTANTS, EXPERIENCE_DATA} from '../../constants/common.constant
 import {Store} from '@ngxs/store';
 import {Subject} from 'rxjs';
 import {ExperienceState} from '../../../store/experience/experience.state';
-import {GetExperience} from '../../../store/experience/experience.action';
+import {GetExperience, GetExperienceCategories} from '../../../store/experience/experience.action';
 import {GetProject} from '../../../store/project/project.action';
 import {UserState} from '../../../store/user/user.state';
 import {User} from '@auth0/auth0-angular';
@@ -121,6 +121,7 @@ export class CardSidenavComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.store.dispatch(new GetProject());
     this.store.dispatch(new GetExperience());
+    this.store.dispatch(new GetExperienceCategories());
     this.store.select(ExperienceState.getExperiences).subscribe(experienceList => {
       this.experienceList = experienceList;
     });

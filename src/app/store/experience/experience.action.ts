@@ -16,3 +16,7 @@ export class PatchExperience {
   static readonly type = '[EXPERIENCE] UPDATE EXPERIENCE';
   constructor(public id: number, public updatedInfo: any) {}
 }
+
+export class GetExperienceCategories {
+  static readonly type = '[EXPERIENCE CATEGORIES] GET EXPERIENCE CATEGORIES';
+}

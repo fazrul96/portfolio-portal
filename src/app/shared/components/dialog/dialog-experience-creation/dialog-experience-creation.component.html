@@ -21,8 +21,8 @@
     <mat-form-field appearance="outline" class="full-width">
       <mat-label>Company Type</mat-label>
       <mat-select formControlName="companyType">
-        @for (type of companyTypes; track type;) {
-          <mat-option [value]="type">{{ type }}</mat-option>
+        @for (type of companyCategoryOptions; track $index;) {
+          <mat-option [value]="type">{{ CompanyCategoryLabels[type] }}</mat-option>
         }
       </mat-select>
     </mat-form-field>
@@ -30,9 +30,9 @@
     <mat-form-field appearance="outline" class="full-width">
       <mat-label>Category</mat-label>
       <mat-select formControlName="categoryId">
-        @for (category of categories; track category;) {
+        @for (category of experienceCategories; track category;) {
           <mat-option [value]="category.id">
-            {{ category.name }}
+            {{ category.title }}
           </mat-option>
         }
       </mat-select>
@@ -43,8 +43,8 @@
     <mat-form-field appearance="outline" class="full-width">
       <mat-label>Industry</mat-label>
       <mat-select formControlName="industry">
-        @for (industry of industries; track industry;) {
-          <mat-option [value]="industry">{{ industry }}</mat-option>
+        @for (type of industryOptions; track $index;) {
+          <mat-option [value]="type">{{ IndustryLabels[type] }}</mat-option>
         }
       </mat-select>
     </mat-form-field>
@@ -52,8 +52,12 @@
     <mat-form-field appearance="outline" class="full-width">
       <mat-label>Location</mat-label>
       <mat-select formControlName="location">
-        @for (loc of locations; track loc;) {
-          <mat-option [value]="loc">{{ loc }}</mat-option>
+        @for (group of locationGroups; track $index) {
+          <mat-optgroup [label]="group.label">
+            @for (loc of group.options; track loc) {
+              <mat-option [value]="loc">{{ LocationLabels[loc] }}</mat-option>
+            }
+          </mat-optgroup>
         }
       </mat-select>
     </mat-form-field>

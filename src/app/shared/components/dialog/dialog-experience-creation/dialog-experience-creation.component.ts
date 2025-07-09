@@ -11,7 +11,7 @@ import {Store} from '@ngxs/store';
 import {Subject, timer} from 'rxjs';
 import {PostExperience} from '../../../../store/experience/experience.action';
 import {splitByComma} from '../../../utils/string.utils';
-import {MatSelect} from '@angular/material/select';
+import {MatOptgroup, MatSelect} from '@angular/material/select';
 import {MatOption} from '@angular/material/core';
 import {MatSnackBar} from '@angular/material/snack-bar';
 import {MatDatepicker, MatDatepickerModule} from '@angular/material/datepicker';
@@ -19,6 +19,11 @@ import * as _moment from 'moment';
 import {default as _rollupMoment, Moment} from 'moment';
 import {provideMomentDateAdapter} from '@angular/material-moment-adapter';
 import {formatDate} from '@angular/common';
+import {ExperienceState} from '../../../../store/experience/experience.state';
+import {ExperienceCategories} from '../../../types/portal.type';
+import {LocationCode, LocationLabels} from '../../../enums/location.enum';
+import {IndustryCode, IndustryLabels} from '../../../enums/industry.enum';
+import {CompanyCategoryCode, CompanyCategoryLabels} from '../../../enums/company.enum';
 
 const moment = _rollupMoment || _moment;
 export const MY_FORMATS = {
@@ -57,6 +62,7 @@ export const MY_FORMATS = {
     MatOption,
     MatDatepickerModule,
     FormsModule,
+    MatOptgroup,
   ],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
@@ -70,15 +76,88 @@ export class DialogExperienceCreationComponent  implements OnInit, OnDestroy {
   experienceForm!: FormGroup;
   submitted: boolean = false;
 
-  companyTypes: string[] = ['MNC', 'SME', 'Startup'];
-  industries: string[] = ['Insurance', 'Healthcare', 'Fintech', 'Education', 'E-Commerce'];
-  locations: string[] = ['Kuala Lumpur', 'Penang', 'Singapore', 'Remote', 'Cyberjaya'];
-  categories = [
-    { id: '1', name: 'Full-Time' },
-    { id: '2', name: 'Internship' },
-    { id: '3', name: 'Freelance' },
-    { id: '4', name: 'College Project' },
+  companyCategoryOptions: CompanyCategoryCode[] = Object.values(CompanyCategoryCode);
+  industryOptions: IndustryCode[] = Object.values(IndustryCode);
+  locationGroups = [
+    {
+      label: 'Selangor',
+      options: [
+        LocationCode.AMPANG,
+        LocationCode.BANGI,
+        LocationCode.BATU_CAVES,
+        LocationCode.CYBERJAYA,
+        LocationCode.GOMBAK,
+        LocationCode.KAJANG,
+        LocationCode.KLANG,
+        LocationCode.PETALING_JAYA,
+        LocationCode.PUCHONG,
+        LocationCode.RAWANG,
+        LocationCode.SEMENYIH,
+        LocationCode.SERDANG,
+        LocationCode.SEPANG,
+        LocationCode.SHAH_ALAM,
+        LocationCode.SUBANG_JAYA,
+        LocationCode.SUNGAI_BULOH,
+      ],
+    },
+    {
+      label: 'Kuala Lumpur',
+      options: [LocationCode.KUALA_LUMPUR],
+    },
+    {
+      label: 'Putrajaya',
+      options: [LocationCode.PUTRAJAYA],
+    },
+    {
+      label: 'Penang',
+      options: [
+        LocationCode.GEORGE_TOWN,
+        LocationCode.BUTTERWORTH,
+        LocationCode.BUKIT_MERTAJAM,
+      ],
+    },
+    {
+      label: 'Johor',
+      options: [
+        LocationCode.JOHOR_BAHRU,
+        LocationCode.BATU_PAAT,
+        LocationCode.MUAR,
+        LocationCode.KLUANG,
+        LocationCode.SKUDAI,
+      ],
+    },
+    {
+      label: 'Other States',
+      options: [
+        LocationCode.IPOH,
+        LocationCode.TAIPING,
+        LocationCode.KUANTAN,
+        LocationCode.TEMERLOH,
+        LocationCode.KOTA_BHARU,
+        LocationCode.KANGAR,
+        LocationCode.ALOR_SETAR,
+        LocationCode.SUNGAI_PETANI,
+        LocationCode.LANGKAWI,
+        LocationCode.MELAKA,
+        LocationCode.SEREMBAN,
+        LocationCode.NILAI,
+      ],
+    },
+    {
+      label: 'East Malaysia',
+      options: [
+        LocationCode.KOTA_KINABALU,
+        LocationCode.SANDAKAN,
+        LocationCode.TAWAU,
+        LocationCode.KUCHING,
+        LocationCode.MIRI,
+        LocationCode.SIBU,
+        LocationCode.BINTULU,
+      ],
+    },
   ];
+
+  experienceCategories: ExperienceCategories[] | undefined = [];
 
   setMonthAndYear(normalizedMonth: Moment, controlName: string, datepicker: MatDatepicker<Moment>) {
     const ctrlValue: any = this.experienceForm.get(controlName)?.value ?? moment();
@@ -110,6 +189,10 @@ export class DialogExperienceCreationComponent  implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.initForms();
+
+    this.store.select(ExperienceState.getExperienceCategories).subscribe(experienceCategories => {
+      this.experienceCategories = experienceCategories;
+    });
 
     this.experienceForm.get('isCurrent')?.valueChanges.subscribe((val) => {
       const endDateControl = this.experienceForm.get('endDate');
@@ -165,4 +248,8 @@ export class DialogExperienceCreationComponent  implements OnInit, OnDestroy {
     this.unsubscribe$.next(COMMON_CONSTANTS.EMPTY_STRING);
     this.unsubscribe$.complete();
   }
+
+  protected readonly LocationLabels: Record<LocationCode, string> = LocationLabels;
+  protected readonly CompanyCategoryLabels: Record<CompanyCategoryCode, string> = CompanyCategoryLabels
+  protected readonly IndustryLabels: Record<IndustryCode, string> = IndustryLabels;
 }

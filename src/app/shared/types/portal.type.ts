@@ -28,6 +28,11 @@ export interface MenuItem {
   isComponentSwitcher?: boolean;
 }
 
+export interface ExperienceCategories {
+  id: number;
+  title: string;
+}
+
 export interface ExperiencePortal {
   id: number;
   alias: string;

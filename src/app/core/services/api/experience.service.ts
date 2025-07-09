@@ -36,4 +36,10 @@ export class ExperienceService {
       `${this.apiUrl}${PORTFOLIO_API.ID_PATH(PORTFOLIO_API.BASE.experiences, id)}`
     );
   }
+
+  getAllExperienceCategories(): Observable<HttpResponseBody> {
+    return this.http.get<HttpResponseBody>(
+      `${this.apiUrl}${PORTFOLIO_API.BASE.experienceCategories}`
+    );
+  }
 }

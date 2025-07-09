@@ -1,5 +1,4 @@
 import {ProfileDetail} from '../enums/profile.enum';
-import {MenuItem} from '../types/portal.type';
 import {environment} from '../../../environments/environment';
 
 export const PROFILE_DETAILS: ProfileDetail[] = [
