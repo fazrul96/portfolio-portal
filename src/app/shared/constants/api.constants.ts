@@ -1,5 +1,6 @@
 const BASE_S3 = 's3';
 const BASE_AUTH = 'auth';
+const BASE_LEETCODE = 'leetcode';
 
 export const USER_API = {
   USER_LOGIN: `${BASE_AUTH}/login`,
@@ -30,6 +31,12 @@ const BASE_PATHS = {
 export const PORTFOLIO_API = {
   BASE: BASE_PATHS,
   ID_PATH: (entity: PortfolioEntity, id: number): string => `${entity}/${id}`,
+};
+
+
+export const LEETCODE_API = {
+  GRAPHQL_SUBMIT_STATS: `https://${BASE_LEETCODE}.com/graphql`,
+  GRAPHQL_STATS: `https://${BASE_LEETCODE}-stats-api.herokuapp.com/fazrul96`,
 };
 
 export const EMAIL_API = {

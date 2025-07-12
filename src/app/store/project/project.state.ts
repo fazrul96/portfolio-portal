@@ -22,11 +22,9 @@ export class ProjectState {
 
   @Action(GetProject)
   getProjects(ctx: StateContext<ProjectStateModel>){
-    const state: ProjectStateModel = ctx.getState();
     return this.projectService.getAllProjects().pipe(
       tap((response: HttpResponseBody): void => {
-        ctx.setState({
-          ...state,
+        ctx.patchState({
           projects: response.data
         });
       }),
@@ -36,11 +34,9 @@ export class ProjectState {
 
   @Action(PostProject)
   postProject(ctx: StateContext<ProjectStateModel>, { payload }: PostProject){
-    const state: ProjectStateModel = ctx.getState();
     return this.projectService.postProject(payload).pipe(
       tap((response: HttpResponseBody): void => {
-        ctx.setState({
-          ...state,
+        ctx.patchState({
           projects: response.data
         });
       }),
@@ -50,11 +46,9 @@ export class ProjectState {
 
   @Action(DeleteProject)
   deleteProject(ctx: StateContext<ProjectStateModel>, { id }: DeleteProject){
-    const state: ProjectStateModel = ctx.getState();
     return this.projectService.deleteProject(id).pipe(
       tap((response: HttpResponseBody): void => {
-        ctx.setState({
-          ...state,
+        ctx.patchState({
           projects: response.data
         });
       }),

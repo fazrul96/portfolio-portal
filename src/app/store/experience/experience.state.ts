@@ -8,6 +8,8 @@ import {
   DeleteExperience,
   GetExperience,
   GetExperienceCategories,
+  GetStats,
+  PostSubmitStats,
   PatchExperience,
   PostExperience
 } from './experience.action';
@@ -31,14 +33,42 @@ export class ExperienceState {
     return state.experienceCategories;
   }
 
+  @Selector()
+  static getLeetcodeStats(state: ExperienceStateModel) {
+    return state.leetcodeStats;
+  }
+
   @Action(GetExperience)
   getExperiences(ctx: StateContext<ExperienceStateModel>){
-    const state: ExperienceStateModel = ctx.getState();
     return this.experienceService.getAllExperiences().pipe(
       tap((response: HttpResponseBody): void => {
-        ctx.setState({
-          ...state,
+        ctx.patchState({
           experiences: response.data
+        });
+      }),
+      map((response: HttpResponseBody) => response.message)
+    )
+  }
+
+  // CORS for leetcode
+  @Action(PostSubmitStats)
+  postSubmitStats(ctx: StateContext<ExperienceStateModel>, { payload } : any){
+    return this.experienceService.postLeetcodeGraphql(payload).pipe(
+      tap((response: HttpResponseBody): void => {
+        ctx.patchState({
+          leetcodeSubmissions: response.data
+        });
+      }),
+      map((response: HttpResponseBody) => response.message)
+    )
+  }
+
+  @Action(GetStats)
+  getStats(ctx: StateContext<ExperienceStateModel>){;
+    return this.experienceService.getLeetcodeStats().pipe(
+      tap((response: any): void => {
+        ctx.patchState({
+          leetcodeStats: response
         });
       }),
       map((response: HttpResponseBody) => response.message)
@@ -47,11 +77,9 @@ export class ExperienceState {
 
   @Action(GetExperienceCategories)
   getExperienceCategories(ctx: StateContext<ExperienceStateModel>){
-    const state: ExperienceStateModel = ctx.getState();
     return this.experienceService.getAllExperienceCategories().pipe(
       tap((response: HttpResponseBody): void => {
-        ctx.setState({
-          ...state,
+        ctx.patchState({
           experienceCategories: response.data
         });
       }),
@@ -61,11 +89,9 @@ export class ExperienceState {
 
   @Action(PostExperience)
   postExperience(ctx: StateContext<ExperienceStateModel>, { payload }: PostExperience){
-    const state: ExperienceStateModel = ctx.getState();
     return this.experienceService.postExperience(payload).pipe(
       tap((response: HttpResponseBody): void => {
-        ctx.setState({
-          ...state,
+        ctx.patchState({
           experiences: response.data
         });
       }),
@@ -75,11 +101,9 @@ export class ExperienceState {
 
   @Action(DeleteExperience)
   deleteExperience(ctx: StateContext<ExperienceStateModel>, { id }: DeleteExperience){
-    const state: ExperienceStateModel = ctx.getState();
     return this.experienceService.deleteExperience(id).pipe(
       tap((response: HttpResponseBody): void => {
-        ctx.setState({
-          ...state,
+        ctx.patchState({
           experiences: response.data
         });
       }),

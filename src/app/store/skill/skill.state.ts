@@ -23,11 +23,9 @@ export class SkillState {
 
   @Action(GetSkill)
   getSkills(ctx: StateContext<SkillStateModel>){
-    const state: SkillStateModel = ctx.getState();
     return this.skillService.getAllSkills().pipe(
       tap((response: HttpResponseBody): void => {
-        ctx.setState({
-          ...state,
+        ctx.patchState({
           skills: response.data
         });
       }),
@@ -37,11 +35,9 @@ export class SkillState {
 
   @Action(PostSkill)
   postSkill(ctx: StateContext<SkillStateModel>, { payload }: PostSkill){
-    const state: SkillStateModel = ctx.getState();
     return this.skillService.postSkill(payload).pipe(
       tap((response: HttpResponseBody): void => {
-        ctx.setState({
-          ...state,
+        ctx.patchState({
           skills: response.data
         });
       }),
@@ -51,11 +47,9 @@ export class SkillState {
 
   @Action(DeleteSkill)
   deleteSkill(ctx: StateContext<SkillStateModel>, { id }: DeleteExperience){
-    const state: SkillStateModel = ctx.getState();
     return this.skillService.deleteSkill(id).pipe(
       tap((response: HttpResponseBody): void => {
-        ctx.setState({
-          ...state,
+        ctx.patchState({
           skills: response.data
         });
       }),

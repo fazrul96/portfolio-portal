@@ -1,0 +1,72 @@
+<mat-card class="mat-elevation-z4 card-container">
+  <mat-card-actions class="card-actions">
+    <mat-card-subtitle class="card-title">LeetCode Stats</mat-card-subtitle>
+    <a
+      mat-icon-button
+      matTooltip="View LeetCode Stats"
+      color="primary"
+      [href]="leetcodeLink"
+      target="_blank"
+      rel="noopener"
+    >
+      <mat-icon>open_in_new</mat-icon>
+    </a>
+  </mat-card-actions>
+
+  @if (!leetcodeStats) {
+    <div style="text-align: center; justify-items: center;">
+      <mat-spinner diameter="40"></mat-spinner>
+      <p>Loading data, please wait...</p>
+    </div>
+  } @else {
+    <div class="header-flex">
+      <div class="doughnut-chart-wrapper">
+        <div class="doughnut-center-container">
+          <div class="doughnut-center-text primary-text">
+            <strong>{{ leetcodeStats.totalSolved }}</strong> / {{ leetcodeStats.totalQuestions }}
+            <div class="solved-label">✅ Solved</div>
+          </div>
+
+          <div class="doughnut-center-text secondary-text">
+            <strong>{{ leetcodeStats.acceptanceRate }} %</strong>
+            <div class="solved-label">Acceptance</div>
+          </div>
+        </div>
+
+        <ngx-charts-pie-chart
+          [results]="chartData"
+          [doughnut]="true"
+          [explodeSlices]="true"
+          [animations]="true"
+          [scheme]="colorScheme"
+          [legend]="false"
+          [view]="[330, 180]"
+        >
+        </ngx-charts-pie-chart>
+      </div>
+
+      <div class="difficulty-badges">
+        <mat-chip color="primary" selected>
+          <div class="chip-content">
+            <span class="chip-label" style="color: cornflowerblue">Easy</span>
+            <span class="chip-value">{{ leetcodeStats.easySolved }} / {{ leetcodeStats.totalEasy }}</span>
+          </div>
+        </mat-chip>
+
+        <mat-chip color="accent" selected>
+          <div class="chip-content">
+            <span class="chip-label" style="color: goldenrod">Med.</span>
+            <span class="chip-value">{{ leetcodeStats.mediumSolved }} / {{ leetcodeStats.totalMedium }}</span>
+          </div>
+        </mat-chip>
+
+        <mat-chip color="warn" selected>
+          <div class="chip-content">
+            <span class="chip-label" style="color: indianred">Hard</span>
+            <span class="chip-value">{{ leetcodeStats.hardSolved }} / {{ leetcodeStats.totalHard }}</span>
+          </div>
+        </mat-chip>
+      </div>
+    </div>
+  }
+</mat-card>

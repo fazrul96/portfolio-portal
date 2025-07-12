@@ -25,33 +25,35 @@
     </div>
   </mat-card>
 
-  <div class="header-flex">
-    <div class="left-block">
-      <mat-icon class="file-icon">
-        <i class="fa fa-file" aria-hidden="true"></i>
-      </mat-icon>
-      <div class="details-block">
-        <span class="upload-title">Latest Upload</span>
-        <span class="upload-role">CV_2023</span>
+  @if (isAdmin())  {
+    <div class="header-flex">
+      <div class="left-block">
+        <mat-icon class="file-icon">
+          <i class="fa fa-file" aria-hidden="true"></i>
+        </mat-icon>
+        <div class="details-block">
+          <span class="upload-title">Latest Upload</span>
+          <span class="upload-role">CV_2023</span>
+        </div>
       </div>
+      <button matButton="elevated" color="primary" class="select-btn">
+        Use this file
+      </button>
     </div>
-    <button matButton="elevated" color="primary" class="select-btn">
-      Use this file
-    </button>
-  </div>
 
-  <mat-card-subtitle class="card-title">
-    Upload Resume / CV
-    <mat-icon
-      matTooltip="Upload a new version of your resume. Accepted formats: PDF, DOCX. Max size: 2MB."
-      matTooltipPosition="above"
-      class="info-icon"
-    >
-      info
-    </mat-icon>
-  </mat-card-subtitle>
+    <mat-card-subtitle class="card-title">
+      Upload Resume / CV
+      <mat-icon
+        matTooltip="Upload a new version of your resume. Accepted formats: PDF, DOCX. Max size: 2MB."
+        matTooltipPosition="above"
+        class="info-icon"
+      >
+        info
+      </mat-icon>
+    </mat-card-subtitle>
 
-  <div class="resume-upload">
-    <app-dropzone-wrapper></app-dropzone-wrapper>
-  </div>
+    <div class="resume-upload">
+      <app-dropzone-wrapper></app-dropzone-wrapper>
+    </div>
+  }
 </mat-card>

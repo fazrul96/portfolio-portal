@@ -19,12 +19,14 @@ import {COMMON_CONSTANTS, EXPERIENCE_DATA} from '../../constants/common.constant
 import {Store} from '@ngxs/store';
 import {Subject} from 'rxjs';
 import {ExperienceState} from '../../../store/experience/experience.state';
-import {GetExperience, GetExperienceCategories} from '../../../store/experience/experience.action';
+import {GetExperience, GetExperienceCategories, GetStats} from '../../../store/experience/experience.action';
 import {GetProject} from '../../../store/project/project.action';
 import {UserState} from '../../../store/user/user.state';
 import {User} from '@auth0/auth0-angular';
 import {environment} from '../../../../environments/environment';
 import {CardSidenavResumeComponent} from '../card-sidenav-resume/card-sidenav-resume.component';
+import {MatProgressSpinner} from '@angular/material/progress-spinner';
+import {CardLeetcodeComponent} from '../card-leetcode/card-leetcode.component';
 
 @Component({
   selector: 'app-card-sidenav',
@@ -35,7 +37,9 @@ import {CardSidenavResumeComponent} from '../card-sidenav-resume/card-sidenav-re
     MatIcon,
     MatIconButton,
     MatTooltip,
-    CardSidenavResumeComponent
+    CardSidenavResumeComponent,
+    MatProgressSpinner,
+    CardLeetcodeComponent
   ],
   templateUrl: './card-sidenav.component.html',
   styleUrl: './card-sidenav.component.scss'
@@ -119,9 +123,16 @@ export class CardSidenavComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
+    // const payloadLeetcode = {
+    //   query: "query { matchedUser(username: \"fazrul96\") { username submitStats: submitStatsGlobal { acSubmissionNum { difficulty count submissions } } } }"
+    // }
+
     this.store.dispatch(new GetProject());
     this.store.dispatch(new GetExperience());
     this.store.dispatch(new GetExperienceCategories());
+    // this.store.dispatch(new PostSubmitStats(payloadLeetcode));
+    this.store.dispatch(new GetStats());
+
     this.store.select(ExperienceState.getExperiences).subscribe(experienceList => {
       this.experienceList = experienceList;
     });

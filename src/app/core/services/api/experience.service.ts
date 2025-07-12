@@ -3,7 +3,7 @@ import {HttpClient} from '@angular/common/http';
 import {environment} from '../../../../environments/environment';
 import {Observable} from 'rxjs';
 import {HttpResponseBody} from '../../models/http-body.model';
-import {PORTFOLIO_API} from '../../../shared/constants/api.constants';
+import {LEETCODE_API, PORTFOLIO_API} from '../../../shared/constants/api.constants';
 
 @Injectable({
   providedIn: 'root'
@@ -40,6 +40,18 @@ export class ExperienceService {
   getAllExperienceCategories(): Observable<HttpResponseBody> {
     return this.http.get<HttpResponseBody>(
       `${this.apiUrl}${PORTFOLIO_API.BASE.experienceCategories}`
+    );
+  }
+
+  postLeetcodeGraphql(payload: any): Observable<HttpResponseBody> {
+    return this.http.post<HttpResponseBody>(
+      `${LEETCODE_API.GRAPHQL_SUBMIT_STATS}`, payload
+    );
+  }
+
+  getLeetcodeStats(): Observable<HttpResponseBody> {
+    return this.http.get<HttpResponseBody>(
+      `${LEETCODE_API.GRAPHQL_STATS}`
     );
   }
 }

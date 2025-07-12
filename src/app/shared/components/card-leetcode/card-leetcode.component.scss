@@ -1,0 +1,121 @@
+.card-container {
+  margin-bottom: 1rem;
+  padding: 0.5rem 1.5rem 1rem;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.3);
+
+  .card-actions {
+    justify-content: space-between;
+  }
+
+  .card-title {
+    font-size: 17px;
+    font-weight: 400;
+  }
+
+  .header-flex {
+    padding: 0.3rem;
+    gap: 0.5rem;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .difficulty-badges {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    justify-content: center;
+    flex: 1;
+    min-width: 200px;
+
+    mat-chip {
+      width: 90px;
+      height: 46px;
+      border-radius: 8px;
+      font-size: 0.8rem;
+      background-color: rgba(255, 255, 255, 0.06);
+      transition: transform 0.2s ease;
+
+      &:hover {
+        transform: scale(1.05);
+      }
+
+      .chip-content {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+
+        .chip-label {
+          font-weight: 600;
+          font-size: 0.85rem;
+        }
+
+        .chip-value {
+          font-size: 0.75rem;
+          opacity: 0.85;
+        }
+      }
+    }
+  }
+  .doughnut-chart-wrapper {
+    position: relative;
+    flex: 1;
+    max-width: 340px;
+    width: 100%;
+    min-width: 280px;
+    margin: auto;
+
+    .doughnut-center-container {
+      text-align: center;
+      transition: all 0.3s ease;
+      cursor: pointer;
+    }
+  }
+
+  .doughnut-center-text {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(1);
+    text-align: center;
+    pointer-events: none;
+    color: #eee;
+    font-size: 1.2rem;
+    font-weight: 600;
+    opacity: 0;
+    transition: opacity 0.4s ease, transform 0.4s ease;
+
+    &.primary-text {
+      opacity: 1;
+      z-index: 2;
+    }
+
+    &.secondary-text {
+      z-index: 1;
+    }
+
+    .solved-label {
+      font-size: 0.8rem;
+      color: #28a745;
+      font-weight: 400;
+    }
+  }
+
+  &:hover {
+    .primary-text {
+      opacity: 0;
+      transform: translate(-50%, -50%) scale(0.95);
+    }
+
+    .secondary-text {
+      opacity: 1;
+      transform: translate(-50%, -50%) scale(1);
+    }
+  }
+}

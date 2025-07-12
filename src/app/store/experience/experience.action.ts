@@ -20,3 +20,12 @@ export class PatchExperience {
 export class GetExperienceCategories {
   static readonly type = '[EXPERIENCE CATEGORIES] GET EXPERIENCE CATEGORIES';
 }
+
+export class PostSubmitStats {
+  static readonly type = '[LEETCODE] POST SUBMIT STATS';
+  constructor(public payload: any) {}
+}
+
+export class GetStats {
+  static readonly type = '[LEETCODE] GET STATS';
+}
