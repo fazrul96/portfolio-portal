@@ -1,4 +1,4 @@
-<div fxLayout="row wrap" fxLayoutGap="2rem" fxLayoutAlign="center">
+<div fxLayout="row wrap" fxLayoutGap="1rem" fxLayoutGap.xs="0rem" fxLayoutAlign="center">
   <div
     fxFlex.xs="100%"
     fxFlex.sm="100%"
@@ -7,21 +7,23 @@
     fxFlex.xl="55%"
     class="section"
   >
-    <h2 class="section-title">
-      Hi, I’m <span class="highlight-name">Fazrul Romli</span>
-    </h2>
-    <h3 class="section-intro">
-      {{ profileContent.introText }}
-    </h3>
+    <mat-card class="mat-elevation-z4 card-container" style="margin-bottom: 1rem;">
+      <h2 class="section-title">
+        Hi, I’m <span class="highlight-name">Fazrul Romli</span>
+      </h2>
+      <h3 class="section-intro">
+        {{ profileContent.introText }}
+      </h3>
 
-    <ul class="section-skill">
-      @for (skill of profileContent.skills; track $index) {
-        <li>{{ skill }}</li>
-      }
-    </ul>
+      <ul class="section-skill">
+        @for (skill of profileContent.skills; track $index) {
+          <li>{{ skill }}</li>
+        }
+      </ul>
 
-    <p class="section-subtitle">{{ profileContent.description }}</p>
-    <p class="section-subtitle">{{ profileContent.belief }}</p>
+      <p class="section-subtitle">{{ profileContent.description }}</p>
+      <p class="section-subtitle">{{ profileContent.belief }}</p>
+    </mat-card>
 
     <mat-card class="mat-elevation-z4 card-container">
       <h3 class="section-title">Career Overview

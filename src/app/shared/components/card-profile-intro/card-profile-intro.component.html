@@ -30,57 +30,62 @@
   >
     <mat-card class="mat-elevation-z8 card-container">
       <div class="header-flex">
-        <div class="info-block avatar-block">
-          <img src="assets/images/profile/profile-img.jpg"
-               alt="Profile" class="avatar-flex push-right" />
-        </div>
+        <div class="left-info-group">
+          <div class="info-block avatar-block">
+            <img src="assets/images/profile/profile-img.jpg"
+                 alt="Profile" class="avatar-flex push-right" />
+          </div>
 
-        <div class="info-block main-info-block">
-          <div class="details-block">
-            <mat-chip-listbox class="status-chips">
-              <mat-chip selected>Available</mat-chip>
-              <mat-chip selected>6Y + XP</mat-chip>
-            </mat-chip-listbox>
+          <div class="info-block main-info-block">
+            <div class="details-block">
+              <mat-chip-listbox class="status-chips">
+                <mat-chip selected color="accent">Available</mat-chip>
+                <mat-chip selected color="accent">6Y+ XP</mat-chip>
+              </mat-chip-listbox>
 
-            <h2>Fazrul Romli</h2>
-            <h3>Full-Stack Developer at ACN</h3>
+              <h2>Fazrul Romli</h2>
+              <h3>Full-Stack Developer &#64; Accenture</h3>
 
-            <mat-chip-listbox class="skill-chips">
-              <mat-chip color="primary">Angular</mat-chip>
-              <mat-chip color="primary">React</mat-chip>
-              <mat-chip color="primary">Spring Boot</mat-chip>
-              <mat-chip color="primary">AWS</mat-chip>
-            </mat-chip-listbox>
+              <mat-chip-listbox class="skill-chips">
+                <mat-chip color="primary">Angular</mat-chip>
+                <mat-chip color="primary">React</mat-chip>
+                <mat-chip color="primary">Spring Boot</mat-chip>
+                <mat-chip color="primary">AWS</mat-chip>
+                <mat-chip color="primary">CI/CD</mat-chip>
+              </mat-chip-listbox>
+            </div>
           </div>
         </div>
 
-        <div class="info-block main-info-block">
-          <mat-icon class="file-icon">
-            <i class="fa fa-graduation-cap" aria-hidden="true"></i>
-          </mat-icon>
-          <div class="details-block">
-            <span>Universiti Kebangsaan Malaysia</span>
-            <span>BSC SE (Information System) 2019</span>
+        <div class="right-info-group">
+          <div class="info-block">
+            <mat-icon class="file-icon" aria-label="Education">
+              <i class="fa fa-graduation-cap" aria-hidden="true"></i>
+            </mat-icon>
+            <div class="details-block">
+              <span>Universiti Kebangsaan Malaysia</span>
+              <span>BSC SE (Information System) 2019</span>
+            </div>
           </div>
-        </div>
 
-        <div class="info-block">
-          <mat-icon class="file-icon">
-            <i class="fa fa-certificate" aria-hidden="true"></i>
-          </mat-icon>
-          <div class="details-block">
-            <span>CPRE (FL)</span><br>
-            <span>Android Developer</span>
+          <div class="info-block">
+            <mat-icon class="file-icon">
+              <i class="fa fa-certificate" aria-hidden="true"></i>
+            </mat-icon>
+            <div class="details-block">
+              <span>CPRE (FL)</span>
+              <span>Android Developer</span>
+            </div>
           </div>
-        </div>
 
-        <div class="info-block">
+          <div class="info-block">
           <mat-icon class="file-icon">
             <i class="fa fa-location" aria-hidden="true"></i>
           </mat-icon>
           <div class="details-block">
             <span>BBST, Selangor, Malaysia</span>
           </div>
+        </div>
         </div>
       </div>
     </mat-card>

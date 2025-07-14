@@ -122,21 +122,22 @@ export class CardSidenavComponent implements OnInit, OnDestroy {
     });
   }
 
-  ngOnInit(): void {
-    // const payloadLeetcode = {
-    //   query: "query { matchedUser(username: \"fazrul96\") { username submitStats: submitStatsGlobal { acSubmissionNum { difficulty count submissions } } } }"
-    // }
+  dispatchInitialData(): void {
+    this.store.dispatch([
+      new GetProject(),
+      new GetExperience(),
+      new GetExperienceCategories(),
+      new GetStats(),
+    ]);
+    this.socialLinkList = SOCIAL_LINKS;
+  }
 
-    this.store.dispatch(new GetProject());
-    this.store.dispatch(new GetExperience());
-    this.store.dispatch(new GetExperienceCategories());
-    // this.store.dispatch(new PostSubmitStats(payloadLeetcode));
-    this.store.dispatch(new GetStats());
+  ngOnInit(): void {
+    this.dispatchInitialData();
 
     this.store.select(ExperienceState.getExperiences).subscribe(experienceList => {
       this.experienceList = experienceList;
     });
-    this.socialLinkList = SOCIAL_LINKS;
   }
 
   ngOnDestroy(): void {

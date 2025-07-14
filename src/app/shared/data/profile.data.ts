@@ -2,30 +2,34 @@ import {ProfileDetail} from '../enums/profile.enum';
 import {environment} from '../../../environments/environment';
 
 export const PROFILE_DETAILS: ProfileDetail[] = [
-  { label: 'Expected Salary', value: 'MYR 102,000 per annum (negotiable)' },
-  { label: 'Availability', value: 'Available with 1-month notice' },
-  { label: 'Citizenship', value: 'Malaysian Citizen' },
+  { label: 'Expected Salary', value: 'MYR 102,000 per annum (Negotiable)' },
+  { label: 'Availability', value: '1-month notice period' },
+  { label: 'Citizenship', value: 'Malaysian' },
   { label: 'Residency Status', value: 'Permanent Resident (Malaysia)' },
-  { label: 'Experience', value: '6+ years in leadership and delivery roles' },
-  { label: 'Team Leadership', value: 'Led cross-functional teams of 6–10 people' },
-  { label: 'Mobility', value: 'Open to regional/international travel (60–100%)' }
+  { label: 'Professional Experience', value: '6+ years in full-stack development and system delivery' },
+  { label: 'Leadership Experience', value: 'Led cross-functional teams of 6–10 members' },
+  { label: 'Travel Flexibility', value: 'Willing to travel regionally or internationally (60–100%)' },
 ];
 
 export const PROFILE_CONTENT = {
   name: "Fazrul Romli",
   title: "Full-Stack Developer",
-  avatar: 'assets/images/profile/profile-img.jpg',
+  avatar: "assets/images/profile/profile-img.jpg",
   location: "Selangor, Malaysia",
   email: environment.user?.email,
-  introText: "I am a Full Stack Developer with over 6 years of experience. I’m passionate about creating scalable, efficient, and user-friendly software solutions. My expertise lies in:",
+  introText:
+    "Full-Stack Developer with 6+ years of experience in backend systems, frontend frameworks, DevOps, and cloud infrastructure.",
   skills: [
-    "Building backend systems with Java (Spring Boot) and REST APIs",
-    "Cloud-based applications and services (especially with AWS)",
-    "Optimizing performance and enhancing system security",
-    "Integrating third-party services like payment systems",
-    "Modern frontend development with React and Angular",
-    "CI/CD pipelines and automating tests with Docker"
+    "Java (Spring Boot) & RESTful API development",
+    "React, Angular, and modern frontend design",
+    "AWS services (EC2, S3, Lambda, CloudFront)",
+    "CI/CD pipelines using Docker, Jenkins, SonarQube",
+    "Automated testing with Cypress, PHPUnit, JUnit",
+    "Payment gateway & third-party API integration",
   ],
-  description: "Over the years, I’ve refactored legacy systems to be more scalable and efficient. I am always focused on delivering solutions that not only meet user needs but also exceed performance, security, and availability expectations.",
-  belief: "I believe in the power of technology to solve real-world problems, and I’m constantly looking for opportunities to collaborate, learn, and build meaningful projects that make a difference."
+  description:
+    "I specialize in building robust systems across domains including insurance, finance, telco, and logistics. My focus is on performance, scalability, and developer-first architecture. Passionate about automation and delivering high-quality, real-world solutions.",
+  belief:
+    "I believe technology should solve real problems. I'm driven to build systems that are reliable, efficient, and impactful to end users and developers alike.",
 };
+
