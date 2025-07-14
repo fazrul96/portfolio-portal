@@ -65,7 +65,7 @@
           </mat-card-header>
           <mat-card-content>
             <mat-card-title>{{ project.title }} {{ project.icon }}</mat-card-title>
-            {{ project.description }}
+            <span>{{ project.description }}</span><br>
 
             @for (feature of project.features; track $index) {
               <mat-list-item>
