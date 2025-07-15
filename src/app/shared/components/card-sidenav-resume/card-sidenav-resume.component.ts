@@ -1,4 +1,4 @@
-import {Component, computed, inject, Signal} from '@angular/core';
+import {Component, inject, Signal} from '@angular/core';
 import {DropzoneWrapperComponent} from "../dropzone-wrapper/dropzone-wrapper.component";
 import {MatButton, MatButtonModule} from "@angular/material/button";
 import {MatCard, MatCardModule, MatCardSubtitle} from "@angular/material/card";
@@ -10,10 +10,6 @@ import {DropzoneModule} from 'ngx-dropzone-wrapper';
 import {MatGridListModule} from '@angular/material/grid-list';
 import {MatChipsModule} from '@angular/material/chips';
 import {MatTabsModule} from '@angular/material/tabs';
-import {UserState} from '../../../store/user/user.state';
-import {User} from '@auth0/auth0-angular';
-import {environment} from '../../../../environments/environment';
-import {Store} from '@ngxs/store';
 import {UserService} from '../../../core/services/api/user.service';
 
 @Component({

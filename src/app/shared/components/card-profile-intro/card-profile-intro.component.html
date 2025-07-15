@@ -53,9 +53,20 @@
               	<mat-icon>verified_user</mat-icon>
             </span>
           </h2>
-          <h3>{{profileContent.title}} &#64; Accenture</h3>
+          <h3>{{profileContent.title}}</h3>
           <h4 class="profile-location subtitle">
             {{ profileContent.location }}
+            @if (isAdmin()) {
+              &bullet;
+              <a
+                matTooltip="Open Contact Info"
+                color="primary"
+                rel="noopener"
+                (click)="openDialog()"
+              >
+                Contact info
+              </a>
+            }
           </h4>
 
           <mat-chip-listbox class="skill-chips">
@@ -68,23 +79,16 @@
     </div>
 
     <div class="right-info-group">
-      <div class="info-block">
-        <mat-icon class="file-icon" aria-label="Education">
-          <i class="fa fa-graduation-cap" aria-hidden="true"></i>
-        </mat-icon>
-        <div class="details-block">
-          <span>National University of Malaysia</span>
-        </div>
+      <div class="info-block" >
+        <img src="assets/images/icons/acn.png" class="avatar-flex"
+        alt="acn logo" />
+        <span>Accenture Southeast Asia</span>
       </div>
 
-      <div class="info-block">
-        <mat-icon class="file-icon">
-          <i class="fa fa-certificate" aria-hidden="true"></i>
-        </mat-icon>
-        <div class="details-block">
-          <span>CPRE (FL)</span>
-          <span>Android Developer</span>
-        </div>
+      <div class="info-block" >
+        <img src="assets/images/icons/ukm.png" class="avatar-flex"
+             alt="ukm logo" />
+        <span>National University of Malaysia</span>
       </div>
     </div>
   </div>
