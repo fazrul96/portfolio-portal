@@ -17,6 +17,9 @@ export const PROFILE_CONTENT = {
   avatar: "assets/images/profile/profile-img.jpg",
   location: "Selangor, Malaysia",
   email: environment.user?.email,
+  status: ["Available", "6Y+ XP"],
+  verified: true,
+  tooltip: "Fazrul has verifications",
   introText:
     "Full-Stack Developer with 6+ years of experience in backend systems, frontend frameworks, DevOps, and cloud infrastructure.",
   skills: [
@@ -27,6 +30,7 @@ export const PROFILE_CONTENT = {
     "Automated testing with Cypress, PHPUnit, JUnit",
     "Payment gateway & third-party API integration",
   ],
+  skillStack: ["Angular", "React", "Spring Boot", "AWS", "CI/CD"],
   description:
     "I specialize in building robust systems across domains including insurance, finance, telco, and logistics. My focus is on performance, scalability, and developer-first architecture. Passionate about automation and delivering high-quality, real-world solutions.",
   belief:

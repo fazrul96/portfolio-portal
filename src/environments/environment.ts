@@ -16,6 +16,7 @@ import {
 
 export const environment: EnvironmentConfig = {
   production: PRODUCTION,
+  bypassAdminCheck: false,
   enableRecaptcha: ENABLE_CAPTCHA,
   apiBaseUrl: ANGULAR_APP_BASE_URL,
   apiUrl: ANGULAR_APP_API_URL,

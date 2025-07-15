@@ -1,4 +1,4 @@
-import {Component, computed, inject, Inject, Signal} from '@angular/core';
+import {Component, inject, Inject, Signal} from '@angular/core';
 import {
   MAT_DIALOG_DATA,
   MatDialogActions,
@@ -10,13 +10,10 @@ import {
 import {MatButton, MatIconButton} from '@angular/material/button';
 import {MatIcon} from '@angular/material/icon';
 import {MatTooltip} from '@angular/material/tooltip';
-import {UserState} from '../../../../store/user/user.state';
-import {User} from '@auth0/auth0-angular';
-import {environment} from '../../../../../environments/environment';
 import {Store} from '@ngxs/store';
-import {DeleteExperience, PostExperience} from '../../../../store/experience/experience.action';
-import {timer} from 'rxjs';
+import {DeleteExperience} from '../../../../store/experience/experience.action';
 import {MatSnackBar} from '@angular/material/snack-bar';
+import {UserService} from '../../../../core/services/api/user.service';
 
 @Component({
   selector: 'app-dialog-experience-details',
@@ -42,12 +39,8 @@ export class DialogExperienceDetailsComponent {
     @Inject(MAT_DIALOG_DATA) public data: any
   ) {}
 
-  readonly isLoggedIn: Signal<boolean> = this.store.selectSignal(UserState.isLoggedIn);
-  readonly userDetailsSignal: Signal<User> = this.store.selectSignal(UserState.getUser);
-  readonly isAdmin: Signal<boolean> = computed((): boolean => {
-    const user: User = this.userDetailsSignal();
-    return this.isLoggedIn() && user?.email === environment.user?.email;
-  });
+  readonly userService: UserService = inject(UserService);
+  readonly isAdmin: Signal<boolean> = this.userService.isAdmin;
 
   deleteExperience(): void {
     if (!this.data?.id) {

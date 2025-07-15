@@ -7,10 +7,24 @@
     fxFlex.xl="55%"
     class="section"
   >
+    <app-card-profile-intro></app-card-profile-intro>
+
     <mat-card class="mat-elevation-z4 card-container" style="margin-bottom: 1rem;">
-      <h2 class="section-title">
-        Hi, I’m <span class="highlight-name">Fazrul Romli</span>
-      </h2>
+      <mat-card-actions class="card-actions">
+        <h2 class="section-title">
+          Hi, I’m <span class="highlight-name">{{ profileContent.name }}</span>
+        </h2>
+        @if (isAdmin()) {
+          <a
+            mat-icon-button
+            matTooltip="Edit Intro"
+            color="primary"
+            rel="noopener"
+          >
+            <mat-icon>edit</mat-icon>
+          </a>
+        }
+      </mat-card-actions>
       <h3 class="section-intro">
         {{ profileContent.introText }}
       </h3>
@@ -21,20 +35,46 @@
         }
       </ul>
 
-      <p class="section-subtitle">{{ profileContent.description }}</p>
-      <p class="section-subtitle">{{ profileContent.belief }}</p>
+      <p class="section-subtitle">
+        {{ profileContent.description | slice:0:(isExpanded ? undefined : 120) }}
+        @if (!isExpanded) {
+          <span>...</span>
+        }
+      </p>
+
+      @if (isExpanded) {
+        <p class="section-subtitle">
+          {{ profileContent.belief }}
+        </p>
+      }
+
+      <button mat-button class="see-more-btn" (click)="toggleExpand()">
+        {{ isExpanded ? 'See less' : 'See more' }}
+      </button>
     </mat-card>
 
     <mat-card class="mat-elevation-z4 card-container">
-      <h3 class="section-title">Career Overview
-        <mat-icon
-          matTooltip="A high-level summary of my professional background, compensation expectations, and work eligibility"
-          matTooltipPosition="above"
-          class="info-icon"
-        >
-          info
-        </mat-icon>
-      </h3>
+      <mat-card-actions class="card-actions">
+        <h3 class="section-title">Career Overview
+          <mat-icon
+            matTooltip="A high-level summary of my professional background, compensation expectations, and work eligibility"
+            matTooltipPosition="above"
+            class="info-icon"
+          >
+            info
+          </mat-icon>
+        </h3>
+        @if (isAdmin()) {
+          <a
+            mat-icon-button
+            matTooltip="Edit Intro"
+            color="primary"
+            rel="noopener"
+          >
+            <mat-icon>edit</mat-icon>
+          </a>
+        }
+      </mat-card-actions>
 
       @for (pair of groupedDetails; track pair;) {
         <div class="inline-grid">

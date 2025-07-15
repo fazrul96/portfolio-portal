@@ -14,6 +14,7 @@ import {UserState} from '../../../store/user/user.state';
 import {User} from '@auth0/auth0-angular';
 import {environment} from '../../../../environments/environment';
 import {Store} from '@ngxs/store';
+import {UserService} from '../../../core/services/api/user.service';
 
 @Component({
   selector: 'app-card-sidenav-resume',
@@ -35,15 +36,9 @@ import {Store} from '@ngxs/store';
   styleUrl: './card-sidenav-resume.component.scss'
 })
 export class CardSidenavResumeComponent {
-  private readonly store: Store = inject(Store);
   readonly dialog: MatDialog = inject(MatDialog);
-
-  readonly isLoggedIn: Signal<boolean> = this.store.selectSignal(UserState.isLoggedIn);
-  readonly userDetailsSignal: Signal<User> = this.store.selectSignal(UserState.getUser);
-  readonly isAdmin: Signal<boolean> = computed((): boolean => {
-    const user: User = this.userDetailsSignal();
-    return this.isLoggedIn() && user?.email === environment.user?.email;
-  });
+  readonly userService: UserService = inject(UserService);
+  readonly isAdmin: Signal<boolean> = this.userService.isAdmin;
 
   openDialog(): void {
     const dialogRef = this.dialog.open(DialogIntroComponent, {

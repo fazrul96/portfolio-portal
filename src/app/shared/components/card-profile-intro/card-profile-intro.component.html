@@ -1,93 +1,91 @@
-<!--<div fxFlex="100%">-->
-<!--  <div class="intro-hero-container">-->
-<!--    <div fxFlex="40%" fxHide.xs fxHide.sm>-->
-<!--    <div class="image-wrapper">-->
-<!--      <img class="profile-img" src="assets/images/profile/profile-img-transparent.png" alt="Profile Photo" />-->
-<!--      </div>-->
+<!--<div class="intro-hero-container">-->
+<!--  <div fxFlex="40%" fxHide.xs fxHide.sm>-->
+<!--  <div class="image-wrapper">-->
+<!--    <img class="profile-img" src="assets/images/profile/profile-img-transparent.png" alt="Profile Photo" />-->
 <!--    </div>-->
-<!--    <div fxFlex.xs="100%">-->
-<!--      <div class="intro-text-tile">-->
-<!--        <h2>Hey there! 👋</h2>-->
-<!--        <p><strong>I’m Fazrul Romli</strong>, a full-stack developer (with a bit of DevOps on the side).</p>-->
-<!--        <p>-->
-<!--          This site is currently being upgraded and integrated with AWS for better performance and scalability.-->
-<!--          Some features may be temporarily unavailable — thanks for your patience!-->
-<!--          Feel free to reach out anytime.-->
-<!--        </p>-->
-<!--        <button mat-stroked-button color="accent">Let’s Connect</button>-->
-<!--      </div>-->
+<!--  </div>-->
+<!--  <div fxFlex.xs="100%">-->
+<!--    <div class="intro-text-tile">-->
+<!--      <h2>Hey there! 👋</h2>-->
+<!--      <p><strong>I’m Fazrul Romli</strong>, a full-stack developer (with a bit of DevOps on the side).</p>-->
+<!--      <p>-->
+<!--        This site is currently being upgraded and integrated with AWS for better performance and scalability.-->
+<!--        Some features may be temporarily unavailable — thanks for your patience!-->
+<!--        Feel free to reach out anytime.-->
+<!--      </p>-->
+<!--      <button mat-stroked-button color="accent">Let’s Connect</button>-->
 <!--    </div>-->
 <!--  </div>-->
 <!--</div>-->
 
-<div fxLayout="row wrap" fxLayoutGap="2rem" fxLayoutAlign="center">
-  <div
-    fxFlex.xs="100%"
-    fxFlex.sm="100%"
-    fxFlex.md="92%"
-    fxFlex.lg="82%"
-    fxFlex.xl="78%"
-  >
-    <mat-card class="mat-elevation-z8 card-container">
-      <div class="header-flex">
-        <div class="left-info-group">
-          <div class="info-block avatar-block">
-            <img src="assets/images/profile/profile-img.jpg"
-                 alt="Profile" class="avatar-flex push-right" />
-          </div>
+<mat-card class="mat-elevation-z8 card-container" style="margin-bottom: 1rem;">
+  @if (isAdmin()) {
+    <mat-card-actions class="card-actions">
+      <mat-card-subtitle class="card-title"></mat-card-subtitle>
+      <a
+        mat-icon-button
+        matTooltip="Edit Intro"
+        color="primary"
+        rel="noopener"
+      >
+        <mat-icon>edit</mat-icon>
+      </a>
+    </mat-card-actions>
+  }
 
-          <div class="info-block main-info-block">
-            <div class="details-block">
-              <mat-chip-listbox class="status-chips">
-                <mat-chip selected color="accent">Available</mat-chip>
-                <mat-chip selected color="accent">6Y+ XP</mat-chip>
-              </mat-chip-listbox>
+  <div class="header-flex">
+    <div class="left-info-group">
+<!--      <div class="info-block avatar-block">-->
+<!--        <img src="assets/images/profile/profile-img.jpg"-->
+<!--             alt="Profile" class="avatar-flex push-right" />-->
+<!--      </div>-->
 
-              <h2>Fazrul Romli</h2>
-              <h3>Full-Stack Developer &#64; Accenture</h3>
+      <div class="info-block main-info-block">
+        <div class="details-block">
+          <mat-chip-listbox class="status-chips">
+            @for (profile of profileContent.status; track $index) {
+              <mat-chip selected color="accent">{{profile}}</mat-chip>
+            }
+          </mat-chip-listbox>
 
-              <mat-chip-listbox class="skill-chips">
-                <mat-chip color="primary">Angular</mat-chip>
-                <mat-chip color="primary">React</mat-chip>
-                <mat-chip color="primary">Spring Boot</mat-chip>
-                <mat-chip color="primary">AWS</mat-chip>
-                <mat-chip color="primary">CI/CD</mat-chip>
-              </mat-chip-listbox>
-            </div>
-          </div>
-        </div>
+          <h2 matTooltip="{{profileContent.tooltip}}">{{profileContent.name}}
+            <span>
+              	<mat-icon>verified_user</mat-icon>
+            </span>
+          </h2>
+          <h3>{{profileContent.title}} &#64; Accenture</h3>
+          <h4 class="profile-location subtitle">
+            {{ profileContent.location }}
+          </h4>
 
-        <div class="right-info-group">
-          <div class="info-block">
-            <mat-icon class="file-icon" aria-label="Education">
-              <i class="fa fa-graduation-cap" aria-hidden="true"></i>
-            </mat-icon>
-            <div class="details-block">
-              <span>Universiti Kebangsaan Malaysia</span>
-              <span>BSC SE (Information System) 2019</span>
-            </div>
-          </div>
-
-          <div class="info-block">
-            <mat-icon class="file-icon">
-              <i class="fa fa-certificate" aria-hidden="true"></i>
-            </mat-icon>
-            <div class="details-block">
-              <span>CPRE (FL)</span>
-              <span>Android Developer</span>
-            </div>
-          </div>
-
-          <div class="info-block">
-          <mat-icon class="file-icon">
-            <i class="fa fa-location" aria-hidden="true"></i>
-          </mat-icon>
-          <div class="details-block">
-            <span>BBST, Selangor, Malaysia</span>
-          </div>
-        </div>
+          <mat-chip-listbox class="skill-chips">
+            @for (skill of profileContent.skillStack; track $index) {
+              <mat-chip color="primary">{{skill}}</mat-chip>
+            }
+          </mat-chip-listbox>
         </div>
       </div>
-    </mat-card>
+    </div>
+
+    <div class="right-info-group">
+      <div class="info-block">
+        <mat-icon class="file-icon" aria-label="Education">
+          <i class="fa fa-graduation-cap" aria-hidden="true"></i>
+        </mat-icon>
+        <div class="details-block">
+          <span>National University of Malaysia</span>
+        </div>
+      </div>
+
+      <div class="info-block">
+        <mat-icon class="file-icon">
+          <i class="fa fa-certificate" aria-hidden="true"></i>
+        </mat-icon>
+        <div class="details-block">
+          <span>CPRE (FL)</span>
+          <span>Android Developer</span>
+        </div>
+      </div>
+    </div>
   </div>
-</div>
+</mat-card>

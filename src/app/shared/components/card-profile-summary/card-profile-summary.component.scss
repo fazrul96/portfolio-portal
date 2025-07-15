@@ -40,6 +40,10 @@
     border: 1px solid rgba(255, 255, 255, 0.08);
     box-shadow: 0 6px 18px rgba(0, 0, 0, 0.3);
 
+    .card-actions {
+      justify-content: space-between;
+    }
+
     .detail-item {
       margin: 0.5rem;
       display: flex;
@@ -75,6 +79,31 @@
         overflow: hidden;
         text-overflow: ellipsis;
       }
+    }
+
+    .expandable-content {
+      overflow: hidden;
+      transition: max-height 0.3s ease;
+      max-height: 0;
+      opacity: 0;
+      margin-top: 0;
+
+      &.collapsed {
+        max-height: 0;
+        opacity: 0;
+      }
+
+      &.expanded {
+        max-height: 500px; // adjust depending on how much content
+        opacity: 1;
+        margin-top: 1rem;
+      }
+    }
+
+    .see-more-btn {
+      color: #2196f3;
+      font-weight: 500;
+      padding-left: 0;
     }
   }
 

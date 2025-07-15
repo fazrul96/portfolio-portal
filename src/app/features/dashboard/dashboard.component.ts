@@ -8,7 +8,6 @@ import {DefaultLayoutDirective} from 'ng-flex-layout';
 import {CardAchievementComponent} from '../../shared/components/card-achievement/card-achievement.component';
 import {CardExperienceComponent} from '../../shared/components/card-experience/card-experience.component';
 import {CardFaqComponent} from '../../shared/components/card-faq/card-faq.component';
-import {CardProfileIntroComponent} from '../../shared/components/card-profile-intro/card-profile-intro.component';
 import {CardProfileSummaryComponent} from '../../shared/components/card-profile-summary/card-profile-summary.component';
 import {CardProjectComponent} from '../../shared/components/card-project/card-project.component';
 import {environment} from '../../../environments/environment';
@@ -27,7 +26,6 @@ import {EnvironmentFeatureFlags} from '../../core/models/configuration.model';
     CardAchievementComponent,
     CardExperienceComponent,
     CardFaqComponent,
-    CardProfileIntroComponent,
     CardProfileSummaryComponent,
     CardProjectComponent,
   ],

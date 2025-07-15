@@ -18,6 +18,7 @@ import {ANGULAR_APP_USER_EMAIL} from '@greda/common-config/portfolio-portal/prd/
 
 export const environment: EnvironmentConfig = {
   production: !PRODUCTION,
+  bypassAdminCheck: true,
   enableRecaptcha: ENABLE_CAPTCHA,
   apiBaseUrl: ANGULAR_APP_BASE_URL,
   apiUrl: ANGULAR_APP_API_URL,

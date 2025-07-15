@@ -1,4 +1,4 @@
-import {Component, computed, inject, OnDestroy, OnInit, Signal} from '@angular/core';
+import {Component, inject, OnDestroy, OnInit, Signal} from '@angular/core';
 import {MatDialog} from '@angular/material/dialog';
 import {MatCard, MatCardActions, MatCardSubtitle} from '@angular/material/card';
 import {MatIconButton} from '@angular/material/button';
@@ -21,12 +21,10 @@ import {Subject} from 'rxjs';
 import {ExperienceState} from '../../../store/experience/experience.state';
 import {GetExperience, GetExperienceCategories, GetStats} from '../../../store/experience/experience.action';
 import {GetProject} from '../../../store/project/project.action';
-import {UserState} from '../../../store/user/user.state';
-import {User} from '@auth0/auth0-angular';
-import {environment} from '../../../../environments/environment';
 import {CardSidenavResumeComponent} from '../card-sidenav-resume/card-sidenav-resume.component';
 import {MatProgressSpinner} from '@angular/material/progress-spinner';
 import {CardLeetcodeComponent} from '../card-leetcode/card-leetcode.component';
+import {UserService} from '../../../core/services/api/user.service';
 
 @Component({
   selector: 'app-card-sidenav',
@@ -49,12 +47,8 @@ export class CardSidenavComponent implements OnInit, OnDestroy {
   private readonly dialog: MatDialog = inject(MatDialog);
   private readonly unsubscribe$ = new Subject();
 
-  readonly isLoggedIn: Signal<boolean> = this.store.selectSignal(UserState.isLoggedIn);
-  readonly userDetailsSignal: Signal<User> = this.store.selectSignal(UserState.getUser);
-  readonly isAdmin: Signal<boolean> = computed((): boolean => {
-    const user: User = this.userDetailsSignal();
-    return this.isLoggedIn() && user?.email === environment.user?.email;
-  });
+  readonly userService: UserService = inject(UserService);
+  readonly isAdmin: Signal<boolean> = this.userService.isAdmin;
 
   experienceList: any[] | undefined = [];
   socialLinkList: any[] = [];

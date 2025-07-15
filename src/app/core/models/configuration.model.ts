@@ -1,5 +1,6 @@
 export interface EnvironmentConfig {
   production: boolean,
+  bypassAdminCheck: boolean,
   enableRecaptcha: boolean,
   apiBaseUrl: string,
   apiUrl: string,
