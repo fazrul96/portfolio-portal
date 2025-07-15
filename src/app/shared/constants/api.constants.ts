@@ -33,7 +33,6 @@ export const PORTFOLIO_API = {
   ID_PATH: (entity: PortfolioEntity, id: number): string => `${entity}/${id}`,
 };
 
-
 export const LEETCODE_API = {
   GRAPHQL_SUBMIT_STATS: `https://${BASE_LEETCODE}.com/graphql`,
   GRAPHQL_STATS: `https://${BASE_LEETCODE}-stats-api.herokuapp.com/fazrul96`,
@@ -48,5 +47,10 @@ export const S3_API = {
   UPLOAD_FILES: `${BASE_S3}/uploadFiles`,
   DELETE_FILE: `${BASE_S3}/deleteFile`,
   DOWNLOAD_FILE: `${BASE_S3}/downloadFile`,
-  LIST_FILES: `${BASE_S3}/listFiles`
+  LIST_FILES: `${BASE_S3}/listFiles`,
+
+  PREFIXES: {
+    RESUME: 'portfolio-content/resume/',
+    WEBTOONS: 'webtoons-content/',
+  },
 };

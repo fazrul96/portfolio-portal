@@ -80,3 +80,14 @@ export interface DifficultyStats {
   count: number;
   submissions: number;
 }
+
+export interface Files {
+  folders: S3File[];
+  files: S3File[];
+}
+
+export interface S3File {
+  name: string;
+  size: number;
+  lastModified: string;
+}
