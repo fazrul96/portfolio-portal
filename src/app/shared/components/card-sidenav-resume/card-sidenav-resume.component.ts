@@ -1,6 +1,6 @@
 import {Component, inject, Input, OnDestroy, OnInit, Signal} from '@angular/core';
 import {DropzoneWrapperComponent} from "../dropzone-wrapper/dropzone-wrapper.component";
-import {MatButton, MatButtonModule} from "@angular/material/button";
+import {MatButtonModule} from "@angular/material/button";
 import {MatCard, MatCardModule, MatCardSubtitle} from "@angular/material/card";
 import {MatIcon} from '@angular/material/icon';
 import {MatTooltip} from '@angular/material/tooltip';
@@ -21,13 +21,13 @@ import {BreakpointObserver, Breakpoints} from '@angular/cdk/layout';
 import {PdfType} from '../../enums/pdf-type.enum';
 import {S3_API} from '../../constants/api.constants';
 import {PdfViewerData} from '../../../core/models/pdf-viewer-model';
-import {GetPresignUrl} from '../../../store/file/file.action';
+import {DeleteResumeFile, GetPresignUrl} from '../../../store/file/file.action';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-card-sidenav-resume',
   imports: [
     DropzoneWrapperComponent,
-    MatButton,
     MatCard,
     MatCardSubtitle,
     MatIcon,
@@ -54,6 +54,7 @@ export class CardSidenavResumeComponent implements OnInit, OnDestroy {
 
   resumeFiles: S3File[] = [];
   latestResume?: S3File;
+  showAllActions: boolean = false;
   isAdmin: Signal<boolean> = this.userService.isAdmin;
 
   ngOnInit(): void {
@@ -71,8 +72,29 @@ export class CardSidenavResumeComponent implements OnInit, OnDestroy {
     this.unsubscribe$.complete();
   }
 
-  openDialog(type: PdfType): void {
-    const key: string | null = this.getFileKey(type);
+  toggleEditButton(): void {
+    this.showAllActions = !this.showAllActions;
+  }
+
+  confirmDelete(file: S3File): void {
+    Swal.fire({
+      title: 'Are you sure?',
+      text: `Delete "${file.name}"? This cannot be undone.`,
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#e53935',
+      cancelButtonColor: '#9e9e9e',
+      confirmButtonText: 'Yes, delete it!',
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.store.dispatch(new DeleteResumeFile(file.name));
+        Swal.fire('Deleted!', `"${file.name}" has been deleted.`, 'success');
+      }
+    });
+  }
+
+  openDialog(type: PdfType, keyName?: string): void {
+    const key: string | null = this.getFileKey(type, keyName);
     if (!key) return;
 
     this.store.dispatch(new GetPresignUrl(key)).pipe(
@@ -85,12 +107,23 @@ export class CardSidenavResumeComponent implements OnInit, OnDestroy {
     });
   }
 
-  private getFileKey(pdfType: PdfType): string | null {
-    if (pdfType === PdfType.CV && this.latestResume) {
-      return `${S3_API.PREFIXES.RESUME}${this.latestResume.name}`;
-    } else if (pdfType === PdfType.SNAPSYNCH) {
+  private getFileKey(pdfType: PdfType, keyName?: string): string | null {
+    if (pdfType === PdfType.CV) {
+      const fileName: string | undefined = keyName ?? this.latestResume?.name;
+
+      if (fileName) {
+        return `${S3_API.PREFIXES.RESUME}${fileName}`;
+      } else {
+        console.warn('Missing resume file name for CV');
+        return null;
+      }
+    }
+
+    if (pdfType === PdfType.SNAPSYNCH) {
       return S3_API.PREFIXES.SNAPSYNCH;
     }
+
+    console.warn('Invalid PDF type:', pdfType);
     return null;
   }
 

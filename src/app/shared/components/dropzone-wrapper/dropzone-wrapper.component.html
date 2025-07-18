@@ -4,5 +4,6 @@
           [message]="'Drag and drop files here, or Browse <br> Support all file types'"
           (init)="onUploadInit($event)"
           (error)="onUploadError($event)"
-          (success)="onUploadSuccess($event)">
+          (success)="onUploadSuccess($event)"
+          (addedFile)="onFileAdded($event)">
 </dropzone>

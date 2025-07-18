@@ -1,13 +1,22 @@
 .dropzone-container {
-  border-radius: 8px;
+  border: 2px dashed #ffa726;
+  border-radius: 10px;
   background-color: #fffaf0;
   text-align: center;
   cursor: pointer;
-  transition: background-color 0.3s ease;
+  transition: all 0.3s ease;
+  color: #555;
+  position: relative;
   min-height: 100px;
   max-height: 200px;
 
   &:hover {
     background-color: #fff4db;
+    border-color: #ff9800;
+  }
+
+  &.dz-drag-hover {
+    background-color: #fff1cc;
+    border-color: #ffb74d;
   }
 }

@@ -1,5 +1,24 @@
 <mat-card class="mat-elevation-z4 card-container">
-  <mat-card-subtitle class="card-title">Resume / CV</mat-card-subtitle>
+  @if (isAdmin())  {
+    <mat-card-subtitle class="card-title">
+      <div class="subtitle-content">
+        <span>Resume / CV</span>
+
+        <div class="icons-group">
+          <mat-icon
+            mat-icon-button
+            matTooltip="Edit Resume / CV"
+            matTooltipPosition="above"
+            class="info-icon"
+            (click)="toggleEditButton()">
+            edit
+          </mat-icon>
+        </div>
+      </div>
+    </mat-card-subtitle>
+  } @else {
+    <mat-card-subtitle class="card-title">Resume / CV</mat-card-subtitle>
+  }
 
   @if (latestResume) {
     <mat-card
@@ -26,6 +45,17 @@
         <mat-icon class="circular-icon">
           <i class="fa fa-check" aria-hidden="true"></i>
         </mat-icon>
+
+        @if (showAllActions) {
+          <button
+            mat-icon-button
+            class="delete-btn"
+            matTooltip="Delete this file"
+            aria-label="Delete file"
+            (click)="confirmDelete(latestResume)">
+            <mat-icon color="warn">delete</mat-icon>
+          </button>
+        }
       </div>
     </mat-card>
   }
@@ -58,18 +88,23 @@
 
   @if (isAdmin())  {
     <mat-card-subtitle class="card-title">
-      Upload Resume / CV
-      <mat-icon
-        matTooltip="Upload a new version of your resume. Accepted formats: PDF, DOCX. Max size: 2MB."
-        matTooltipPosition="above"
-        class="info-icon"
-      >
-        info
-      </mat-icon>
+      <div class="subtitle-content">
+        <span>Upload Resume / CV</span>
+
+        <div class="icons-group">
+          <mat-icon
+            matTooltip="Upload a new version of your resume. Accepted formats: PDF, DOCX. Max size: 2MB."
+            matTooltipPosition="above"
+            class="info-icon"
+          >
+            info
+          </mat-icon>
+        </div>
+      </div>
     </mat-card-subtitle>
 
     @for (resume of resumeFiles; track $index) {
-      <div class="header-flex">
+      <div class="header-flex" (click)="openDialog(PdfType.CV, resume.name)">
         <div class="left-block">
           <mat-icon class="file-icon">
             <i class="fa fa-file" aria-hidden="true"></i>
@@ -82,14 +117,24 @@
             <span class="upload-title">{{ formatFileSize(resume.size) }}</span>
           </div>
         </div>
-        <button matButton="elevated" color="primary" class="select-btn">
-          Use this file
-        </button>
+
+        @if (showAllActions) {
+          <button
+            mat-icon-button
+            class="delete-btn"
+            matTooltip="Delete this file"
+            aria-label="Delete file"
+            (click)="confirmDelete(resume)">
+            <mat-icon color="warn">delete</mat-icon>
+          </button>
+        }
       </div>
     }
 
-    <div class="resume-upload">
-      <app-dropzone-wrapper></app-dropzone-wrapper>
-    </div>
+    @if (showAllActions) {
+      <div class="resume-upload">
+        <app-dropzone-wrapper></app-dropzone-wrapper>
+      </div>
+    }
   }
 </mat-card>
