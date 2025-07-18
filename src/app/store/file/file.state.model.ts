@@ -22,6 +22,8 @@ export interface FileStateModel  {
   certificateFiles: Files;
   imageFiles: Files;
   portfolioFiles: Files;
+  viewingBlob?: Blob;
+  presignedUrl?: string;
   loading: boolean;
   error: string | null;
 }

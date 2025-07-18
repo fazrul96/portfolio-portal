@@ -18,3 +18,8 @@ export function formatPremium(amount?: number, mode: string = ''): string {
 export function splitByComma(input: string): string[] {
   return input ? input.split(COMMON_CONSTANTS.COMMA).map(s => s.trim()).filter(Boolean) : [];
 }
+
+export function extractFileNameFromKey(key: string): string {
+  const lastSlashIndex: number = key.lastIndexOf(COMMON_CONSTANTS.SLASH);
+  return key.substring(lastSlashIndex + 1);
+}

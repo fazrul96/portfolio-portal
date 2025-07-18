@@ -2,6 +2,9 @@ const BASE_S3 = 's3';
 const BASE_AUTH = 'auth';
 const BASE_LEETCODE = 'leetcode';
 
+const PORTFOLIO_CONTENT = 'portfolio-content';
+const WEBTOON_CONTENT = 'webtoons-content';
+
 export const USER_API = {
   USER_LOGIN: `${BASE_AUTH}/login`,
   USER_LOGIN_AUTH0: `${BASE_AUTH}/loginAuth0`,
@@ -46,11 +49,14 @@ export const S3_API = {
   BASE: BASE_S3 ,
   UPLOAD_FILES: `${BASE_S3}/uploadFiles`,
   DELETE_FILE: `${BASE_S3}/deleteFile`,
+  VIEW_FILE: `${BASE_S3}/viewFile`,
   DOWNLOAD_FILE: `${BASE_S3}/downloadFile`,
   LIST_FILES: `${BASE_S3}/listFiles`,
+  PRESIGN_URL: `${BASE_S3}/presignUrl`,
 
   PREFIXES: {
-    RESUME: 'portfolio-content/resume/',
-    WEBTOONS: 'webtoons-content/',
+    RESUME: `${(PORTFOLIO_CONTENT)}/resume/`,
+    SNAPSYNCH: `${(PORTFOLIO_CONTENT)}/snapsynch/snapSynch.pdf`,
+    WEBTOONS: `${(WEBTOON_CONTENT)}/`,
   },
 };

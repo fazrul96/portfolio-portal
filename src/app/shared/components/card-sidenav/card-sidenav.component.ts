@@ -25,7 +25,7 @@ import {CardSidenavResumeComponent} from '../card-sidenav-resume/card-sidenav-re
 import {MatProgressSpinner} from '@angular/material/progress-spinner';
 import {CardLeetcodeComponent} from '../card-leetcode/card-leetcode.component';
 import {UserService} from '../../../core/services/api/user.service';
-import {GetResumeFile} from '../../../store/file/file.action';
+import {GetResumeFiles} from '../../../store/file/file.action';
 
 @Component({
   selector: 'app-card-sidenav',
@@ -123,7 +123,7 @@ export class CardSidenavComponent implements OnInit, OnDestroy {
       new GetExperience(),
       new GetExperienceCategories(),
       new GetStats(),
-      new GetResumeFile(),
+      new GetResumeFiles(),
     ]);
     this.socialLinkList = SOCIAL_LINKS;
   }

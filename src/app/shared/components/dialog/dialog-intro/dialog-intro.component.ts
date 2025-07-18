@@ -1,25 +1,63 @@
-import {ChangeDetectionStrategy, Component} from '@angular/core';
+import {ChangeDetectionStrategy, Component, Inject, inject, OnDestroy} from '@angular/core';
 import {MatButtonModule} from '@angular/material/button';
-import {MatDialogModule} from '@angular/material/dialog';
-import {MatTab, MatTabGroup} from '@angular/material/tabs';
-import {ResumeComponent} from '../../resume/resume.component';
+import {MAT_DIALOG_DATA, MatDialogModule} from '@angular/material/dialog';
 import {PdfViewerModule} from 'ng2-pdf-viewer';
 import {PdfViewerComponent} from '../../pdf-viewer/pdf-viewer.component';
 import {PdfType} from '../../../enums/pdf-type.enum';
+import {MatIcon} from '@angular/material/icon';
+import {MatTooltip} from '@angular/material/tooltip';
+import {ZoomService} from '../../../../core/services/zoom.service';
+import {Store} from '@ngxs/store';
+import {DownloadFile} from '../../../../store/file/file.action';
+import {Subject, takeUntil} from 'rxjs';
+import {COMMON_CONSTANTS} from '../../../constants/common.constants';
+import {PdfViewerData} from '../../../../core/models/pdf-viewer-model';
 
 @Component({
   selector: 'app-dialog-intro',
-  imports: [MatDialogModule, MatButtonModule, MatTabGroup, MatTab, ResumeComponent, PdfViewerModule, PdfViewerComponent],
+  imports: [
+    MatDialogModule, MatButtonModule, PdfViewerModule, PdfViewerComponent, MatIcon, MatTooltip
+  ],
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './dialog-intro.component.html',
   styleUrl: './dialog-intro.component.scss'
 })
 
-export class DialogIntroComponent {
-  protected readonly PdfType: typeof PdfType = PdfType;
-  currentPdfType: PdfType = PdfType.CV;
+export class DialogIntroComponent implements OnDestroy {
+  private readonly store: Store = inject(Store);
+  private readonly zoomService: ZoomService = inject(ZoomService);
+  private readonly unsubscribe$ = new Subject();
 
-  onTabChange(index: number): void {
-    this.currentPdfType = index === 0 ? PdfType.CV : PdfType.SNAPSYNCH;
+  constructor(@Inject(MAT_DIALOG_DATA) public data: PdfViewerData) {}
+
+  ngOnDestroy(): void {
+    this.unsubscribe$.next(COMMON_CONSTANTS.EMPTY_STRING);
+    this.unsubscribe$.complete();
+  }
+
+  zoomIn(): void {
+    this.zoomService.zoomIn();
+  }
+
+  zoomOut(): void {
+    this.zoomService.zoomOut();
+  }
+
+  download(): void {
+    if (this.data.key) {
+      this.store.dispatch(new DownloadFile(this.data.key))
+        .pipe(takeUntil(this.unsubscribe$)).subscribe();
+    }
+  }
+
+  get dialogTitle(): string {
+    switch (this.data.type) {
+      case PdfType.CV:
+        return 'Resume / CV Profile';
+      case PdfType.SNAPSYNCH:
+        return 'SnapSynch Profile';
+      default:
+        return 'PDF Viewer';
+    }
   }
 }

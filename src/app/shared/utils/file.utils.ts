@@ -7,3 +7,37 @@ export function formatFileSize(bytes: number): string {
   const i: number = Math.floor(Math.log(bytes) / Math.log(k));
   return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + COMMON_CONSTANTS.SPACE + sizes[i];
 }
+
+export function triggerBrowserDownload(blob: Blob, fileName: string): void {
+  const file = new Blob([blob], { type: blob.type || 'application/octet-stream' });
+  const url: string = window.URL.createObjectURL(file);
+
+  const link: HTMLAnchorElement = document.createElement('a');
+  link.href = url;
+  link.download = fileName;
+
+  document.body.appendChild(link);
+  link.click();
+  document.body.removeChild(link);
+
+  window.URL.revokeObjectURL(url);
+}
+
+export function handleBlobResponse(blob: Blob, fileName: string, isDownload: boolean): void {
+  const file = new Blob([blob], { type: blob.type || 'application/octet-stream' });
+  const url: string = window.URL.createObjectURL(file);
+
+  if (isDownload) {
+    const link: HTMLAnchorElement = document.createElement('a');
+    link.href = url;
+    link.download = fileName;
+
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  } else {
+    window.open(url, '_blank');
+  }
+
+  URL.revokeObjectURL(url);
+}

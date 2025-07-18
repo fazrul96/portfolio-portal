@@ -5,7 +5,9 @@ import {BehaviorSubject} from 'rxjs';
   providedIn: 'root'
 })
 export class ZoomService {
-  private readonly zoomSubject = new BehaviorSubject<number>(0.6);
+  private readonly initialZoom = window.innerWidth <= 600 ? 0.8 : 0.9;
+  private readonly zoomSubject = new BehaviorSubject<number>(this.initialZoom);
+
   zoom$ = this.zoomSubject.asObservable();
 
   setZoom(value: number): void {

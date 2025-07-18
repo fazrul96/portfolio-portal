@@ -39,9 +39,7 @@ export class CardProfileIntroComponent implements OnInit {
       maxWidth: '90vw',
       autoFocus: false,
     });
-    dialogRef.afterClosed().subscribe(result => {
-      console.log(`Dialog result: ${result}`);
-    });
+    dialogRef.afterClosed().subscribe();
   }
 
   ngOnInit(): void {
