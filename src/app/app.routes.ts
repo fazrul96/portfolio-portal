@@ -14,6 +14,9 @@ export const ROUTE_PATHS = {
   resources: 'resources',
   setting: 'settings',
   workspace: 'workspace',
+  webtoon: 'webtoon',
+  webtoonSeries: 'webtoon-series',
+  webtoonReader: 'webtoon-reader',
   root: '',
 };
 
@@ -40,6 +43,25 @@ export const routes: Routes = [
   },
   { path: ROUTE_PATHS.workspace,
     loadComponent: () => import('./features/workspace/workspace.component').then(m => m.WorkspaceComponent),
+  },
+  { path: ROUTE_PATHS.webtoon,
+    loadComponent: () => import('./features/webtoon/webtoon.component').then(m => m.WebtoonComponent),
+  },
+  { path: ROUTE_PATHS.webtoonSeries,
+    children: [
+      {
+        path: ':title',
+        loadComponent: () => import('./features/webtoon-series/webtoon-series.component').then(m => m.WebtoonSeriesComponent),
+      }
+    ]
+  },
+  { path: ROUTE_PATHS.webtoonReader,
+    children: [
+      {
+        path: ':title/chapter/:webtoonChapter',
+        loadComponent: () => import('./features/webtoon-reader/webtoon-reader.component').then(m => m.WebtoonReaderComponent),
+      }
+    ]
   },
   { path: ROUTE_PATHS.root,
     redirectTo: ROUTE_PATHS.root,

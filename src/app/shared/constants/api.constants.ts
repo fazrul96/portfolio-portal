@@ -29,6 +29,7 @@ const BASE_PATHS = {
   educations: 'educations',
   certifications: 'certifications',
   notifications: 'notifications',
+  webtoons: 'webtoons',
 } as const;
 
 export const PORTFOLIO_API = {

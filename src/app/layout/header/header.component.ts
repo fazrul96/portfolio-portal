@@ -18,6 +18,7 @@ import {EnvironmentFeatureFlags} from '../../core/models/configuration.model';
 import {Subject, takeUntil} from 'rxjs';
 import {BreakpointObserver, Breakpoints} from '@angular/cdk/layout';
 import {ROUTE_PATHS} from '../../app.routes';
+import {UserService} from '../../core/services/api/user.service';
 
 @Component({
   selector: 'app-header',
@@ -37,6 +38,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   private readonly router: Router = inject(Router);
   private readonly observer: BreakpointObserver = inject(BreakpointObserver);
   private readonly cdr: ChangeDetectorRef = inject(ChangeDetectorRef);
+  private readonly userService: UserService = inject(UserService);
   private readonly unsubscribe$ = new Subject();
 
   username: Signal<string> = signal(COMMON_CONSTANTS.EMPTY_STRING);
@@ -45,6 +47,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   userInfo: UserAuth0 = {};
   notificationList: any[] = [];
   isSmallScreen: boolean = false;
+  isAdmin: Signal<boolean> = this.userService.isAdmin;
 
   ngOnInit(): void {
     this.initializeUserData();

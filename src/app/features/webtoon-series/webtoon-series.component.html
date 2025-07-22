@@ -1,0 +1,57 @@
+<div class="series-detail">
+  <div class="series-hero">
+    <img
+      src="{{this.selectedWebtoon!.bannerImage}}"
+      alt="Cover"
+      class="cover-bg"
+    />
+    <div class="overlay"></div>
+
+    <div class="series-info">
+      <h1 class="series-title">{{this.selectedWebtoon!.alias}}</h1>
+      <div class="series-meta">
+        <mat-chip color="accent">{{this.selectedWebtoon!.status}}</mat-chip>
+        <span>{{this.selectedWebtoon!.chapterCount}} Chapters</span>
+        <span><mat-icon inline>visibility</mat-icon> 89.5M</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="series-actions">
+    <button mat-raised-button color="primary" (click)="goToSelectedChapter(this.selectedWebtoon!.chapterCount)">
+      <mat-icon>menu_book</mat-icon> Start Reading
+    </button>
+    <button mat-stroked-button color="accent">
+      <mat-icon>bookmark</mat-icon> Bookmark
+    </button>
+    <button mat-icon-button>
+      <mat-icon>share</mat-icon>
+    </button>
+  </div>
+
+  <div class="series-description">
+    <h2>About</h2>
+    <p>
+      {{this.selectedWebtoon!.description}}
+    </p>
+  </div>
+
+  <div class="chapter-list">
+    <h2>Chapters — {{ selectedWebtoon?.alias }}</h2>
+
+    <mat-list class="scrollable-list">
+      @for (chapter of chapterList; track $index) {
+        <mat-list-item
+          (click)="goToSelectedChapter(chapter)"
+          (keydown.enter)="goToSelectedChapter(chapter)"
+        >
+          <div matLine class="chapter-title">Chapter {{ chapter }}</div>
+          <div matLine class="secondary">
+            {{ selectedWebtoon?.updatedAt | date: 'MMM d, y' }}
+          </div>
+        </mat-list-item>
+      }
+    </mat-list>
+  </div>
+
+</div>

@@ -94,6 +94,14 @@
       </mat-icon>
       <span>Workspace</span>
     </button>
+    @if (isAdmin()) {
+      <button mat-menu-item (click)="navigateTo(ROUTE_PATHS.webtoon)">
+        <mat-icon matBadge="1" matBadgeSize="small" aria-hidden="false">
+          <i class="fa fa-book" aria-hidden="true"></i>
+        </mat-icon>
+        <span>Webtoon</span>
+      </button>
+    }
   }
   <hr>
   <button mat-menu-item (click)="logout()">

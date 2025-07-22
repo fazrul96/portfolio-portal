@@ -1,0 +1,7 @@
+@if(images.length > 0) {
+  <div class="reader-container">
+    @for (img of images; track $index) {
+      <img [src]="img" class="page-image" alt="webtoon" loading="lazy" />
+    }
+  </div>
+}

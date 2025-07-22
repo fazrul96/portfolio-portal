@@ -1,0 +1,110 @@
+<mat-tab-group [(selectedIndex)]="selectedTab">
+  <mat-tab label="Webtoons">
+    <div class="toolbar">
+      <mat-form-field appearance="outline">
+        <mat-label>Search Webtoons</mat-label>
+        <input matInput [(ngModel)]="searchQuery" />
+        @if (searchQuery) {
+          <button mat-icon-button matSuffix (click)="searchQuery = ''">
+            <mat-icon>clear</mat-icon>
+          </button>
+        }
+      </mat-form-field>
+
+      <mat-button-toggle-group [(ngModel)]="viewMode" exclusive>
+        <mat-button-toggle value="grid"><mat-icon>view_module</mat-icon></mat-button-toggle>
+        <mat-button-toggle value="list"><mat-icon>view_list</mat-icon></mat-button-toggle>
+      </mat-button-toggle-group>
+    </div>
+
+    @if (viewMode === 'grid') {
+      <div
+        fxLayout.xs="column"
+        fxLayout.gt-xs="row wrap"
+        fxLayoutAlign="center start"
+        class="grid-view"
+      >
+        @for (webtoon of filteredWebtoons; track webtoon.id) {
+          <mat-card class="webtoon-card mat-elevation-z8"
+                    appearance="outlined"
+                    matTooltip="{{ webtoon.alias }}"
+                    (click)="goToWebtoonSeries(webtoon.title)"
+                    (keydown.enter)="goToWebtoonSeries(webtoon.title)"
+          >
+            <img
+              mat-card-image
+              [src]="webtoon.coverImage"
+              alt="{{ webtoon.title }}"
+              class="webtoon-cover"
+              (error)="onImageError($event)"
+            />
+
+            <mat-card-content>
+              <p class="title" matTooltip="{{ webtoon.alias }}">{{ webtoon.alias }}</p>
+            </mat-card-content>
+            <mat-card-actions style="justify-content: space-evenly">
+              <a mat-button color="accent" target="_blank">Ch. {{ webtoon.chapterCount }}</a>
+              <button mat-button color="primary" [color]="getStatusColor(webtoon.status)">{{ webtoon.status }}</button>
+            </mat-card-actions>
+          </mat-card>
+        }
+      </div>
+    }
+
+    @if (viewMode === 'list') {
+      <div class="list-view">
+        @for (webtoon of filteredWebtoons; track webtoon.id) {
+          <div class="list-card">
+            <div class="avatar-wrapper">
+              <img
+                [src]="webtoon.coverImage"
+                [alt]="webtoon.title"
+                class="list-avatar"
+                loading="lazy"
+                (error)="onImageError($event)"
+              />
+            </div>
+
+            <div class="list-details">
+              <div class="list-title" matTooltip="{{ webtoon.alias }}">
+                {{ webtoon.alias }}
+              </div>
+
+              <div class="list-meta">
+                <span class="chapter">Ch. {{ webtoon.chapterCount }}</span>
+                <span class="views">
+                  <mat-icon inline>visibility</mat-icon> 89.5M
+                </span>
+                <mat-chip
+                  mat-basic-chip
+                  [color]="getStatusColor(webtoon.status)"
+                  selected
+                  class="status-chip"
+                >
+                  {{ webtoon.status }}
+                </mat-chip>
+              </div>
+            </div>
+          </div>
+        }
+      </div>
+
+    }
+  </mat-tab>
+
+  <mat-tab label="Manage Webtoons">
+    <p>Coming soon...</p>
+  </mat-tab>
+
+  <mat-tab label="Analytics">
+    <p>Coming soon...</p>
+  </mat-tab>
+</mat-tab-group>
+
+<button mat-fab color="accent" class="fab sync-fab" (click)="syncWebtoons()">
+  <mat-icon>sync</mat-icon>
+</button>
+
+<button mat-fab color="primary" class="fab add-fab" (click)="addNewWebtoon()">
+  <mat-icon>add</mat-icon>
+</button>

@@ -59,6 +59,26 @@ export interface SkillPortal {
   id: string;
 }
 
+export interface WebtoonPortal {
+  id: number;
+  alias: string;
+  title: string;
+  author: string;
+  artist: string;
+  genre: string;
+  description: string;
+  rating: number;
+  chapterCount: number;
+  source: string;
+  status: string;
+  type: string;
+  image: string | null;
+  bannerImage: string;
+  coverImage: string;
+  createdAt: string;
+  updatedAt: string;
+}
+
 export interface LeetCodeStats {
   totalSolved: number;
   totalQuestions: number;
