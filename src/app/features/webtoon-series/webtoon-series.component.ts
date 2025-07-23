@@ -1,5 +1,5 @@
 import {Component, inject, OnDestroy, OnInit} from '@angular/core';
-import {ActivatedRoute, Router, RouterLink} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import {MatButton, MatIconButton} from '@angular/material/button';
 import {MatList, MatListItem} from '@angular/material/list';
 import {MatLine} from '@angular/material/core';
@@ -12,6 +12,7 @@ import {WebtoonState} from '../../store/webtoon/webtoon.state';
 import {Store} from '@ngxs/store';
 import {DatePipe} from '@angular/common';
 import {formatCamelCase} from '../../shared/utils/string.utils';
+import {ROUTE_PATHS} from '../../app.routes';
 
 @Component({
   selector: 'app-webtoon-series',
@@ -24,7 +25,6 @@ import {formatCamelCase} from '../../shared/utils/string.utils';
     MatListItem,
     MatChip,
     DatePipe,
-    RouterLink,
   ],
   templateUrl: './webtoon-series.component.html',
   styleUrl: './webtoon-series.component.scss'
@@ -61,15 +61,24 @@ export class WebtoonSeriesComponent implements OnInit, OnDestroy {
           : [];
 
         this.breadcrumbs = [
-          { label: 'Webtoon', link: 'webtoon' },
-          { label: formatCamelCase(title) }
+          { label: formatCamelCase(ROUTE_PATHS.webtoon), link: ROUTE_PATHS.webtoon },
+          { label: formatCamelCase(title) },
         ];
+
       });
   }
 
   ngOnDestroy(): void {
     this.unsubscribe$.next(COMMON_CONSTANTS.EMPTY_STRING);
     this.unsubscribe$.complete();
+  }
+
+  onImageError(event: Event): void {
+    (event.target as HTMLImageElement).src = 'assets/images/share/content-bg.jpg';
+  }
+
+  navigateTo(path: string): void {
+    this.router.navigate([path]);
   }
 
   goToSelectedChapter(chapter: number): void {

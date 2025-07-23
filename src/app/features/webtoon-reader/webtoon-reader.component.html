@@ -1,7 +1,26 @@
+<nav aria-label="breadcrumb" class="breadcrumb-nav">
+  <ol class="breadcrumb-list">
+    @for (breadcrumb of this.breadcrumbs; track $index; let isLast = $last) {
+      <li class="breadcrumb-item" [class.active]="isLast">
+        @if (!isLast) {
+          <a (click)="navigateTo(breadcrumb.link!)">{{ breadcrumb.label }}</a>
+        } @else {
+          <span>{{ breadcrumb.label }}</span>
+        }
+      </li>
+    }
+  </ol>
+</nav>
+
 @if(images.length > 0) {
   <div class="reader-container">
     @for (img of images; track $index) {
       <img [src]="img" class="page-image" alt="webtoon" loading="lazy" />
     }
+  </div>
+} @else {
+  <div class="empty-state">
+    <h2>Chapter Not Ready Yet</h2>
+    <p>We’re working on it! Please check back later or explore other chapters.</p>
   </div>
 }

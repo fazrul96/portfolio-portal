@@ -4,6 +4,7 @@
       src="{{this.selectedWebtoon!.bannerImage}}"
       alt="Cover"
       class="cover-bg"
+      (error)="onImageError($event)"
     />
     <div class="overlay"></div>
     <nav aria-label="breadcrumb" class="breadcrumb-nav">
@@ -11,7 +12,7 @@
         @for (breadcrumb of this.breadcrumbs; track $index; let isLast = $last) {
           <li class="breadcrumb-item" [class.active]="isLast">
             @if (!isLast) {
-              <a [routerLink]="breadcrumb.link">{{ breadcrumb.label }}</a>
+              <a (click)="navigateTo(breadcrumb.link!)">{{ breadcrumb.label }}</a>
             } @else {
               <span>{{ breadcrumb.label }}</span>
             }
@@ -19,7 +20,6 @@
         }
       </ol>
     </nav>
-
 
     <div class="series-info">
       <h1 class="series-title">{{this.selectedWebtoon!.alias}}</h1>
@@ -67,5 +67,4 @@
       }
     </mat-list>
   </div>
-
 </div>

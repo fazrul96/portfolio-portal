@@ -1,5 +1,5 @@
 import {Component, inject, OnDestroy, OnInit} from '@angular/core';
-import {ActivatedRoute, ParamMap} from '@angular/router';
+import {ActivatedRoute, ParamMap, Router} from '@angular/router';
 import {Unzipped, unzipSync} from 'fflate';
 import {GetPresignUrl} from '../../store/file/file.action';
 import {filter, map, Observable, Subject, switchMap, take, takeUntil} from 'rxjs';
@@ -7,6 +7,8 @@ import {FileState} from '../../store/file/file.state';
 import {Store} from '@ngxs/store';
 import {S3_API} from '../../shared/constants/api.constants';
 import {COMMON_CONSTANTS} from '../../shared/constants/common.constants';
+import {ROUTE_PATHS} from '../../app.routes';
+import {formatCamelCase} from '../../shared/utils/string.utils';
 
 @Component({
   selector: 'app-webtoon-reader',
@@ -17,12 +19,14 @@ import {COMMON_CONSTANTS} from '../../shared/constants/common.constants';
 export class WebtoonReaderComponent implements OnInit, OnDestroy {
   private readonly store: Store = inject(Store);
   private readonly route : ActivatedRoute = inject(ActivatedRoute);
+  private readonly router: Router = inject(Router);
   private readonly unsubscribe$ = new Subject();
 
   images: string[] = [];
   title: string = COMMON_CONSTANTS.EMPTY_STRING;
   chapter: string = COMMON_CONSTANTS.EMPTY_STRING;
   file: string = COMMON_CONSTANTS.EMPTY_STRING;
+  breadcrumbs: Array<{ label: string; link?: string }> = [];
 
   ngOnInit(): void {
     this.route.paramMap
@@ -30,8 +34,17 @@ export class WebtoonReaderComponent implements OnInit, OnDestroy {
         takeUntil(this.unsubscribe$),
         map(this.extractParams),
         filter(this.hasValidParams),
-        switchMap(({ title, chapter }) => this.fetchPresignedUrl(title, chapter))
-      ).subscribe(({ url }): void => {
+        switchMap(({ title, chapter }) => {
+          this.breadcrumbs = [
+            { label: formatCamelCase(ROUTE_PATHS.webtoon), link: ROUTE_PATHS.webtoon },
+            { label: formatCamelCase(title), link: `${ROUTE_PATHS.webtoonSeries}/${title}` },
+            { label: `Chapter ${chapter}` },
+          ];
+
+          return this.fetchPresignedUrl(title, chapter);
+        })
+      )
+      .subscribe(({ url }): void => {
         this.file = url;
         this.loadChapterZip(url);
       });
@@ -40,6 +53,14 @@ export class WebtoonReaderComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     this.unsubscribe$.next(COMMON_CONSTANTS.EMPTY_STRING);
     this.unsubscribe$.complete();
+  }
+
+  navigateTo(path: string): void {
+    this.router.navigate([path]);
+  }
+
+  goBack(): void {
+    this.router.navigate(['/webtoon-series']);
   }
 
   readonly extractParams = (params: ParamMap): { title: string; chapter: string } => ({
@@ -88,4 +109,6 @@ export class WebtoonReaderComponent implements OnInit, OnDestroy {
         return URL.createObjectURL(blob);
       });
   }
+
+  protected readonly ROUTE_PATHS = ROUTE_PATHS;
 }
