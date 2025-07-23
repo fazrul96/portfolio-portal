@@ -1,25 +1,48 @@
 <div class="premium-dialog-wrapper">
   <div class="premium-banner">
-    <span class="badge">PREMIUM ACCESS</span>
-    <h2>Try <span class="gradient-text">Premium</span> Free for 7 Days</h2>
-    <p class="subtext">And save <strong>25%</strong> if you stay!</p>
+    <span class="badge">{{ data.badge }}</span>
+
+    @if (data.trialOffer) {
+      <h2>
+        Try <span class="gradient-text">{{ data.title }}</span> Free for 7 Days
+      </h2>
+    } @else {
+      <h2><span class="gradient-text">{{ data.title }}</span></h2>
+    }
+
+    @if (data.subtitle) {
+      <p class="subtext">{{ data.subtitle }}</p>
+    }
   </div>
 
-  <div class="premium-features">
-    <ul>
-      <li><mat-icon color="accent">bolt</mat-icon> No credit card required</li>
-      <li><mat-icon color="accent">local_offer</mat-icon> 25% discount after trial</li>
-      <li><mat-icon color="accent">stars</mat-icon> Full access to all premium features</li>
-    </ul>
-  </div>
+  @if (data.features?.length) {
+    <div class="premium-features">
+      <ul>
+        @for (feature of data.features; track $index) {
+          <li>
+            <mat-icon color="accent">{{ feature.icon }}</mat-icon>
+            {{ feature.text }}
+          </li>
+        }
+      </ul>
+    </div>
+  }
 
-  <div class="premium-actions">
-    <button mat-flat-button color="primary" [mat-dialog-close]="true" class="glow-button">
-      <mat-icon>arrow_forward</mat-icon> Start Free Trial
+  @if (data.showAction !== false) {
+    <button
+      mat-flat-button
+      color="primary"
+      [mat-dialog-close]="true"
+      class="glow-button"
+    >
+      <mat-icon>arrow_forward</mat-icon>
+      {{ data.actionLabel || 'Continue' }}
     </button>
-  </div>
+  }
 
-  <div class="premium-note">
-    <small>* This is a fictional premium offer for demonstration purposes only.</small>
-  </div>
+  @if (data.note) {
+    <div class="premium-note">
+      <small>{{ data.note }}</small>
+    </div>
+  }
 </div>

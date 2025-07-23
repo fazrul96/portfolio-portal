@@ -20,9 +20,9 @@ import {GetWebtoon} from '../../store/webtoon/webtoon.action';
 import {COMMON_CONSTANTS} from '../../shared/constants/common.constants';
 import {WebtoonState} from '../../store/webtoon/webtoon.state';
 import {WebtoonPortal} from '../../shared/types/portal.type';
+import {DialogService} from '../../core/services/dialog.service';
 import {DialogAccessComponent} from '../../shared/components/dialog/dialog-access/dialog-access.component';
-import {MatDialog} from '@angular/material/dialog';
-import {BreakpointObserver, Breakpoints} from '@angular/cdk/layout';
+import {ACCESS_DIALOG_DATA} from '../../shared/data/project.data';
 
 @Component({
   selector: 'app-webtoon',
@@ -49,8 +49,7 @@ import {BreakpointObserver, Breakpoints} from '@angular/cdk/layout';
 export class WebtoonComponent implements OnInit, OnDestroy {
   private readonly router: Router = inject(Router);
   private readonly store: Store = inject(Store);
-  private readonly dialog: MatDialog = inject(MatDialog);
-  private readonly breakpointObserver: BreakpointObserver = inject(BreakpointObserver);
+  private readonly dialogService: DialogService = inject(DialogService);
   private readonly unsubscribe$ = new Subject();
 
   webtoonList: WebtoonPortal[] | undefined = [];
@@ -77,17 +76,7 @@ export class WebtoonComponent implements OnInit, OnDestroy {
     }
 
     this.dispatchInitialData();
-      setTimeout(() => {
-      const dialogSize = this.getDialogSize();
-      const dialogRef = this.dialog.open(DialogAccessComponent, {
-        width: dialogSize.width,
-        height: dialogSize.height,
-        maxWidth: dialogSize.width,
-        autoFocus: false
-      });
-
-      dialogRef.afterClosed();
-    }, 4000);
+    this.dialogService.showDialog(DialogAccessComponent, 4000, ACCESS_DIALOG_DATA);
   }
 
   ngOnDestroy(): void {
@@ -114,17 +103,6 @@ export class WebtoonComponent implements OnInit, OnDestroy {
 
   onImageError(event: Event): void {
     (event.target as HTMLImageElement).src = 'assets/images/share/404-not-found.jpeg';
-  }
-
-  private getDialogSize(): { width: string; height: string } {
-    if (this.breakpointObserver.isMatched(Breakpoints.Handset)) {
-      return { width: '90vw', height: 'auto' };
-    } else if (this.breakpointObserver.isMatched(Breakpoints.Tablet)) {
-      return { width: '70vw', height: 'auto' };
-    } else if (this.breakpointObserver.isMatched(Breakpoints.Web)) {
-      return { width: '43vw', height: 'auto' };
-    }
-    return { width: '50vw', height: '90vh' };
   }
 
   goToWebtoonSeries(title: string): void {

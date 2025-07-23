@@ -17,12 +17,12 @@ import {Files, S3File} from '../../types/portal.type';
 import {COMMON_CONSTANTS} from '../../constants/common.constants';
 import {filter, Subject, switchMap, take, takeUntil} from 'rxjs';
 import {formatFileSize} from '../../utils/file.utils';
-import {BreakpointObserver, Breakpoints} from '@angular/cdk/layout';
 import {PdfType} from '../../enums/pdf-type.enum';
 import {S3_API} from '../../constants/api.constants';
 import {PdfViewerData} from '../../../core/models/pdf-viewer-model';
 import {DeleteResumeFile, GetPresignUrl} from '../../../store/file/file.action';
 import Swal from 'sweetalert2';
+import {DialogService} from '../../../core/services/dialog.service';
 
 @Component({
   selector: 'app-card-sidenav-resume',
@@ -46,7 +46,7 @@ import Swal from 'sweetalert2';
 export class CardSidenavResumeComponent implements OnInit, OnDestroy {
   private readonly store: Store = inject(Store);
   private readonly dialog: MatDialog = inject(MatDialog);
-  private readonly breakpointObserver: BreakpointObserver = inject(BreakpointObserver);
+  private readonly dialogService: DialogService = inject(DialogService);
   private readonly userService: UserService = inject(UserService);
   private readonly unsubscribe$ = new Subject();
 
@@ -128,7 +128,7 @@ export class CardSidenavResumeComponent implements OnInit, OnDestroy {
   }
 
   private launchDialog(payload: PdfViewerData): void {
-    const { width, height } = this.getDialogSize();
+    const { width, height } = this.dialogService.getDialogSizeCardSideNavResume();
 
     const dialogRef = this.dialog.open(DialogIntroComponent, {
       width,
@@ -140,24 +140,6 @@ export class CardSidenavResumeComponent implements OnInit, OnDestroy {
     dialogRef.afterClosed().subscribe(result => {
       console.log(`Dialog result: ${result}`);
     });
-  }
-
-  private getDialogSize(): { width: string; height: string } {
-    if (this.breakpointObserver.isMatched(Breakpoints.Handset)) {
-      return {
-        width: '100vw',
-        height: '75vh'
-      };
-    } else if (this.breakpointObserver.isMatched(Breakpoints.Web)) {
-      return {
-        width: '35vw',
-        height: '80vh'
-      };
-    }
-    return {
-      width: '50vw',
-      height: '90vh'
-    };
   }
 
   private setResumeFiles(files: S3File[]): void {

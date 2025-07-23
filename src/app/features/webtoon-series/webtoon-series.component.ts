@@ -1,5 +1,5 @@
 import {Component, inject, OnDestroy, OnInit} from '@angular/core';
-import {ActivatedRoute, Router} from '@angular/router';
+import {ActivatedRoute, Router, RouterLink} from '@angular/router';
 import {MatButton, MatIconButton} from '@angular/material/button';
 import {MatList, MatListItem} from '@angular/material/list';
 import {MatLine} from '@angular/material/core';
@@ -11,6 +11,7 @@ import {WebtoonPortal} from '../../shared/types/portal.type';
 import {WebtoonState} from '../../store/webtoon/webtoon.state';
 import {Store} from '@ngxs/store';
 import {DatePipe} from '@angular/common';
+import {formatCamelCase} from '../../shared/utils/string.utils';
 
 @Component({
   selector: 'app-webtoon-series',
@@ -23,6 +24,7 @@ import {DatePipe} from '@angular/common';
     MatListItem,
     MatChip,
     DatePipe,
+    RouterLink,
   ],
   templateUrl: './webtoon-series.component.html',
   styleUrl: './webtoon-series.component.scss'
@@ -36,6 +38,7 @@ export class WebtoonSeriesComponent implements OnInit, OnDestroy {
   selectedWebtoon: WebtoonPortal | null = null;
   chapterList: number[] = [];
   webtoonTitle: string = COMMON_CONSTANTS.EMPTY_STRING;
+  breadcrumbs: Array<{ label: string; link?: string }> = [];
 
   ngOnInit(): void {
     const title$ = this.route.paramMap.pipe(
@@ -56,6 +59,11 @@ export class WebtoonSeriesComponent implements OnInit, OnDestroy {
         this.chapterList = this.selectedWebtoon?.chapterCount
           ? Array.from({ length: this.selectedWebtoon.chapterCount }, (_, i) => this.selectedWebtoon!.chapterCount - i)
           : [];
+
+        this.breadcrumbs = [
+          { label: 'Webtoon', link: 'webtoon' },
+          { label: formatCamelCase(title) }
+        ];
       });
   }
 

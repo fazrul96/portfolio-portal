@@ -47,6 +47,22 @@ export interface Tool {
   lastIncident?: Incident;
 }
 
+export interface Icon {
+  icon: string,
+  text: string,
+}
+
+export interface DialogData {
+  badge: string;
+  title: string;
+  subtitle?: string;
+  features?: Icon[];
+  note?: string;
+  trialOffer?: boolean;
+  showAction?: boolean;
+  actionLabel?: string;
+}
+
 export const SOCIAL_LINKS = [
   {
     id: 1,
@@ -344,3 +360,33 @@ export const DEVOPS_TOOLS: Tool[] = [
     },
   },
 ];
+
+export const ACCESS_DIALOG_DATA: DialogData = {
+  badge: 'PREMIUM ACCESS',
+  title: 'Premium',
+  subtitle: 'And save 25% if you stay!',
+  features: [
+    { icon: 'bolt', text: 'No credit card required' },
+    { icon: 'local_offer', text: '25% discount after trial' },
+    { icon: 'stars', text: 'Full access to all premium features' }
+  ],
+  note: '* This is a fictional premium offer for demonstration purposes only.',
+  trialOffer: true,
+  actionLabel: 'Start Free Trial'
+};
+
+export const FEATURE_DIALOG_DATA: DialogData = {
+  badge: '🚧 IN DEVELOPMENT',
+  title: 'Upcoming Features',
+  subtitle: 'I’m actively working on improvements to this portfolio!',
+  features: [
+    { icon: 'build', text: 'Jenkins CI/CD Integration' },
+    { icon: 'payment', text: 'Stripe Payment Setup' },
+    { icon: 'schedule', text: 'Batch Job System' },
+    { icon: 'web', text: 'Portfolio UI/UX Improvements' },
+  ],
+  note: '* This information reflects development progress and may change.',
+  trialOffer: false,
+  actionLabel: 'Got it!'
+};
+

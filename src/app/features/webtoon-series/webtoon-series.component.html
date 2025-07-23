@@ -6,6 +6,20 @@
       class="cover-bg"
     />
     <div class="overlay"></div>
+    <nav aria-label="breadcrumb" class="breadcrumb-nav">
+      <ol class="breadcrumb-list">
+        @for (breadcrumb of this.breadcrumbs; track $index; let isLast = $last) {
+          <li class="breadcrumb-item" [class.active]="isLast">
+            @if (!isLast) {
+              <a [routerLink]="breadcrumb.link">{{ breadcrumb.label }}</a>
+            } @else {
+              <span>{{ breadcrumb.label }}</span>
+            }
+          </li>
+        }
+      </ol>
+    </nav>
+
 
     <div class="series-info">
       <h1 class="series-title">{{this.selectedWebtoon!.alias}}</h1>

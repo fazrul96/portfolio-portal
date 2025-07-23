@@ -1,4 +1,4 @@
-import {ChangeDetectionStrategy, Component,} from '@angular/core';
+import {ChangeDetectionStrategy, Component, inject, OnInit,} from '@angular/core';
 import {MatGridListModule} from '@angular/material/grid-list';
 import {MatButtonModule} from '@angular/material/button';
 import {MatCardModule} from '@angular/material/card';
@@ -12,6 +12,9 @@ import {CardProfileSummaryComponent} from '../../shared/components/card-profile-
 import {CardProjectComponent} from '../../shared/components/card-project/card-project.component';
 import {environment} from '../../../environments/environment';
 import {EnvironmentFeatureFlags} from '../../core/models/configuration.model';
+import {DialogService} from '../../core/services/dialog.service';
+import {DialogAccessComponent} from '../../shared/components/dialog/dialog-access/dialog-access.component';
+import {FEATURE_DIALOG_DATA} from '../../shared/data/project.data';
 
 @Component({
   selector: 'app-dashboard',
@@ -33,6 +36,12 @@ import {EnvironmentFeatureFlags} from '../../core/models/configuration.model';
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.scss'],
 })
-export class DashboardComponent {
+export class DashboardComponent implements OnInit {
+  private readonly dialogService: DialogService = inject(DialogService);
+
   featureFlags?: EnvironmentFeatureFlags = environment.featureFlags;
+
+  ngOnInit(): void {
+    this.dialogService.showDialog(DialogAccessComponent, 4000, FEATURE_DIALOG_DATA);
+  }
 }
