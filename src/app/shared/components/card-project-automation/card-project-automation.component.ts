@@ -16,10 +16,10 @@ import {Subject} from 'rxjs';
 import {ProjectPortal} from '../../types/portal.type';
 import {ProjectState} from '../../../store/project/project.state';
 import {NgStyle} from '@angular/common';
-import {MatDialog} from '@angular/material/dialog';
 import {
   DialogAutomationDetailsComponent
 } from '../dialog/dialog-automation-details/dialog-automation-details.component';
+import {DialogService} from '../../../core/services/dialog.service';
 
 @Component({
   selector: 'app-card-project-automation',
@@ -47,19 +47,13 @@ import {
 })
 export class CardProjectAutomationComponent implements OnInit, OnDestroy {
   private readonly store: Store = inject(Store);
-  private readonly dialog: MatDialog = inject(MatDialog);
+  private readonly dialogService: DialogService = inject(DialogService);
   private readonly unsubscribe$ = new Subject();
 
   public automationProjects: ProjectPortal[] | undefined = [];
 
   openProjectDialog(project: any): void {
-    this.dialog.open(DialogAutomationDetailsComponent, {
-      width: '40vw',
-      height: '30vh',
-      maxWidth: '90vw',
-      autoFocus: false,
-      data: project
-    });
+    this.dialogService.showDialog(DialogAutomationDetailsComponent, 0, project);
   }
 
   getStatusColor(index: number): string {

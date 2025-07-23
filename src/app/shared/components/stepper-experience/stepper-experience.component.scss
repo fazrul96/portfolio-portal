@@ -2,37 +2,61 @@
   display: flex;
   justify-self: center;
   box-sizing: border-box;
-  width: 50%;
+  width: 60%;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.3);
+  border-radius: 16px;
+  padding: 0.5rem;
 
   .experience-details {
-    padding-left: 0.5rem;
-  }
+    padding-left: 1rem;
+    font-size: 1.1rem;
+    line-height: 1.5rem;
+    font-weight: 400;
 
-  .company-logo {
-    width: 48px;
-    height: 48px;
-    border-radius: 30%;
-  }
+    .experience-header {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
 
-  .experience-header {
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-  }
+      .company-logo {
+        width: 56px;
+        height: 56px;
+        border-radius: 12px;
+        object-fit: contain;
+        background-color: #f3f3f3;
+      }
 
-  .experience-subtitle {
-    font-size: 16px;
-    font-weight: 500;
-  }
+      .experience-subtitle {
+        font-size: 1rem;
+        font-weight: 500;
+        line-height: 1.4;
+      }
+    }
 
-  ul {
-    padding-left: 1.5rem;
-  }
+    p {
+      margin: 0.5rem 0 1.5rem;
+      font-size: 1rem;
+      line-height: 1.6;
+    }
 
-  ul li {
-    margin-bottom: 0.5rem;
-  }
+    h4 {
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: darkgoldenrod;
+      margin-top: 1.5rem;
+    }
 
+    ul {
+      padding-left: 1.25rem;
+      margin: 0.5rem 0;
+      list-style-type: circle;
+
+      li {
+        margin-bottom: 0.4rem;
+        font-size: 1.07rem;
+      }
+    }
+  }
 }
 
 @media (max-width: 600px) {

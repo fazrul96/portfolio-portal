@@ -1,112 +1,106 @@
-.dialog-title {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  font-size: 1.5rem;
-
-  .company-name {
-    font-weight: 400;
-    font-size: 1rem;
-    margin-left: 1rem;
-    color: #888;
-  }
-}
-
-.experience-header {
-  display: flex;
-  gap: 1rem;
-  align-items: center;
-  margin: 1rem 0;
-
-  img {
-    width: 64px;
-    height: 64px;
-    object-fit: contain;
-    border-radius: 8px;
-    background-color: #f2f2f2;
-  }
-
-  .company-info {
-    h3 {
-      margin: 0;
-    }
-
-    .meta {
-      font-size: 0.9rem;
-      color: #666;
-    }
-
-    .duration {
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-      font-size: 0.9rem;
-      margin-top: 0.25rem;
-
-      mat-icon {
-        font-size: 16px;
-        color: #888;
-      }
-    }
-  }
-}
-
-.section {
-  margin-top: 1.5rem;
-
-  h4 {
-    margin-bottom: 0.5rem;
-    color: #444;
-  }
-
-  p {
-    font-size: 0.95rem;
-    color: #333;
-  }
-
-  .list {
-    list-style: none;
-    padding: 0;
-
-    li {
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-      margin-bottom: 0.25rem;
-
-      mat-icon {
-        font-size: 18px;
-        color: #4caf50;
-      }
-    }
-  }
-}
-
 .dialog-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  border-bottom: 1px solid #eee;
 
-  button {
+  .title {
+    font-size: 1.5rem;
+    font-weight: 500;
+    margin: 0;
+  }
+
+  .delete-btn {
     color: indianred;
-    margin: 0 1rem;
-    padding: 8px;
+    margin-left: auto;
+    margin-right: 1rem;
     border-radius: 50%;
     transition: background-color 0.3s ease;
+  }
 
-    &:hover {
-      background-color: rgba(205, 92, 92, 0.2);
-      cursor: pointer;
+  &:hover {
+    background-color: rgba(205, 92, 92, 0.1);
+  }
+
+  &:focus {
+    outline: 2px solid indianred;
+    outline-offset: 2px;
+  }
+
+  mat-icon {
+    font-size: 24px;
+  }
+}
+
+.dialog-content {
+  .experience-header {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+    margin: 1.25rem 0;
+
+    img {
+      width: 64px;
+      height: 64px;
+      object-fit: contain;
+      border-radius: 12px;
+      background-color: #f2f2f2;
     }
 
-    mat-icon {
-      font-size: 24px;
+    .company-info {
+      h3 {
+        margin: 0;
+        font-size: 1.2rem;
+        font-weight: 600;
+      }
+
+      .meta {
+        color: #a6a5a5;
+        font-size: 0.95rem;
+        margin-top: 4px;
+      }
+
+      .duration {
+        margin-top: 2px;
+        font-size: 0.9rem;
+        font-weight: 500;
+        color: #afafaf;
+      }
     }
   }
 
-  button:focus {
-    outline: 2px solid indianred;
-    outline-offset: 2px;
+  .section {
+    margin-top: 2rem;
+
+    h4 {
+      margin-bottom: 0.5rem;
+      font-size: 1.1rem;
+      color: #a19f9f;
+      font-weight: 600;
+    }
+
+    p {
+      font-size: 1rem;
+      line-height: 1.4;
+    }
+
+    .list {
+      list-style: none;
+      padding-left: 0;
+      margin: 0;
+
+      li {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        margin-bottom: 0.25rem;
+
+        mat-icon {
+          font-size: 18px;
+          color: #4caf50;
+        }
+      }
+    }
   }
 }
 
@@ -121,7 +115,7 @@
     }
   }
 
-  .dialog-title {
+  .title {
     flex-direction: column;
     align-items: flex-start;
     gap: 0.25rem;

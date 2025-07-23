@@ -10,7 +10,6 @@ import {MatCardModule} from '@angular/material/card';
 import {MatGridListModule} from '@angular/material/grid-list';
 import {MatChipsModule} from '@angular/material/chips';
 import {MatTabsModule} from '@angular/material/tabs';
-import {MatDialog} from '@angular/material/dialog';
 import {PROFILE_CONTENT, PROFILE_DETAILS} from '../../data/profile.data';
 import {CardSidenavComponent} from '../card-sidenav/card-sidenav.component';
 import {MatIcon} from '@angular/material/icon';
@@ -41,7 +40,6 @@ import {UserService} from '../../../core/services/api/user.service';
   styleUrl: './card-profile-summary.component.scss'
 })
 export class CardProfileSummaryComponent implements OnInit {
-  readonly dialog: MatDialog = inject(MatDialog);
   readonly userService: UserService = inject(UserService);
   readonly isAdmin: Signal<boolean> = this.userService.isAdmin;
 

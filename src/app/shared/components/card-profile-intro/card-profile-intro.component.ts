@@ -7,8 +7,8 @@ import {MatTooltip} from '@angular/material/tooltip';
 import {PROFILE_CONTENT} from '../../data/profile.data';
 import {MatIconButton} from '@angular/material/button';
 import {UserService} from '../../../core/services/api/user.service';
-import {MatDialog} from '@angular/material/dialog';
 import {DialogContactInfoComponent} from '../dialog/dialog-contact-info/dialog-contact-info.component';
+import {DialogService} from '../../../core/services/dialog.service';
 
 @Component({
   selector: 'app-card-profile-intro',
@@ -26,20 +26,14 @@ import {DialogContactInfoComponent} from '../dialog/dialog-contact-info/dialog-c
   styleUrl: './card-profile-intro.component.scss'
 })
 export class CardProfileIntroComponent implements OnInit {
-  readonly dialog: MatDialog = inject(MatDialog);
   readonly userService: UserService = inject(UserService);
+  readonly dialogService: DialogService = inject(DialogService);
   readonly isAdmin: Signal<boolean> = this.userService.isAdmin;
 
   profileContent: any = PROFILE_CONTENT;
 
   openDialog(): void {
-    const dialogRef = this.dialog.open(DialogContactInfoComponent, {
-      width: '50vw',
-      height: '90vh',
-      maxWidth: '90vw',
-      autoFocus: false,
-    });
-    dialogRef.afterClosed().subscribe();
+    this.dialogService.showDialog(DialogContactInfoComponent);
   }
 
   ngOnInit(): void {

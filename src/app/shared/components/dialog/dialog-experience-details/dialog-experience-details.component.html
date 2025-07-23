@@ -1,20 +1,20 @@
 <div class="dialog-header">
-  <h2 mat-dialog-title>{{ data.role }}</h2>
+  <h2 mat-dialog-title class="title">{{ data.role }}</h2>
 
   @if (isAdmin()) {
-    <button mat-icon-button matTooltip="Delete Experience" (click)="deleteExperience()">
+    <button mat-icon-button matTooltip="Delete Experience" (click)="deleteExperience()" class="delete-btn">
       <mat-icon>delete</mat-icon>
     </button>
   }
 </div>
 
-<mat-dialog-content>
+<mat-dialog-content class="dialog-content">
   <div class="experience-header">
-    <img [src]="data.image" alt="{{ data.companyName }}" />
+    <img [src]="data.image" alt="{{ data.companyName }}" class="company-logo"/>
     <div class="company-info">
       <h3>{{ data.companyName }}</h3>
-      <p>{{ data.location }} • {{ data.companyType }} • {{ data.industry }}</p>
-      <p><strong>{{ data.startDate }} - {{ data.endDate }}</strong></p>
+      <p class="meta">{{ data.location }} • {{ data.companyType }} • {{ data.industry }}</p>
+      <p class="duration">{{ data.startDate }} - {{ data.endDate }}</p>
     </div>
   </div>
 
@@ -26,9 +26,12 @@
   @if (data.responsibilities?.length) {
     <section class="section">
       <h4>Responsibilities</h4>
-      <ul>
+      <ul class="list">
         @for (item of data.responsibilities; track item;) {
-          <li>{{ item }}</li>
+          <li>
+            <mat-icon color="primary">check_circle</mat-icon>
+            <span>{{ item }}</span>
+          </li>
         }
       </ul>
     </section>
@@ -37,9 +40,12 @@
   @if (data.achievements?.length) {
     <section class="section">
       <h4>Achievements</h4>
-      <ul>
+      <ul class="list">
         @for (item of data.achievements; track item;) {
-          <li>{{ item }}</li>
+          <li>
+            <mat-icon color="accent">emoji_events</mat-icon>
+            <span>{{ item }}</span>
+          </li>
         }
       </ul>
     </section>
@@ -47,5 +53,5 @@
 </mat-dialog-content>
 
 <mat-dialog-actions align="end">
-  <button mat-button mat-dialog-close>Close</button>
+  <button mat-stroked-button mat-dialog-close color="primary">Close</button>
 </mat-dialog-actions>

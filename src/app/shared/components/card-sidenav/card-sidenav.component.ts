@@ -1,5 +1,4 @@
 import {Component, inject, OnDestroy, OnInit, Signal} from '@angular/core';
-import {MatDialog} from '@angular/material/dialog';
 import {MatCard, MatCardActions, MatCardSubtitle} from '@angular/material/card';
 import {MatIconButton} from '@angular/material/button';
 import {MatTooltip} from '@angular/material/tooltip';
@@ -26,6 +25,7 @@ import {MatProgressSpinner} from '@angular/material/progress-spinner';
 import {CardLeetcodeComponent} from '../card-leetcode/card-leetcode.component';
 import {UserService} from '../../../core/services/api/user.service';
 import {GetResumeFiles} from '../../../store/file/file.action';
+import {DialogService} from '../../../core/services/dialog.service';
 
 @Component({
   selector: 'app-card-sidenav',
@@ -45,7 +45,7 @@ import {GetResumeFiles} from '../../../store/file/file.action';
 })
 export class CardSidenavComponent implements OnInit, OnDestroy {
   private readonly store: Store = inject(Store);
-  private readonly dialog: MatDialog = inject(MatDialog);
+  private readonly dialogService: DialogService = inject(DialogService);
   private readonly unsubscribe$ = new Subject();
 
   readonly userService: UserService = inject(UserService);
@@ -81,40 +81,15 @@ export class CardSidenavComponent implements OnInit, OnDestroy {
   }
 
   openAddExpDialog(): void {
-    const dialogRef = this.dialog.open(DialogExperienceCreationComponent, {
-      width: '35vw',
-      height: '90vh',
-      maxWidth: '90vw',
-      autoFocus: false,
-    });
-    dialogRef.afterClosed().subscribe(result => {
-      console.log(`Dialog result: ${result}`);
-    });
+    this.dialogService.showDialog(DialogExperienceCreationComponent);
   }
 
   openDetailsExpDialog(experience: any): void {
-    const dialogRef = this.dialog.open(DialogExperienceDetailsComponent, {
-      width: '30vw',
-      height: '70vh',
-      maxWidth: '40vw',
-      autoFocus: false,
-      data: experience
-    });
-    dialogRef.afterClosed().subscribe(result => {
-      console.log(`Dialog result: ${result}`);
-    });
+    this.dialogService.showDialog(DialogExperienceDetailsComponent, 0, experience);
   }
 
   openAddSocialDialog(): void {
-    const dialogRef = this.dialog.open(DialogSocialLinkCreationComponent, {
-      width: '20vw',
-      height: '45vh',
-      maxWidth: '40vw',
-      autoFocus: false,
-    });
-    dialogRef.afterClosed().subscribe(result => {
-      console.log(`Dialog result: ${result}`);
-    });
+    this.dialogService.showDialog(DialogSocialLinkCreationComponent);
   }
 
   dispatchInitialData(): void {
