@@ -1,0 +1,78 @@
+<div class="billing-container">
+  <h2 class="section-title">Billing & Payments</h2>
+
+  <mat-tab-group class="billing-tabs">
+    <mat-tab label="Current Plan">
+      <mat-card class="plan-card elevation">
+        <div class="plan-header">
+          <mat-icon class="plan-icon">workspace_premium</mat-icon>
+          <div>
+            <h3>{{ currentPlan.name }}</h3>
+            <p class="desc">{{ currentPlan.description }}</p>
+            <p class="price">RM{{ currentPlan.price }} / {{ currentPlan.cycle }}</p>
+          </div>
+        </div>
+        <button mat-stroked-button color="primary" (click)="openChangePlanDialog()">
+          <mat-icon>edit</mat-icon> Change Plan
+        </button>
+      </mat-card>
+    </mat-tab>
+
+    <mat-tab label="Payment Methods">
+      <div class="payment-methods">
+        @for (provider of providers; track $index) {
+          <mat-card class="method-card">
+            <mat-icon [color]="provider.color">{{ provider.icon }}</mat-icon>
+            <div class="method-info">
+              <h4>{{ provider.name }}</h4>
+              <p>Status: <strong>{{ provider.status }}</strong></p>
+              @if (provider.lastUsed) {
+                <p>Last used: {{ provider.lastUsed | date:'mediumDate' }}</p>
+              }
+            </div>
+            <div class="method-actions">
+              <button mat-flat-button [color]="provider.color" (click)="payWith(provider)">
+                Pay with {{ provider.name }}
+              </button>
+              @if (provider.status === 'connected') {
+                <button mat-icon-button color="warn" (click)="disconnect(provider)">
+                  <mat-icon>link_off</mat-icon>
+                </button>
+              }
+            </div>
+          </mat-card>
+        }
+      </div>
+    </mat-tab>
+
+    <mat-tab label="Billing History">
+      @if (billingHistory.length > 0) {
+        <div class="history-wrapper">
+          <mat-accordion multi>
+            @for (item of billingHistory; track $index) {
+              <mat-expansion-panel>
+                <mat-expansion-panel-header>
+                  <mat-panel-title>
+                    RM{{ item.amount }} - {{ item.method }}
+                  </mat-panel-title>
+                  <mat-panel-description>
+                    {{ item.date | date:'mediumDate' }} — <span class="status {{ item.status.toLowerCase() }}">{{ item.status }}</span>
+                  </mat-panel-description>
+                </mat-expansion-panel-header>
+                <p>Transaction ID: N/A</p>
+                <p>Method: {{ item.method }}</p>
+                <p>Status: {{ item.status }}</p>
+              </mat-expansion-panel>
+            }
+
+          </mat-accordion>
+        </div>
+      } @else {
+        <div class="empty-state">
+          <mat-icon>receipt_long</mat-icon>
+          <p>No billing history available</p>
+        </div>
+      }
+    </mat-tab>
+  </mat-tab-group>
+</div>

@@ -390,3 +390,50 @@ export const FEATURE_DIALOG_DATA: DialogData = {
   actionLabel: 'Got it!'
 };
 
+export const STORAGE_PROVIDERS_DATA = [
+  { id: 's3', name: 'Amazon S3', files: [], usage: {} },
+  { id: 'gdrive', name: 'Google Drive', files: [], usage: {} },
+  { id: 'dropbox', name: 'Dropbox', files: [], usage: {} },
+]
+
+export interface BillingProvider {
+  id: string;
+  name: string;
+  color: string;
+  icon: string;
+  status: string;
+  lastUsed?: Date;
+}
+
+export interface BillingHistory {
+  date: Date;
+  amount: number;
+  method: string;
+  status: string;
+}
+
+export interface Plan {
+  name: string;
+  description: string;
+  price: number;
+  cycle: string;
+}
+
+export const PAYMENT_METHODS_DATA = [
+  {
+    id: 'stripe',
+    name: 'Stripe',
+    color: 'primary',
+    icon: 'credit_card',
+    status: 'connected',
+    lastUsed: new Date()
+  },
+  {
+    id: 'tng',
+    name: 'Touch ’n Go',
+    color: 'accent',
+    icon: 'qr_code',
+    status: 'disconnected',
+    lastUsed: new Date()
+  }
+]

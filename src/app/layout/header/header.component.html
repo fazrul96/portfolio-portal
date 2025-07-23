@@ -101,6 +101,18 @@
         </mat-icon>
         <span>Webtoon</span>
       </button>
+      <button mat-menu-item (click)="navigateTo(ROUTE_PATHS.billing)">
+        <mat-icon matBadge="1" matBadgeSize="small" aria-hidden="false">
+          <i class="fa fa-money-check-dollar" aria-hidden="true"></i>
+        </mat-icon>
+        <span>Billing</span>
+      </button>
+      <button mat-menu-item (click)="navigateTo(ROUTE_PATHS.storage)">
+        <mat-icon matBadge="1" matBadgeSize="small" aria-hidden="false">
+          <i class="fa fa-folder" aria-hidden="true"></i>
+        </mat-icon>
+        <span>Storage</span>
+      </button>
     }
   }
   <hr>

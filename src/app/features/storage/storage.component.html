@@ -1,0 +1,56 @@
+<div class="storage-container">
+  <h2 class="section-title">Cloud Storage</h2>
+
+  <mat-tab-group class="provider-tabs" [(selectedIndex)]="activeTab">
+    @for (provider of STORAGE_PROVIDERS_DATA; track $index) {
+      <mat-tab [label]="provider.name">
+        <div class="provider-panel">
+          <div class="storage-header">
+            <button mat-flat-button color="primary" (click)="uploadFile(provider.id)">
+              <mat-icon>cloud_upload</mat-icon> Upload File
+            </button>
+
+            @if (uploading) {
+              <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+            }
+
+            <div class="storage-usage">
+<!--              <span>{{ provider.usage.used }} / {{ provider.usage.total }} used</span>-->
+<!--              <mat-progress-bar mode="determinate" [value]="provider.usage.percent"></mat-progress-bar>-->
+            </div>
+          </div>
+
+          @if (provider.files.length > 0) {
+          <div class="file-list">
+            @for (file of provider.files; track $index) {
+            <mat-card class="file-card">
+              <mat-icon class="file-icon">insert_drive_file</mat-icon>
+              <div class="file-info">
+<!--                <h4>{{ file.name }}</h4>-->
+<!--                <p>{{ file.size }} • {{ file.lastModified | date }}</p>-->
+              </div>
+              <div class="file-actions">
+                <button mat-icon-button (click)="downloadFile(file)">
+                  <mat-icon>download</mat-icon>
+                </button>
+                <button mat-icon-button (click)="renameFile(file)">
+                  <mat-icon>edit</mat-icon>
+                </button>
+<!--                <button mat-icon-button color="warn" (click)="deleteFile(file)">-->
+<!--                  <mat-icon>delete</mat-icon>-->
+<!--                </button>-->
+              </div>
+            </mat-card>
+            }
+          </div>
+          } @else {
+            <div class="empty-state">
+              <mat-icon>cloud_off</mat-icon>
+              <p>No files found in {{ provider.name }}.</p>
+            </div>
+          }
+        </div>
+      </mat-tab>
+    }
+  </mat-tab-group>
+</div>
