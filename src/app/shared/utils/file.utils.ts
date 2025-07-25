@@ -1,6 +1,6 @@
 import {COMMON_CONSTANTS} from '../constants/common.constants';
 
-export function formatFileSize(bytes: number): string {
+export function formatFileSize(bytes: number = 0): string {
   if (bytes === 0) return '0 Bytes';
   const k: number = 1024;
   const sizes: string[] = ['Bytes', 'KB', 'MB', 'GB', 'TB'];
@@ -40,4 +40,14 @@ export function handleBlobResponse(blob: Blob, fileName: string, isDownload: boo
   }
 
   URL.revokeObjectURL(url);
+}
+
+/**
+ * Extracts the last folder name from an S3-style path string.
+ * Example: 'portfolio-content/resume/' → 'resume'
+ */
+export function extractFolderNameFromPath(path: any): string {
+  const parts = path.split('/');
+  const trimmed = parts.filter(Boolean);
+  return trimmed[trimmed.length - 1];
 }

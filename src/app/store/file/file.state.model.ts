@@ -10,7 +10,7 @@ export const FILE_STATE_DEFAULTS: FileStateModel = {
   imageFiles: {
     folders: [], files: []
   },
-  portfolioFiles: {
+  portfolioBucket: {
     folders: [], files: []
   },
   loading: false,
@@ -21,9 +21,10 @@ export interface FileStateModel  {
   resumeFiles: Files;
   certificateFiles: Files;
   imageFiles: Files;
-  portfolioFiles: Files;
-  viewingBlob?: Blob;
+
   presignedUrl?: string;
   loading: boolean;
   error: string | null;
+
+  portfolioBucket: Files;
 }

@@ -21,3 +21,8 @@ export class GetPresignUrl {
   static readonly type = '[FILE] GET PRESIGNED URL';
   constructor(public key: any) {}
 }
+
+export class LoadPortfolioFiles {
+  static readonly type = '[FILE] GET PORTFOLIO FILES';
+  constructor(public prefix?: string) {}
+}

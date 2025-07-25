@@ -7,31 +7,32 @@ export function convertToIsoDate(dateStr?: string): string | null {
   return isNaN(isoDate.getTime()) ? null : isoDate.toISOString();
 }
 
-export function formatDate(dateString?: string): string {
+export function formatDisplayDate(
+  dateString?: string,
+  options: Intl.DateTimeFormatOptions = { day: '2-digit', month: 'long', year: 'numeric' },
+  locale: string = 'en-GB'
+): string {
   if (!dateString) return '—';
+
+  let date: Date | null = null;
 
   // Handle dd/MM/yyyy
   if (dateString.includes('/')) {
     const parts = dateString.split('/');
     if (parts.length === 3) {
       const [day, month, year] = parts;
-      return `${year}/${month.padStart(2, '0')}/${day.padStart(2, '0')}`;
+      date = new Date(+year, +month - 1, +day);
     }
+  } else {
+    // Assume ISO or yyyy-MM-dd
+    date = new Date(dateString);
   }
 
-  // Handle ISO format yyyy-MM-dd
-  if (dateString.includes('-')) {
-    const date = new Date(dateString);
-    if (!isNaN(date.getTime())) {
-      const yyyy = date.getFullYear();
-      const mm = String(date.getMonth() + 1).padStart(2, '0');
-      const dd = String(date.getDate()).padStart(2, '0');
-      return `${yyyy}/${mm}/${dd}`;
-    }
-  }
+  if (!date || isNaN(date.getTime())) return '—';
 
-  return '—';
+  return new Intl.DateTimeFormat(locale, options).format(date);
 }
+
 
 export function formatBirthdate(date: Date): string {
   // Format as "dd/MM/yyyy"

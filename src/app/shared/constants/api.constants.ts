@@ -56,6 +56,7 @@ export const S3_API = {
   PRESIGN_URL: `${BASE_S3}/presignUrl`,
 
   PREFIXES: {
+    PORTFOLIO: `${(PORTFOLIO_CONTENT)}/`,
     RESUME: `${(PORTFOLIO_CONTENT)}/resume/`,
     SNAPSYNCH: `${(PORTFOLIO_CONTENT)}/snapsynch/snapSynch.pdf`,
     WEBTOONS: `${(WEBTOON_CONTENT)}/`,

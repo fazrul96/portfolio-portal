@@ -9,9 +9,10 @@ import {
   DownloadFile,
   GetPresignUrl,
   GetResumeFiles,
+  LoadPortfolioFiles,
   UploadResumeFile,
 } from './file.action';
-import {Files} from '../../shared/types/portal.type';
+import {Files, S3File} from '../../shared/types/portal.type';
 import {extractFileNameFromKey} from '../../shared/utils/string.utils';
 import {triggerBrowserDownload} from '../../shared/utils/file.utils';
 
@@ -35,8 +36,25 @@ export class FileState {
   }
 
   @Selector()
-  static getViewingBlob(state: FileStateModel): Blob | undefined {
-    return state.viewingBlob;
+  static getPortfolioFolders(state: FileStateModel): S3File[] {
+    return state.portfolioBucket.folders;
+  }
+
+  @Selector()
+  static getPortfolioFiles(state: FileStateModel): S3File[] {
+    return state.portfolioBucket.files;
+  }
+
+  @Action(LoadPortfolioFiles)
+  getFiles(ctx: StateContext<FileStateModel>, { prefix }: LoadPortfolioFiles){
+    return this.fileService.getFiles(prefix).pipe(
+      tap((response: HttpResponseBody): void => {
+        ctx.patchState({
+          portfolioBucket: response.data
+        });
+      }),
+      map((response: HttpResponseBody) => response.message)
+    )
   }
 
   @Action(GetResumeFiles)

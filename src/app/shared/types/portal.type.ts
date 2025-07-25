@@ -108,6 +108,7 @@ export interface Files {
 
 export interface S3File {
   name: string;
-  size: number;
-  lastModified: string;
+  size?: number;
+  lastModified?: string;
+  type?: string;
 }

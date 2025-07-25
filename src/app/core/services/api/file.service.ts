@@ -4,6 +4,7 @@ import {environment} from '../../../../environments/environment';
 import {Observable} from 'rxjs';
 import {HttpResponseBody} from '../../models/http-body.model';
 import {S3_API} from '../../../shared/constants/api.constants';
+import {COMMON_CONSTANTS} from '../../../shared/constants/common.constants';
 
 @Injectable({
   providedIn: 'root'
@@ -11,6 +12,12 @@ import {S3_API} from '../../../shared/constants/api.constants';
 export class FileService {
   private readonly http: HttpClient = inject(HttpClient);
   private readonly apiUrl: string = environment.apiBaseUrl + environment.apiPublicUrl;
+
+  getFiles(prefix: string = COMMON_CONSTANTS.EMPTY_STRING): Observable<HttpResponseBody> {
+    const url = `${this.apiUrl}${S3_API.LIST_FILES}`;
+    const params = { prefix: prefix };
+    return this.http.get<HttpResponseBody>(url, { params });
+  }
 
   getResumeFiles(): Observable<HttpResponseBody> {
     const url = `${this.apiUrl}${S3_API.LIST_FILES}`;

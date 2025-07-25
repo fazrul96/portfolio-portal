@@ -1,56 +1,198 @@
-<div class="storage-container">
-  <h2 class="section-title">Cloud Storage</h2>
+<div class="s3-dashboard">
+  <main class="main-panel">
+    <div class="topbar">
+      <mat-form-field appearance="outline" class="search-field">
+        <mat-icon matPrefix>search</mat-icon>
+        <input matInput placeholder="Search files..." />
+      </mat-form-field>
+      <button mat-flat-button color="primary" class="create-btn">
+        <mat-icon>add</mat-icon> Create New
+      </button>
+    </div>
 
-  <mat-tab-group class="provider-tabs" [(selectedIndex)]="activeTab">
-    @for (provider of STORAGE_PROVIDERS_DATA; track $index) {
-      <mat-tab [label]="provider.name">
-        <div class="provider-panel">
-          <div class="storage-header">
-            <button mat-flat-button color="primary" (click)="uploadFile(provider.id)">
-              <mat-icon>cloud_upload</mat-icon> Upload File
-            </button>
-
-            @if (uploading) {
-              <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+    @if (breadcrumbs.length) {
+      <nav class="breadcrumb">
+        @for (breadcrumb of this.breadcrumbs; track $index;) {
+          <ng-container>
+            <span class="crumb" (click)="onBreadcrumbClick($index)">
+              {{ formatCamelCase(breadcrumb) }}
+            </span>
+            @if ($index < breadcrumbs.length - 1) {
+              <mat-icon class="crumb-separator">chevron_right</mat-icon>
             }
+          </ng-container>
+        }
+      </nav>
+    }
 
-            <div class="storage-usage">
-<!--              <span>{{ provider.usage.used }} / {{ provider.usage.total }} used</span>-->
-<!--              <mat-progress-bar mode="determinate" [value]="provider.usage.percent"></mat-progress-bar>-->
+    <mat-tab-group [selectedIndex]="currentTabIndex()">
+      @for (provider of STORAGE_PROVIDERS_DATA; track $index) {
+        <mat-tab [label]="provider.name">
+          @if(provider.id === 's3') {
+            <div class="provider-panel dropzone-wrapper"
+                 (dragover)="onDragOver($event)"
+                 (dragleave)="onDragLeave($event)"
+                 (drop)="onFileDrop($event)">
+
+              <div class="provider-panel">
+                @if (isUploading()) {
+                  <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+                }
+
+                <div class="tab-toolbar">
+                  <button mat-icon-button [class.active]="viewMode === 'grid'" (click)="viewMode = 'grid'" matTooltip="Grid view">
+                    <mat-icon>grid_view</mat-icon>
+                  </button>
+                  <button mat-icon-button [class.active]="viewMode === 'list'" (click)="viewMode = 'list'" matTooltip="List view">
+                    <mat-icon>list</mat-icon>
+                  </button>
+                </div>
+
+                @if (viewMode === 'list') {
+                  <section class="list-view-section">
+                    <h3>Folders</h3>
+                    @if (s3FolderList$ | async) {
+                      <ul class="list-items">
+                        @for (folder of s3FolderList$ | async; track $index) {
+                          <li class="list-row" (dblclick)="goToSelectedFolder(folder)">
+                            <div class="left">
+                              <mat-icon class="folder-icon">folder</mat-icon>
+                              <span class="name">{{ formatCamelCase(folder) }}</span>
+                            </div>
+                            <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="folder options">
+                              <mat-icon>more_vert</mat-icon>
+                            </button>
+                          </li>
+                        }
+                      </ul>
+                    } @else {
+                      <div class="empty-state">
+                        <mat-icon>cloud_off</mat-icon>
+                        <p>No folders found in {{ formatCamelCase(provider.name) }}.</p>
+                      </div>
+                    }
+
+                    <h3>Files</h3>
+                    @if (s3FileList$ | async) {
+                      <ul class="list-items">
+                        @for (file of s3FileList$ | async; track $index) {
+                          <li class="list-row">
+                            <div class="left">
+                              <mat-icon class="file-icon">insert_drive_file</mat-icon>
+                              <span class="name">{{ extractFolderNameFromPath(file.name) }}</span>
+                            </div>
+                            <div class="right">
+                              <span class="meta">{{ formatDisplayDate(file.lastModified) }}</span>
+                              <span class="meta">{{ formatFileSize(file.size) }}</span>
+                              <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="file options">
+                                <mat-icon>more_vert</mat-icon>
+                              </button>
+                            </div>
+                          </li>
+                        }
+                      </ul>
+                    } @else {
+                      <div class="empty-state">
+                        <mat-icon>cloud_off</mat-icon>
+                        <p>No folders found in {{ provider.name }}.</p>
+                      </div>
+                    }
+                  </section>
+                }
+
+                @if (viewMode === 'grid') {
+                  <section class="grid-view-section">
+                    <h3>Folders</h3>
+                    @if (s3FolderList$ | async) {
+                      <div class="folder-cards">
+                        @for (folder of s3FolderList$ | async; track $index) {
+                          <div class="folder-card" (dblclick)="goToSelectedFolder(folder)">
+                            <div class="folder-left">
+                              <mat-icon>folder</mat-icon>
+                              <span class="folder-name">{{ formatCamelCase(folder) }}</span>
+                            </div>
+                            <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="folder options">
+                              <mat-icon>more_vert</mat-icon>
+                            </button>
+                          </div>
+                        }
+                      </div>
+                    }
+
+                    <h3>Files</h3>
+                    @if (s3FileList$ | async) {
+                        <div class="files-cards">
+                          @for (file of s3FileList$ | async; track $index) {
+                            <div class="file-card">
+                              <div class="file-top">
+                                <div class="file-left">
+                                  <mat-icon>insert_drive_file</mat-icon>
+                                  <span class="file-name">{{ extractFolderNameFromPath(file.name) }}</span>
+                                </div>
+                                <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="file options">
+                                  <mat-icon>more_vert</mat-icon>
+                                </button>
+                              </div>
+
+                              <div class="file-meta">
+                                <span class="modified-date">{{ formatDisplayDate(file.lastModified) }}</span>
+                                <span class="file-size">{{ formatFileSize(file.size) }}</span>
+                              </div>
+                            </div>
+                          }
+                        </div>
+                    } @else {
+                      <div class="empty-state">
+                        <mat-icon>cloud_off</mat-icon>
+                        <p>No folders found.</p>
+                      </div>
+                    }
+                  </section>
+                }
+              </div>
+
+              @if (dragging) {
+                <div class="dropzone-overlay">
+                  <mat-icon>cloud_upload</mat-icon>
+                  <p>Drop files to upload</p>
+                </div>
+              }
+
             </div>
-          </div>
-
-          @if (provider.files.length > 0) {
-          <div class="file-list">
-            @for (file of provider.files; track $index) {
-            <mat-card class="file-card">
-              <mat-icon class="file-icon">insert_drive_file</mat-icon>
-              <div class="file-info">
-<!--                <h4>{{ file.name }}</h4>-->
-<!--                <p>{{ file.size }} • {{ file.lastModified | date }}</p>-->
-              </div>
-              <div class="file-actions">
-                <button mat-icon-button (click)="downloadFile(file)">
-                  <mat-icon>download</mat-icon>
-                </button>
-                <button mat-icon-button (click)="renameFile(file)">
-                  <mat-icon>edit</mat-icon>
-                </button>
-<!--                <button mat-icon-button color="warn" (click)="deleteFile(file)">-->
-<!--                  <mat-icon>delete</mat-icon>-->
-<!--                </button>-->
-              </div>
-            </mat-card>
-            }
-          </div>
           } @else {
-            <div class="empty-state">
-              <mat-icon>cloud_off</mat-icon>
-              <p>No files found in {{ provider.name }}.</p>
+            <div class="not-ready-state">
+              <mat-icon>construction</mat-icon>
+              <h3>{{ provider.name }} Integration Coming Soon</h3>
+              <p>We're working on enabling this cloud provider. Stay tuned!</p>
             </div>
           }
-        </div>
-      </mat-tab>
-    }
-  </mat-tab-group>
+        </mat-tab>
+      }
+    </mat-tab-group>
+  </main>
 </div>
+
+<mat-menu #menu="matMenu">
+  <button mat-menu-item>
+    <mat-icon>download</mat-icon>
+    <span>Download</span>
+  </button>
+  <button mat-menu-item disabled>
+    <mat-icon>create</mat-icon>
+    <span>Rename</span>
+  </button>
+  <hr>
+  <button mat-menu-item disabled>
+    <mat-icon>person_add</mat-icon>
+    <span>Share</span>
+  </button>
+  <button mat-menu-item disabled>
+    <mat-icon>info</mat-icon>
+    <span>More Information</span>
+  </button>
+  <hr>
+  <button mat-menu-item>
+    <mat-icon>delete</mat-icon>
+    <span>Move to trash</span>
+  </button>
+</mat-menu>
