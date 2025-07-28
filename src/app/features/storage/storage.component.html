@@ -5,7 +5,7 @@
         <mat-icon matPrefix>search</mat-icon>
         <input matInput placeholder="Search files..." />
       </mat-form-field>
-      <button mat-flat-button color="primary" class="create-btn">
+      <button mat-flat-button color="primary" class="create-btn" (click)="createBtn('test')">
         <mat-icon>add</mat-icon> Create New
       </button>
     </div>
@@ -59,7 +59,10 @@
                               <mat-icon class="folder-icon">folder</mat-icon>
                               <span class="name">{{ formatCamelCase(folder) }}</span>
                             </div>
-                            <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="folder options">
+                            <button mat-icon-button
+                                    [matMenuTriggerFor]="menu"
+                                    (click)="onMenuOpen(folder)"
+                                    aria-label="folder options">
                               <mat-icon>more_vert</mat-icon>
                             </button>
                           </li>
@@ -84,7 +87,10 @@
                             <div class="right">
                               <span class="meta">{{ formatDisplayDate(file.lastModified) }}</span>
                               <span class="meta">{{ formatFileSize(file.size) }}</span>
-                              <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="file options">
+                              <button mat-icon-button
+                                      [matMenuTriggerFor]="menu"
+                                      (click)="onMenuOpen(extractFolderNameFromPath(file.name))"
+                                      aria-label="file options">
                                 <mat-icon>more_vert</mat-icon>
                               </button>
                             </div>
@@ -111,7 +117,10 @@
                               <mat-icon>folder</mat-icon>
                               <span class="folder-name">{{ formatCamelCase(folder) }}</span>
                             </div>
-                            <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="folder options">
+                            <button mat-icon-button
+                                    [matMenuTriggerFor]="menu"
+                                    (click)="onMenuOpen(folder)"
+                                    aria-label="folder options">
                               <mat-icon>more_vert</mat-icon>
                             </button>
                           </div>
@@ -129,7 +138,10 @@
                                   <mat-icon>insert_drive_file</mat-icon>
                                   <span class="file-name">{{ extractFolderNameFromPath(file.name) }}</span>
                                 </div>
-                                <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="file options">
+                                <button mat-icon-button
+                                        [matMenuTriggerFor]="menu"
+                                        (click)="onMenuOpen(extractFolderNameFromPath(file.name))"
+                                        aria-label="file options">
                                   <mat-icon>more_vert</mat-icon>
                                 </button>
                               </div>
@@ -173,7 +185,7 @@
 </div>
 
 <mat-menu #menu="matMenu">
-  <button mat-menu-item>
+  <button mat-menu-item (click)="downloadBtn()">
     <mat-icon>download</mat-icon>
     <span>Download</span>
   </button>
@@ -191,7 +203,7 @@
     <span>More Information</span>
   </button>
   <hr>
-  <button mat-menu-item>
+  <button mat-menu-item (click)="deleteBtn()">
     <mat-icon>delete</mat-icon>
     <span>Move to trash</span>
   </button>

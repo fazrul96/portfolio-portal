@@ -5,9 +5,9 @@ import {MatProgressBar} from '@angular/material/progress-bar';
 import {MatIcon} from '@angular/material/icon';
 import {STORAGE_PROVIDERS_DATA} from '../../shared/data/project.data';
 import {Store} from '@ngxs/store';
-import {map, Subject} from 'rxjs';
+import {map, Subject, takeUntil} from 'rxjs';
 import {COMMON_CONSTANTS} from '../../shared/constants/common.constants';
-import {LoadPortfolioFiles} from '../../store/file/file.action';
+import {DeleteItem, DownloadItem, LoadPortfolioFiles, UploadItem} from '../../store/file/file.action';
 import {FileState} from '../../store/file/file.state';
 import {AsyncPipe} from '@angular/common';
 import {MatFormField, MatInput, MatPrefix} from '@angular/material/input';
@@ -16,6 +16,7 @@ import {formatCamelCase} from '../../shared/utils/string.utils';
 import {MatTooltip} from '@angular/material/tooltip';
 import {formatDisplayDate} from '../../shared/utils/date.utils';
 import {MatMenu, MatMenuItem, MatMenuTrigger} from '@angular/material/menu';
+import {DownloadableItem} from '../../shared/types/portal.type';
 
 @Component({
   selector: 'app-storage',
@@ -51,11 +52,12 @@ export class StorageComponent implements OnInit, OnDestroy {
   readonly s3FileList$ = this.store.select(FileState.getPortfolioFiles);
   readonly currentTabIndex = signal(0);
   readonly isUploading = signal(false);
-  public dragging = false;
+  public dragging: boolean = false;
 
-  public viewMode: 'grid' | 'list' = 'list';
+  public viewMode: 'grid' | 'list' = 'grid';
   breadcrumbs: string[] = [];
   currentPath: string = COMMON_CONSTANTS.EMPTY_STRING;
+  selectedItem: any = null;
 
   ngOnInit(): void {
     this.store.dispatch(new LoadPortfolioFiles());
@@ -67,7 +69,7 @@ export class StorageComponent implements OnInit, OnDestroy {
   }
 
   onDragOver(event: DragEvent) {
-    event.preventDefault(); // necessary to allow drop
+    event.preventDefault();
     this.dragging = true;
   }
 
@@ -79,9 +81,14 @@ export class StorageComponent implements OnInit, OnDestroy {
   onFileDrop(event: DragEvent) {
     event.preventDefault();
     this.dragging = false;
+
     const files = event.dataTransfer?.files;
-    if (files?.length) {
-      // this.handleFileUpload(files); // your upload logic
+
+    if (files && files.length > 0) {
+      const fileArray: File[] = Array.from(files);
+      this.store.dispatch(new UploadItem(fileArray, this.currentPath));
+    } else {
+      console.log('No files dropped');
     }
   }
 
@@ -96,10 +103,48 @@ export class StorageComponent implements OnInit, OnDestroy {
   }
 
   onBreadcrumbClick(index: number) {
-    const newPath = this.breadcrumbs.slice(0, index + 1).join('/') + '/';
+    const newPath: string = this.breadcrumbs.slice(0, index + 1).join('/') + '/';
     this.currentPath = newPath;
     this.updateBreadcrumb();
     this.store.dispatch(new LoadPortfolioFiles(newPath));
+  }
+
+  onMenuOpen(item: any): void {
+    this.selectedItem = item;
+
+    console.log(this.selectedItem);
+  }
+
+  createBtn(key: string): void {
+    // Implementation here or remove if not needed
+  }
+
+  downloadBtn(): void {
+    if (this.selectedItem) {
+      const isFile: string = this.selectedItem.includes(COMMON_CONSTANTS.DOT);
+      const item: DownloadableItem = {
+        name: `${this.currentPath}${this.selectedItem}`,
+        type: isFile ? 'file' : 'folder'
+      };
+
+      this.store.dispatch(new DownloadItem(item))
+        .pipe(takeUntil(this.unsubscribe$))
+        .subscribe();
+    }
+  }
+
+  deleteBtn(): void {
+    if (this.selectedItem) {
+      const isFile: string = this.selectedItem.includes(COMMON_CONSTANTS.DOT);
+      const item: DownloadableItem = {
+        name: `${this.currentPath}${this.selectedItem}`,
+        type: isFile ? 'file' : 'folder'
+      };
+
+      this.store.dispatch(new DeleteItem(item))
+        .pipe(takeUntil(this.unsubscribe$))
+        .subscribe();
+    }
   }
 
   protected readonly STORAGE_PROVIDERS_DATA = STORAGE_PROVIDERS_DATA;

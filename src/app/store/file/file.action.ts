@@ -1,10 +1,22 @@
+import {DownloadableItem} from '../../shared/types/portal.type';
+
 export class GetResumeFiles {
   static readonly type = '[FILE] GET RESUME';
 }
 
-export class DownloadFile {
-  static readonly type = '[FILE] DOWNLOAD FILE';
-  constructor(public key: string, public isDownload: boolean = true) {}
+export class UploadItem {
+  static readonly type = '[FILE] UPLOAD ITEM';
+  constructor(public item: File[], public key: string) {}
+}
+
+export class DownloadItem {
+  static readonly type = '[FILE] DOWNLOAD ITEM';
+  constructor(public item: DownloadableItem) {}
+}
+
+export class DeleteItem {
+  static readonly type = '[FILE] DELETE ITEM';
+  constructor(public item: DownloadableItem) {}
 }
 
 export class UploadResumeFile {

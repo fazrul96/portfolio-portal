@@ -101,6 +101,11 @@ export interface DifficultyStats {
   submissions: number;
 }
 
+export interface DownloadableItem {
+  name: string;
+  type: 'file' | 'folder';
+}
+
 export interface Files {
   folders: S3File[];
   files: S3File[];

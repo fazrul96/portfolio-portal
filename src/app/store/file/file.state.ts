@@ -5,11 +5,12 @@ import {HttpResponseBody} from '../../core/models/http-body.model';
 import {FILE_STATE_DEFAULTS, FileStateModel} from './file.state.model';
 import {FileService} from '../../core/services/api/file.service';
 import {
+  DeleteItem,
   DeleteResumeFile,
-  DownloadFile,
+  DownloadItem,
   GetPresignUrl,
   GetResumeFiles,
-  LoadPortfolioFiles,
+  LoadPortfolioFiles, UploadItem,
   UploadResumeFile,
 } from './file.action';
 import {Files, S3File} from '../../shared/types/portal.type';
@@ -79,14 +80,72 @@ export class FileState {
     );
   }
 
-  @Action(DownloadFile)
-  viewDownloadFile(ctx: StateContext<FileStateModel>, { key }: DownloadFile) {
-    return this.fileService.downloadFile(key).pipe(
+  @Action(DownloadItem)
+  downloadItem(ctx: StateContext<FileStateModel>, { item }: DownloadItem) {
+    const { name } = item;
+    return this.fileService.downloadItem(item).pipe(
       tap((response: Blob): void => {
-        const fileName: string = extractFileNameFromKey(key);
+        const fileName: string = extractFileNameFromKey(name);
         triggerBrowserDownload(response, fileName);
       }),
       map((): string => 'Download successful')
+    );
+  }
+
+  @Action(DeleteItem)
+  deleteItem(ctx: StateContext<FileStateModel>, { item }: DeleteItem) {
+    return this.fileService.deleteItem(item).pipe(
+      tap((response: HttpResponseBody): void => {
+        const currentBucket = ctx.getState().portfolioBucket;
+
+        if (!currentBucket) return;
+
+        let updatedFolders = [...currentBucket.folders];
+        let updatedFiles = [...currentBucket.files];
+
+        if (item.type === 'folder') {
+          updatedFolders = currentBucket.folders.filter(folder => folder.name !== item.name);
+          updatedFiles = currentBucket.files.filter(file => !file.name.startsWith(item.name));
+        } else {
+          updatedFiles = currentBucket.files.filter(file => file.name !== item.name);
+        }
+
+        ctx.patchState({
+          portfolioBucket: {
+            folders: updatedFolders,
+            files: updatedFiles
+          }
+        });
+      }),
+      map((): string => 'Delete successful')
+    );
+  }
+
+  @Action(UploadItem)
+  uploadItem(ctx: StateContext<FileStateModel>, { item, key }: UploadItem) {
+    return this.fileService.uploadFile(item, key).pipe(
+      tap(response => {
+        const currentBucket = ctx.getState().portfolioBucket;
+
+        const updatedBucket = {
+          folders: currentBucket?.folders ?? [],
+          files: currentBucket?.files ?? []
+        };
+
+        const newFiles = response.data.map((fileName: string) => ({
+          name: fileName,
+          size: 0,
+          lastModified: new Date().toISOString(),
+          type: ''
+        }));
+
+        updatedBucket.files = [...updatedBucket.files, ...newFiles];
+
+        ctx.patchState({
+          portfolioBucket: updatedBucket
+        });
+      }),
+      map(response => response.message)
     );
   }
 

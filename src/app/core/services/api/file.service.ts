@@ -5,6 +5,7 @@ import {Observable} from 'rxjs';
 import {HttpResponseBody} from '../../models/http-body.model';
 import {S3_API} from '../../../shared/constants/api.constants';
 import {COMMON_CONSTANTS} from '../../../shared/constants/common.constants';
+import {DownloadableItem} from '../../../shared/types/portal.type';
 
 @Injectable({
   providedIn: 'root'
@@ -31,6 +32,16 @@ export class FileService {
     return this.http.get<HttpResponseBody>(url, { params });
   }
 
+  uploadFile(files: File[], key: string): Observable<HttpResponseBody> {
+    const url = `${this.apiUrl}${S3_API.UPLOAD_FILES}`;
+    const params = { prefix: key };
+    const formData = new FormData();
+
+    files.forEach(file => formData.append('files', file));
+
+    return this.http.post<HttpResponseBody>(url, formData, { params });
+  }
+
   uploadResumeFile(files: File[]): Observable<HttpResponseBody> {
     const url = `${this.apiUrl}${S3_API.UPLOAD_FILES}`;
     const params = { prefix: `${S3_API.PREFIXES.RESUME}`};
@@ -48,13 +59,22 @@ export class FileService {
     return this.http.delete<HttpResponseBody>(url, { params });
   }
 
-  downloadFile(fileName: string): Observable<Blob> {
-    const url = `${this.apiUrl}${S3_API.DOWNLOAD_FILE}`;
-    const params = { fileName: `${fileName}` };
+  downloadItem(item: DownloadableItem): Observable<Blob> {
+    const endpoint: string = item.type === 'file' ? S3_API.DOWNLOAD_FILE : S3_API.DOWNLOAD_FOLDER;
+    const paramKey = item.type === 'file' ? 'fileName' : 'folderName';
 
-    return this.http.get(url, {
-      params,
+    return this.http.get(`${this.apiUrl}${endpoint}`, {
+      params: { [paramKey]: item.name },
       responseType: 'blob'
+    });
+  }
+
+  deleteItem(item: DownloadableItem): Observable<HttpResponseBody> {
+    const endpoint: string = item.type === 'file' ? S3_API.DELETE_FILE : S3_API.DELETE_FOLDER;
+    const paramKey = item.type === 'file' ? 'fileName' : 'folderName';
+
+    return this.http.delete(`${this.apiUrl}${endpoint}`, {
+      params: { [paramKey]: item.name }
     });
   }
 

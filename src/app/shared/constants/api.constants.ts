@@ -50,8 +50,10 @@ export const S3_API = {
   BASE: BASE_S3 ,
   UPLOAD_FILES: `${BASE_S3}/uploadFiles`,
   DELETE_FILE: `${BASE_S3}/deleteFile`,
+  DELETE_FOLDER: `${BASE_S3}/deleteFolder`,
   VIEW_FILE: `${BASE_S3}/viewFile`,
   DOWNLOAD_FILE: `${BASE_S3}/downloadFile`,
+  DOWNLOAD_FOLDER: `${BASE_S3}/downloadFolder`,
   LIST_FILES: `${BASE_S3}/listFiles`,
   PRESIGN_URL: `${BASE_S3}/presignUrl`,
 

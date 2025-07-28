@@ -8,10 +8,11 @@ import {MatIcon} from '@angular/material/icon';
 import {MatTooltip} from '@angular/material/tooltip';
 import {ZoomService} from '../../../../core/services/zoom.service';
 import {Store} from '@ngxs/store';
-import {DownloadFile} from '../../../../store/file/file.action';
+import {DownloadItem} from '../../../../store/file/file.action';
 import {Subject, takeUntil} from 'rxjs';
 import {COMMON_CONSTANTS} from '../../../constants/common.constants';
 import {PdfViewerData} from '../../../../core/models/pdf-viewer-model';
+import {DownloadableItem} from '../../../types/portal.type';
 
 @Component({
   selector: 'app-dialog-intro',
@@ -45,7 +46,12 @@ export class DialogIntroComponent implements OnDestroy {
 
   download(): void {
     if (this.data.key) {
-      this.store.dispatch(new DownloadFile(this.data.key))
+      const item: DownloadableItem = {
+        name: this.data.key,
+        type: 'file'
+      };
+
+      this.store.dispatch(new DownloadItem(item))
         .pipe(takeUntil(this.unsubscribe$)).subscribe();
     }
   }

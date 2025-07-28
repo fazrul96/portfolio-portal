@@ -1,0 +1,36 @@
+<aside class="sidebar" aria-label="sidebar">
+  <h2 class="section-title">Cloud Storage</h2>
+  <mat-nav-list>
+    @for (item of navItems; track $index) {
+      <a mat-list-item>
+        <mat-icon matListIcon>{{ item.icon }}</mat-icon>
+        <span matLine>{{ item.label }}</span>
+      </a>
+    }
+  </mat-nav-list>
+
+  <div class="upgrade-card">
+    <img src="assets/images/views/e-medical-card-mi-care.jpg" alt="Upgrade" />
+    <p>Upgrade to Pro for unlimited storage</p>
+    <button mat-stroked-button color="primary">Upgrade Now</button>
+  </div>
+</aside>
+
+<aside class="stats-sidebar" aria-label="stats">
+  <h3>Storage</h3>
+  <p class="storage-label">75 GB used of 100 GB</p>
+
+  <ul class="storage-details">
+    @for (stat of storageStats; track $index) {
+      <li>
+        <mat-icon>{{ stat.icon }}</mat-icon>
+        {{ stat.label }}
+        <span>{{ stat.size }}</span>
+      </li>
+    }
+  </ul>
+
+  <button mat-flat-button color="primary" class="import-btn">
+    <mat-icon>upload</mat-icon> Import Files
+  </button>
+</aside>

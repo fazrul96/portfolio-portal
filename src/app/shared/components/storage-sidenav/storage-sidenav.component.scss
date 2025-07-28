@@ -1,0 +1,187 @@
+.storage-dashboard {
+  padding: 2rem;
+  width: 60%;
+  justify-self: center;
+
+  .section-title {
+    font-size: 2.25rem;
+    font-weight: 700;
+    margin-bottom: 2rem;
+  }
+
+  .provider-panel {
+    padding: 1rem;
+
+    .storage-toolbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1rem;
+      margin-bottom: 1rem;
+    }
+
+    .storage-usage {
+      flex: 1 1 200px;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      font-size: 0.9rem;
+    }
+
+    .file-list {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 1rem;
+    }
+
+    .file-card {
+      display: flex;
+      align-items: center;
+      padding: 1rem;
+      gap: 1rem;
+
+      .file-icon {
+        font-size: 36px;
+        color: #1976d2;
+      }
+
+      .file-info {
+        flex: 1;
+      }
+
+      .file-actions button {
+        margin-left: 0.25rem;
+      }
+    }
+
+    .empty-state {
+      text-align: center;
+      margin: 2rem 0;
+      color: #777;
+
+      mat-icon {
+        font-size: 48px;
+        color: #ccc;
+      }
+    }
+  }
+}
+
+.s3-dashboard {
+  gap: 20px;
+  padding: 20px;
+  justify-self: auto;
+
+  aside.sidebar {
+    padding: 20px;
+    border-radius: 12px;
+    display: flex;
+    flex-direction: column;
+
+    h2 {
+      margin-bottom: 20px;
+    }
+
+    .upgrade-card {
+      text-align: center;
+
+      img {
+        width: 100%;
+      }
+
+      p {
+        font-size: 0.85rem;
+        margin-bottom: 10px;
+      }
+    }
+  }
+
+  .main-panel {
+    padding: 20px;
+    border-radius: 12px;
+
+    .topbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+
+      mat-form-field {
+        width: 60%;
+      }
+    }
+
+    .folders-section,
+    .files-section {
+      margin-top: 20px;
+
+      .folder-cards {
+        display: flex;
+        gap: 12px;
+        margin-top: 10px;
+
+        .folder-card {
+          padding: 12px;
+          border-radius: 8px;
+          width: 150px;
+          text-align: center;
+          cursor: pointer;
+          transition: all 0.3s ease;
+
+          &:hover {
+            background: #e3e7ed;
+          }
+
+          mat-icon {
+            font-size: 40px;
+            color: #4facfe;
+            margin-right: 12px;
+          }
+        }
+      }
+
+      .file-table {
+        width: 100%;
+        margin-top: 10px;
+
+        th, td {
+          padding: 8px 12px;
+        }
+      }
+    }
+  }
+
+  aside.stats-sidebar {
+    padding: 20px;
+    border-radius: 12px;
+    text-align: center;
+
+    .storage-label {
+      margin-top: 10px;
+      font-weight: 600;
+    }
+
+    .storage-details {
+      list-style: none;
+      padding: 0;
+      margin: 20px 0;
+
+      li {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin: 6px 0;
+        font-size: 0.9rem;
+
+        mat-icon {
+          margin-right: 6px;
+        }
+      }
+    }
+
+    .import-btn {
+      width: 100%;
+    }
+  }
+}
