@@ -1,4 +1,4 @@
-import {Component, inject, OnDestroy, OnInit, signal} from '@angular/core';
+import {Component, inject, OnDestroy, OnInit, Signal, signal} from '@angular/core';
 import {MatTab, MatTabGroup} from '@angular/material/tabs';
 import {MatButton, MatIconButton} from '@angular/material/button';
 import {MatProgressBar} from '@angular/material/progress-bar';
@@ -17,6 +17,11 @@ import {MatTooltip} from '@angular/material/tooltip';
 import {formatDisplayDate} from '../../shared/utils/date.utils';
 import {MatMenu, MatMenuItem, MatMenuTrigger} from '@angular/material/menu';
 import {DownloadableItem} from '../../shared/types/portal.type';
+import {UserService} from '../../core/services/api/user.service';
+import {SweetAlertResult} from 'sweetalert2';
+import {SweetAlertService} from '../../core/services/sweet-alert.service';
+import {StorageItemType} from '../../shared/enums/storage.enum';
+import {ViewModeType} from '../../shared/enums/portfolio.enum';
 
 @Component({
   selector: 'app-storage',
@@ -41,6 +46,8 @@ import {DownloadableItem} from '../../shared/types/portal.type';
 })
 export class StorageComponent implements OnInit, OnDestroy {
   private readonly store: Store = inject(Store);
+  private readonly userService: UserService = inject(UserService);
+  private readonly swalService: SweetAlertService = inject(SweetAlertService);
   private readonly unsubscribe$ = new Subject();
 
   readonly s3FolderList$ = this.store.select(FileState.getPortfolioFolders).pipe(
@@ -48,16 +55,17 @@ export class StorageComponent implements OnInit, OnDestroy {
       folders.map(path => extractFolderNameFromPath(path))
     )
   );
-
   readonly s3FileList$ = this.store.select(FileState.getPortfolioFiles);
   readonly currentTabIndex = signal(0);
   readonly isUploading = signal(false);
-  public dragging: boolean = false;
+  readonly isAdmin: Signal<boolean> = this.userService.isAdmin;
 
-  public viewMode: 'grid' | 'list' = 'grid';
+  public dragging: boolean = false;
+  public viewMode: ViewModeType = ViewModeType.GRID;
+
   breadcrumbs: string[] = [];
-  currentPath: string = COMMON_CONSTANTS.EMPTY_STRING;
   selectedItem: any = null;
+  currentPath: string = COMMON_CONSTANTS.EMPTY_STRING;
 
   ngOnInit(): void {
     this.store.dispatch(new LoadPortfolioFiles());
@@ -68,42 +76,50 @@ export class StorageComponent implements OnInit, OnDestroy {
     this.unsubscribe$.complete();
   }
 
-  onDragOver(event: DragEvent) {
+  onDragOver(event: DragEvent): void {
     event.preventDefault();
     this.dragging = true;
   }
 
-  onDragLeave(event: DragEvent) {
+  onDragLeave(event: DragEvent): void {
     event.preventDefault();
     this.dragging = false;
   }
 
-  onFileDrop(event: DragEvent) {
+  onFileDrop(event: DragEvent): void {
     event.preventDefault();
     this.dragging = false;
 
     const files = event.dataTransfer?.files;
-
     if (files && files.length > 0) {
       const fileArray: File[] = Array.from(files);
-      this.store.dispatch(new UploadItem(fileArray, this.currentPath));
+      this.isUploading.set(true);
+
+      this.store.dispatch(new UploadItem(fileArray, this.currentPath))
+        .pipe(takeUntil(this.unsubscribe$))
+        .subscribe({
+          next: (): void => this.swalService.showSuccess('Success', 'Files uploaded successfully.'),
+          error: (): void => this.swalService.showError('Upload Failed', 'Something went wrong during upload.'),
+          complete: (): void => this.isUploading.set(false)
+        });
     } else {
       console.log('No files dropped');
+      this.swalService.showInfo('No files', 'No files were dropped.');
     }
   }
 
   updateBreadcrumb(): void {
-    this.breadcrumbs = this.currentPath.split('/').filter(Boolean);
+    this.breadcrumbs = this.currentPath.split(COMMON_CONSTANTS.SLASH).filter(Boolean);
   }
 
-  goToSelectedFolder(folder: string) {
-    this.currentPath += `${folder}/`;
+  goToSelectedFolder(folder: string): void {
+    this.currentPath += `${folder}${COMMON_CONSTANTS.SLASH}`;
     this.updateBreadcrumb();
     this.store.dispatch(new LoadPortfolioFiles(this.currentPath));
   }
 
-  onBreadcrumbClick(index: number) {
-    const newPath: string = this.breadcrumbs.slice(0, index + 1).join('/') + '/';
+  onBreadcrumbClick(index: number): void {
+    const newPath: string = this.breadcrumbs.slice(0, index + 1).join(COMMON_CONSTANTS.SLASH) + COMMON_CONSTANTS.SLASH;
     this.currentPath = newPath;
     this.updateBreadcrumb();
     this.store.dispatch(new LoadPortfolioFiles(newPath));
@@ -111,45 +127,60 @@ export class StorageComponent implements OnInit, OnDestroy {
 
   onMenuOpen(item: any): void {
     this.selectedItem = item;
-
-    console.log(this.selectedItem);
   }
 
-  createBtn(key: string): void {
+  createFolder(key: string): void {
     // Implementation here or remove if not needed
   }
 
-  downloadBtn(): void {
-    if (this.selectedItem) {
-      const isFile: string = this.selectedItem.includes(COMMON_CONSTANTS.DOT);
-      const item: DownloadableItem = {
-        name: `${this.currentPath}${this.selectedItem}`,
-        type: isFile ? 'file' : 'folder'
-      };
+  downloadSelectedItem(): void {
+    const item: DownloadableItem | null = this.getSelectedStorageItem();
+    if (!item) return;
 
-      this.store.dispatch(new DownloadItem(item))
-        .pipe(takeUntil(this.unsubscribe$))
-        .subscribe();
-    }
+    this.swalService.confirmDownload(this.selectedItem).then((result: SweetAlertResult): void => {
+      if (result.isConfirmed) {
+        this.store.dispatch(new DownloadItem(item))
+          .pipe(takeUntil(this.unsubscribe$))
+          .subscribe((): void => {
+            this.swalService.showSuccess('Downloaded!', `"${this.selectedItem}" is being downloaded.`);
+          });
+      }
+    });
   }
 
-  deleteBtn(): void {
-    if (this.selectedItem) {
-      const isFile: string = this.selectedItem.includes(COMMON_CONSTANTS.DOT);
-      const item: DownloadableItem = {
-        name: `${this.currentPath}${this.selectedItem}`,
-        type: isFile ? 'file' : 'folder'
-      };
+  deleteSelectedItem(): void {
+    const item: DownloadableItem | null = this.getSelectedStorageItem();
+    if (!item) return;
 
-      this.store.dispatch(new DeleteItem(item))
-        .pipe(takeUntil(this.unsubscribe$))
-        .subscribe();
-    }
+    this.swalService.confirmDelete(this.selectedItem).then((result: SweetAlertResult): void => {
+      if (result.isConfirmed) {
+        this.store.dispatch(new DeleteItem(item))
+          .pipe(takeUntil(this.unsubscribe$))
+          .subscribe((): void => {
+            this.swalService.showSuccess('Deleted!', `"${this.selectedItem}" has been deleted.`);
+          });
+      }
+    });
   }
 
-  protected readonly STORAGE_PROVIDERS_DATA = STORAGE_PROVIDERS_DATA;
+  private getSelectedStorageItem(): DownloadableItem | null {
+    if (!this.selectedItem) return null;
+
+    const type: StorageItemType = this.getItemType(this.selectedItem);
+    return {
+      name: `${this.currentPath}${this.selectedItem}`,
+      type
+    };
+  }
+
+  private getItemType(name: string): StorageItemType {
+    return name.includes(COMMON_CONSTANTS.DOT) ? StorageItemType.FILE : StorageItemType.FOLDER;
+  }
+
   protected readonly formatCamelCase = formatCamelCase;
   protected readonly extractFolderNameFromPath = extractFolderNameFromPath;
   protected readonly formatFileSize = formatFileSize;
   protected readonly formatDisplayDate = formatDisplayDate;
+  protected readonly ViewModeType = ViewModeType;
+  protected readonly STORAGE_PROVIDERS_DATA = STORAGE_PROVIDERS_DATA;
 }

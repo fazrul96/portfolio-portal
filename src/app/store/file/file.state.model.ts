@@ -1,4 +1,5 @@
 import {Files} from '../../shared/types/portal.type';
+import {DEFAULT_FOLDER_FILTER} from '../../shared/constants/file.constants';
 
 export const FILE_STATE_DEFAULTS: FileStateModel = {
   resumeFiles: {
@@ -13,18 +14,14 @@ export const FILE_STATE_DEFAULTS: FileStateModel = {
   portfolioBucket: {
     folders: [], files: []
   },
-  loading: false,
-  error: null,
+  folderFilter: DEFAULT_FOLDER_FILTER,
 };
 
 export interface FileStateModel  {
   resumeFiles: Files;
   certificateFiles: Files;
   imageFiles: Files;
-
   presignedUrl?: string;
-  loading: boolean;
-  error: string | null;
-
   portfolioBucket: Files;
+  folderFilter?: string[];
 }

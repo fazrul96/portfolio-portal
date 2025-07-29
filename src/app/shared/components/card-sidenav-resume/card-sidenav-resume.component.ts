@@ -21,8 +21,9 @@ import {PdfType} from '../../enums/pdf-type.enum';
 import {S3_API} from '../../constants/api.constants';
 import {PdfViewerData} from '../../../core/models/pdf-viewer-model';
 import {DeleteResumeFile, GetPresignUrl} from '../../../store/file/file.action';
-import Swal from 'sweetalert2';
+import {SweetAlertResult} from 'sweetalert2';
 import {DialogService} from '../../../core/services/dialog.service';
+import {SweetAlertService} from '../../../core/services/sweet-alert.service';
 
 @Component({
   selector: 'app-card-sidenav-resume',
@@ -46,8 +47,9 @@ import {DialogService} from '../../../core/services/dialog.service';
 export class CardSidenavResumeComponent implements OnInit, OnDestroy {
   private readonly store: Store = inject(Store);
   private readonly dialog: MatDialog = inject(MatDialog);
-  private readonly dialogService: DialogService = inject(DialogService);
   private readonly userService: UserService = inject(UserService);
+  private readonly swalService: SweetAlertService = inject(SweetAlertService);
+  private readonly dialogService: DialogService = inject(DialogService);
   private readonly unsubscribe$ = new Subject();
 
   @Input() type!: PdfType;
@@ -77,18 +79,13 @@ export class CardSidenavResumeComponent implements OnInit, OnDestroy {
   }
 
   confirmDelete(file: S3File): void {
-    Swal.fire({
-      title: 'Are you sure?',
-      text: `Delete "${file.name}"? This cannot be undone.`,
-      icon: 'warning',
-      showCancelButton: true,
-      confirmButtonColor: '#e53935',
-      cancelButtonColor: '#9e9e9e',
-      confirmButtonText: 'Yes, delete it!',
-    }).then((result) => {
+    this.swalService.confirmDelete(file.name).then((result: SweetAlertResult): void => {
       if (result.isConfirmed) {
-        this.store.dispatch(new DeleteResumeFile(file.name));
-        Swal.fire('Deleted!', `"${file.name}" has been deleted.`, 'success');
+        this.store.dispatch(new DeleteResumeFile(file.name))
+          .pipe(takeUntil(this.unsubscribe$))
+          .subscribe((): void => {
+            this.swalService.showSuccess('Deleted!', `"${file.name}" has been deleted.`);
+          });
       }
     });
   }

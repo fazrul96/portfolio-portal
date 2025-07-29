@@ -16,6 +16,8 @@ import {
 import {Files, S3File} from '../../shared/types/portal.type';
 import {extractFileNameFromKey} from '../../shared/utils/string.utils';
 import {triggerBrowserDownload} from '../../shared/utils/file.utils';
+import {DEFAULT_FOLDER_FILTER} from '../../shared/constants/file.constants';
+import {UserService} from '../../core/services/api/user.service';
 
 @State<FileStateModel>({
   name: 'FileState',
@@ -25,6 +27,7 @@ import {triggerBrowserDownload} from '../../shared/utils/file.utils';
 @Injectable()
 export class FileState {
   private readonly fileService: FileService = inject(FileService);
+  private readonly userService: UserService = inject(UserService);
 
   @Selector()
   static getResumes(state: FileStateModel): Files {
@@ -50,8 +53,22 @@ export class FileState {
   getFiles(ctx: StateContext<FileStateModel>, { prefix }: LoadPortfolioFiles){
     return this.fileService.getFiles(prefix).pipe(
       tap((response: HttpResponseBody): void => {
+        const isAdmin: boolean = this.userService.isAdmin();
+
+        let folders = response.data.folders ?? [];
+
+        if (!isAdmin) {
+          const folderFilter: string[] = DEFAULT_FOLDER_FILTER;
+          folders = folders.filter(
+            (folder: string): boolean => !folderFilter.includes(folder)
+          );
+        }
+
         ctx.patchState({
-          portfolioBucket: response.data
+          portfolioBucket: {
+            folders: folders,
+            files: response.data.files ?? []
+          }
         });
       }),
       map((response: HttpResponseBody) => response.message)

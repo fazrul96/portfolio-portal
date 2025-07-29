@@ -16,3 +16,8 @@ export interface Skill {
   createdAt: string;
   updatedAt: string;
 }
+
+export enum ViewModeType {
+  GRID = 'grid',
+  LIST = 'list',
+}

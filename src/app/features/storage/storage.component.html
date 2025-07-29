@@ -5,9 +5,11 @@
         <mat-icon matPrefix>search</mat-icon>
         <input matInput placeholder="Search files..." />
       </mat-form-field>
-      <button mat-flat-button color="primary" class="create-btn" (click)="createBtn('test')">
-        <mat-icon>add</mat-icon> Create New
-      </button>
+      @if (isAdmin()) {
+        <button mat-flat-button color="primary" class="create-btn" (click)="createFolder('test')">
+          <mat-icon>add</mat-icon> Create New
+        </button>
+      }
     </div>
 
     @if (breadcrumbs.length) {
@@ -40,15 +42,15 @@
                 }
 
                 <div class="tab-toolbar">
-                  <button mat-icon-button [class.active]="viewMode === 'grid'" (click)="viewMode = 'grid'" matTooltip="Grid view">
+                  <button mat-icon-button [class.active]="viewMode === ViewModeType.GRID" (click)="viewMode = ViewModeType.GRID" matTooltip="Grid view">
                     <mat-icon>grid_view</mat-icon>
                   </button>
-                  <button mat-icon-button [class.active]="viewMode === 'list'" (click)="viewMode = 'list'" matTooltip="List view">
+                  <button mat-icon-button [class.active]="viewMode === ViewModeType.LIST" (click)="viewMode = ViewModeType.LIST" matTooltip="List view">
                     <mat-icon>list</mat-icon>
                   </button>
                 </div>
 
-                @if (viewMode === 'list') {
+                @if (viewMode === ViewModeType.LIST) {
                   <section class="list-view-section">
                     <h3>Folders</h3>
                     @if (s3FolderList$ | async) {
@@ -59,12 +61,14 @@
                               <mat-icon class="folder-icon">folder</mat-icon>
                               <span class="name">{{ formatCamelCase(folder) }}</span>
                             </div>
-                            <button mat-icon-button
-                                    [matMenuTriggerFor]="menu"
-                                    (click)="onMenuOpen(folder)"
-                                    aria-label="folder options">
-                              <mat-icon>more_vert</mat-icon>
-                            </button>
+                            @if (isAdmin()) {
+                              <button mat-icon-button
+                                      [matMenuTriggerFor]="menu"
+                                      (click)="onMenuOpen(folder)"
+                                      aria-label="folder options">
+                                <mat-icon>more_vert</mat-icon>
+                              </button>
+                            }
                           </li>
                         }
                       </ul>
@@ -82,17 +86,19 @@
                           <li class="list-row">
                             <div class="left">
                               <mat-icon class="file-icon">insert_drive_file</mat-icon>
-                              <span class="name">{{ extractFolderNameFromPath(file.name) }}</span>
+                              <span class="name">{{ formatCamelCase(extractFolderNameFromPath(file.name)) }}</span>
                             </div>
                             <div class="right">
                               <span class="meta">{{ formatDisplayDate(file.lastModified) }}</span>
                               <span class="meta">{{ formatFileSize(file.size) }}</span>
-                              <button mat-icon-button
-                                      [matMenuTriggerFor]="menu"
-                                      (click)="onMenuOpen(extractFolderNameFromPath(file.name))"
-                                      aria-label="file options">
-                                <mat-icon>more_vert</mat-icon>
-                              </button>
+                              @if (isAdmin()) {
+                                <button mat-icon-button
+                                        [matMenuTriggerFor]="menu"
+                                        (click)="onMenuOpen(extractFolderNameFromPath(file.name))"
+                                        aria-label="file options">
+                                  <mat-icon>more_vert</mat-icon>
+                                </button>
+                              }
                             </div>
                           </li>
                         }
@@ -106,7 +112,7 @@
                   </section>
                 }
 
-                @if (viewMode === 'grid') {
+                @if (viewMode === ViewModeType.GRID) {
                   <section class="grid-view-section">
                     <h3>Folders</h3>
                     @if (s3FolderList$ | async) {
@@ -117,12 +123,14 @@
                               <mat-icon>folder</mat-icon>
                               <span class="folder-name">{{ formatCamelCase(folder) }}</span>
                             </div>
-                            <button mat-icon-button
-                                    [matMenuTriggerFor]="menu"
-                                    (click)="onMenuOpen(folder)"
-                                    aria-label="folder options">
-                              <mat-icon>more_vert</mat-icon>
-                            </button>
+                            @if (isAdmin()) {
+                              <button mat-icon-button
+                                      [matMenuTriggerFor]="menu"
+                                      (click)="onMenuOpen(folder)"
+                                      aria-label="folder options">
+                                <mat-icon>more_vert</mat-icon>
+                              </button>
+                            }
                           </div>
                         }
                       </div>
@@ -136,14 +144,16 @@
                               <div class="file-top">
                                 <div class="file-left">
                                   <mat-icon>insert_drive_file</mat-icon>
-                                  <span class="file-name">{{ extractFolderNameFromPath(file.name) }}</span>
+                                  <span class="file-name">{{ formatCamelCase(extractFolderNameFromPath(file.name)) }}</span>
                                 </div>
-                                <button mat-icon-button
-                                        [matMenuTriggerFor]="menu"
-                                        (click)="onMenuOpen(extractFolderNameFromPath(file.name))"
-                                        aria-label="file options">
-                                  <mat-icon>more_vert</mat-icon>
-                                </button>
+                                @if (isAdmin()) {
+                                  <button mat-icon-button
+                                          [matMenuTriggerFor]="menu"
+                                          (click)="onMenuOpen(extractFolderNameFromPath(file.name))"
+                                          aria-label="file options">
+                                    <mat-icon>more_vert</mat-icon>
+                                  </button>
+                                }
                               </div>
 
                               <div class="file-meta">
@@ -185,7 +195,7 @@
 </div>
 
 <mat-menu #menu="matMenu">
-  <button mat-menu-item (click)="downloadBtn()">
+  <button mat-menu-item (click)="downloadSelectedItem()">
     <mat-icon>download</mat-icon>
     <span>Download</span>
   </button>
@@ -203,7 +213,7 @@
     <span>More Information</span>
   </button>
   <hr>
-  <button mat-menu-item (click)="deleteBtn()">
+  <button mat-menu-item (click)="deleteSelectedItem()">
     <mat-icon>delete</mat-icon>
     <span>Move to trash</span>
   </button>
