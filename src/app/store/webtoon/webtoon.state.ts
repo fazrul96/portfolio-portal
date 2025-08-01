@@ -1,7 +1,7 @@
 import {Action, Selector, State, StateContext} from '@ngxs/store';
 import {inject, Injectable} from '@angular/core';
 import {WEBTOON_STATE_DEFAULTS, WebtoonStateModel} from './webtoon.state.model';
-import {WebtoonService} from '../../core/services/api/webtoon.service';
+import {WebtoonService} from '../../core/services/api/webtoon/webtoon.service';
 import {map, tap} from 'rxjs';
 import {HttpResponseBody} from '../../core/models/http-body.model';
 import {DeleteWebtoon, GetWebtoon, PatchWebtoon, PostWebtoon} from './webtoon.action';

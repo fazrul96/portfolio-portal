@@ -1,0 +1,50 @@
+.dialog-content {
+  font-family: "Segoe UI", sans-serif;
+  padding: 1rem;
+  min-width: 400px;
+
+  .info-section {
+    margin-bottom: 1.5rem;
+
+    h3 {
+      font-size: 1rem;
+      margin-bottom: 0.75rem;
+      color: #444;
+    }
+
+    .info-item {
+      display: flex;
+      flex-direction: column;
+      margin-bottom: 0.75rem;
+
+      .label {
+        font-weight: 600;
+        font-size: 0.9rem;
+        color: #555;
+      }
+
+      .value {
+        font-size: 0.95rem;
+        color: #333;
+
+        &.link {
+          color: #0a66c2;
+          text-decoration: none;
+
+          &:hover {
+            text-decoration: underline;
+          }
+        }
+      }
+    }
+  }
+}
+
+mat-dialog-actions {
+  margin-top: -2.5rem;
+  margin-right: -1rem;
+
+  button {
+    color: #888;
+  }
+}

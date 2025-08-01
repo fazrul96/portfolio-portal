@@ -1,0 +1,45 @@
+@if (billingHistory.length > 0) {
+  <mat-card class="history-card">
+    <mat-accordion multi>
+      @for (item of billingHistory; track $index) {
+        <mat-expansion-panel>
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              <mat-icon class="category-icon" aria-hidden="true">
+                {{ getCategoryIcon(item.category) }}
+              </mat-icon>
+              {{ item.method }} — {{ item.category }}
+            </mat-panel-title>
+            <mat-panel-description>
+              RM{{ item.amount }} • {{ item.date | date:'mediumDate' }}
+              <span class="badge status {{ item.status.toLowerCase() }}">{{ item.status }}</span>
+            </mat-panel-description>
+          </mat-expansion-panel-header>
+
+          <div class="invoice-body">
+            <div class="invoice-section">
+              <h4>Service Details</h4>
+              <p><strong>Service:</strong> {{ item.method }}</p>
+              <p><strong>Category:</strong> {{ item.category }}</p>
+              <p><strong>Description:</strong> {{ item.description || 'N/A' }}</p>
+            </div>
+
+            <div class="invoice-section">
+              <h4>Billing Info</h4>
+              <p><strong>Amount:</strong> RM{{ item.amount }}</p>
+              <p><strong>Status:</strong>
+                <span class="badge status {{ item.status.toLowerCase() }}">{{ item.status }}</span>
+              </p>
+              <p><strong>Billing Date:</strong> {{ item.date | date:'mediumDate' }}</p>
+            </div>
+          </div>
+        </mat-expansion-panel>
+      }
+    </mat-accordion>
+  </mat-card>
+} @else {
+  <div class="empty-state">
+    <mat-icon>receipt_long</mat-icon>
+    <p>No billing history available</p>
+  </div>
+}

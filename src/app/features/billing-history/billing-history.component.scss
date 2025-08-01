@@ -1,0 +1,84 @@
+.history-card {
+  padding: 1rem;
+
+  mat-expansion-panel-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    .category-icon {
+      margin-right: 0.5rem;
+      font-size: 20px;
+      vertical-align: middle;
+    }
+
+    mat-panel-description {
+      margin-left: auto;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.85rem;
+      color: #555;
+    }
+
+    .badge.status {
+      margin-left: 1rem;
+      padding: 2px 8px;
+      border-radius: 4px;
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      font-weight: 600;
+
+      &.paid {
+        background: #e8f5e9;
+        color: #2e7d32;
+      }
+
+      &.pending {
+        background: #fff3e0;
+        color: #ef6c00;
+      }
+
+      &.failed {
+        background: #ffebee;
+        color: #c62828;
+      }
+    }
+  }
+
+  .invoice-body {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2rem;
+    padding: 1rem 0;
+
+    .invoice-section {
+      flex: 1 1 300px;
+      min-width: 250px;
+
+      h4 {
+        font-size: 1rem;
+        margin-bottom: 0.5rem;
+        color: #555;
+        font-weight: 600;
+      }
+
+      p {
+        margin: 0.3rem 0;
+        font-size: 0.9rem;
+        color: #333;
+      }
+    }
+  }
+}
+
+.empty-state {
+  text-align: center;
+  padding: 3rem;
+  color: #999;
+
+  mat-icon {
+    font-size: 48px;
+    margin-bottom: 1rem;
+  }
+}

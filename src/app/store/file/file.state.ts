@@ -3,7 +3,7 @@ import {inject, Injectable} from '@angular/core';
 import {map, tap} from 'rxjs';
 import {HttpResponseBody} from '../../core/models/http-body.model';
 import {FILE_STATE_DEFAULTS, FileStateModel} from './file.state.model';
-import {FileService} from '../../core/services/api/file.service';
+import {FileService} from '../../core/services/api/aws/file.service';
 import {
   DeleteItem,
   DeleteResumeFile,

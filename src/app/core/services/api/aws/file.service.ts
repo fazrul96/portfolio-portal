@@ -1,11 +1,11 @@
 import {inject, Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
-import {environment} from '../../../../environments/environment';
+import {environment} from '../../../../../environments/environment';
 import {Observable} from 'rxjs';
-import {HttpResponseBody} from '../../models/http-body.model';
-import {S3_API} from '../../../shared/constants/api.constants';
-import {COMMON_CONSTANTS} from '../../../shared/constants/common.constants';
-import {DownloadableItem} from '../../../shared/types/portal.type';
+import {HttpResponseBody} from '../../../models/http-body.model';
+import {S3_API} from '../../../../shared/constants/api.constants';
+import {COMMON_CONSTANTS} from '../../../../shared/constants/common.constants';
+import {DownloadableItem} from '../../../../shared/types/portal.type';
 
 @Injectable({
   providedIn: 'root'

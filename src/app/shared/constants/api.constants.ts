@@ -1,6 +1,7 @@
 const BASE_S3 = 's3';
 const BASE_AUTH = 'auth';
 const BASE_LEETCODE = 'leetcode';
+const BASE_BILLING = 'billing';
 
 const PORTFOLIO_CONTENT = 'portfolio-content';
 const WEBTOON_CONTENT = 'webtoons-content';
@@ -46,8 +47,14 @@ export const EMAIL_API = {
   ACCOUNT_MESSAGES: 'accounts/messages',
 };
 
+export const AWS_BILLING_API = {
+  BASE: BASE_BILLING,
+  GET_PREVIOUS: `${BASE_BILLING}/getPrevious`,
+  GET_BY_SERVICE_PREVIOUS: `${BASE_BILLING}/getByServicePrevious`,
+}
+
 export const S3_API = {
-  BASE: BASE_S3 ,
+  BASE: BASE_S3,
   UPLOAD_FILES: `${BASE_S3}/uploadFiles`,
   DELETE_FILE: `${BASE_S3}/deleteFile`,
   DELETE_FOLDER: `${BASE_S3}/deleteFolder`,

@@ -4,7 +4,7 @@ import {PAYMENT_STATE_DEFAULTS, PaymentStateModel} from './payment.state.model';
 import {StripeCheckout} from './payment.action';
 import {map, tap} from 'rxjs';
 import {HttpResponseBody} from '../../core/models/http-body.model';
-import {PaymentService} from '../../core/services/api/payment.service';
+import {PaymentService} from '../../core/services/api/payment/payment.service';
 import {injectStripe} from 'ngx-stripe';
 
 @State<PaymentStateModel>({

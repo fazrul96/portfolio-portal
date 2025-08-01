@@ -4,7 +4,7 @@ export enum  IdType {
   Passport = 'PASSPORT'
 }
 
-enum IdTypeString {
+export enum IdTypeString {
   NRIC = 'NRIC',
   OLD_IC = 'Old IC',
   PASSPORT = 'Passport'

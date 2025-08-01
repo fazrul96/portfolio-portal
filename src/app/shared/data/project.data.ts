@@ -405,20 +405,6 @@ export interface BillingProvider {
   lastUsed?: Date;
 }
 
-export interface BillingHistory {
-  date: Date;
-  amount: number;
-  method: string;
-  status: string;
-}
-
-export interface Plan {
-  name: string;
-  description: string;
-  price: number;
-  cycle: string;
-}
-
 export const PAYMENT_METHODS_DATA = [
   {
     id: 'stripe',
@@ -435,5 +421,13 @@ export const PAYMENT_METHODS_DATA = [
     icon: 'qr_code',
     status: 'disconnected',
     lastUsed: new Date()
+  },
+  {
+    id: 'paypal',
+    name: 'PayPal',
+    color: 'primary',
+    icon: 'account_balance_wallet',
+    status: 'connected',
+    lastUsed: new Date('2025-06-28')
   }
 ]

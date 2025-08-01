@@ -1,0 +1,45 @@
+<div class="section-header">
+  <h2>
+    <mat-icon>calendar_today</mat-icon>
+    Last Month's Subscriptions Summary
+  </h2>
+  <p class="date-range">
+    For: {{ billingHistory?.startDate | date:'MMMM yyyy' }}<br>
+    <strong>Total:</strong> {{ billingHistory?.currency }} {{ totalAmount.toFixed(2) }}
+  </p>
+</div>
+
+<div class="subscriptions-list">
+  @for (item of serviceBreakdown; track $index) {
+    <mat-card class="subscription-card {{ item.status.toLowerCase() }}">
+    <div class="card-header">
+        <div class="service-info">
+          <h3>{{ item.method }}</h3>
+          <span>{{ item.category }}</span>
+        </div>
+        <div class="billing-meta">
+          <span class="amount">{{item.currency}} {{ item.cost }}</span>
+          <span class="badge status {{ item.status.toLowerCase() }}">
+            <mat-icon class="status-icon">
+              {{
+                item.status.toLowerCase() === 'paid' ? 'check_circle' :
+                item.status.toLowerCase() === 'pending' ? 'hourglass_empty' :
+                item.status.toLowerCase() === 'failed' ? 'cancel' : 'help'
+              }}
+            </mat-icon>
+            {{ item.status }}
+          </span>
+        </div>
+      </div>
+
+      <div class="card-body">
+        <p><strong>Service:</strong> {{ item.serviceName || 'No details provided' }}</p>
+        <p><strong>Billed On:</strong> {{ item.date | date:'mediumDate' }}</p>
+      </div>
+
+      <div class="card-actions">
+        <button mat-stroked-button color="primary">Manage</button>
+      </div>
+    </mat-card>
+  }
+</div>

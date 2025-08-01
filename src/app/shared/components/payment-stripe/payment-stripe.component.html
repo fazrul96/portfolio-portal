@@ -1,0 +1,68 @@
+<mat-card class="payment-container">
+  <div
+    class="payment-grid"
+    fxLayout="row"
+    fxLayoutGap="32px"
+    fxLayout.lt-md="column"
+    fxLayoutAlign="start stretch"
+  >
+    <!-- Payment Form -->
+    <section
+      class="payment-input"
+      fxFlex.xs="100%"
+      fxFlex.sm="100%"
+      fxFlex.md="60%"
+      fxFlex.lg="60%"
+      fxFlex.xl="60%"
+    >
+      <form [formGroup]="paymentElementForm">
+        @if (elementsOptions.clientSecret) {
+          <div class="stripe-wrapper mat-elevation-z2">
+            <ngx-stripe-elements
+              [stripe]="stripe"
+              [elementsOptions]="elementsOptions"
+            >
+              <ngx-stripe-payment [options]="paymentElementOptions" />
+            </ngx-stripe-elements>
+          </div>
+        }
+
+        <div class="submit-section">
+          <button
+            mat-flat-button
+            color="primary"
+            class="submit-button"
+            type="button"
+            (click)="pay()"
+            [disabled]="paying()"
+          >
+            <mat-icon>payment</mat-icon> Pay Now
+          </button>
+        </div>
+      </form>
+    </section>
+
+    <!-- Summary -->
+    <section class="payment-summary mat-elevation-z1" fxFlex>
+      <h2 class="section-title">Order Summary</h2>
+
+      @for (detail of orderDetails; track $index;) {
+        <div class="summary-line">
+          <span>{{ detail.label }}</span>
+          <strong>{{ detail.value }}</strong>
+        </div>
+      }
+
+      <mat-divider class="divider"></mat-divider>
+
+      <div class="summary-line">
+        <span><strong>You have to pay</strong></span>
+      </div>
+
+      <div class="summary-line total">
+        <span><strong>{{ amount | number: '1.2-2' }}</strong> {{ currency }}</span>
+        <mat-icon color="accent">receipt_long</mat-icon>
+      </div>
+    </section>
+  </div>
+</mat-card>

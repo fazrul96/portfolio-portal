@@ -1,0 +1,87 @@
+.payment-container {
+  max-width: 960px;
+  margin: 40px auto;
+  border-radius: 16px;
+  padding: 24px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
+}
+
+.payment-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2rem;
+
+  @media (max-width: 768px) {
+    flex-direction: column;
+  }
+}
+
+.payment-input {
+  display: flex;
+  flex-direction: column;
+}
+
+.stripe-wrapper {
+  padding: 1.25rem;
+  border-radius: 8px;
+  text-align: center;
+}
+
+.submit-section {
+  margin-top: 1.5rem;
+  text-align: right;
+
+  .submit-button {
+    width: 100%;
+    padding: 14px;
+    font-size: 16px;
+    font-weight: 600;
+    transition: background-color 0.3s ease;
+
+    &:hover {
+      background-color: #004ba0;
+    }
+
+    mat-icon {
+      vertical-align: middle;
+      margin-right: 8px;
+    }
+  }
+}
+
+.payment-summary {
+  padding: 1.5rem;
+  border-radius: 8px;
+
+  .section-title {
+    font-size: 1.25rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+  }
+
+  .summary-line {
+    display: flex;
+    justify-content: space-between;
+    margin: 0.5rem 0;
+    font-size: 15px;
+
+    &:first-child {
+      margin-top: 0.25rem;
+    }
+  }
+
+  .divider {
+    margin: 1.5rem 0;
+  }
+
+  .total {
+    font-weight: bold;
+    font-size: 1.2rem;
+    color: #1976d2;
+
+    mat-icon {
+      margin-left: 8px;
+      vertical-align: middle;
+    }
+  }
+}
