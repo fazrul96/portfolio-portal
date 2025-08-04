@@ -16,7 +16,8 @@ export const BILLING_STATE_DEFAULTS: BillingStateModel = {
       currency: 'MYR',
       frequency: 'monthly',
       description: 'Unifi Home 100Mbps',
-      company: 'Telekom Malaysia'
+      company: 'Telekom Malaysia',
+      status: 'Paid',
     },
     {
       name: 'Phone – Unifi Mobile',
@@ -24,7 +25,8 @@ export const BILLING_STATE_DEFAULTS: BillingStateModel = {
       currency: 'MYR',
       frequency: 'monthly',
       description: 'UNI5G Postpaid Family 129 mobile postpaid phone bill',
-      company: 'Telekom Malaysia'
+      company: 'Telekom Malaysia',
+      status: 'Paid',
     },
     {
       name: 'Rental – Home',
@@ -32,7 +34,8 @@ export const BILLING_STATE_DEFAULTS: BillingStateModel = {
       currency: 'MYR',
       frequency: 'monthly',
       description: 'Monthly house rental payment',
-      company: 'Owner Unit'
+      company: 'Owner Unit',
+      status: 'Paid',
     },
     {
       name: 'Streaming – Netflix',
@@ -40,7 +43,8 @@ export const BILLING_STATE_DEFAULTS: BillingStateModel = {
       currency: 'MYR',
       frequency: 'monthly',
       description: 'Netflix Premium subscription',
-      company: 'Netflix'
+      company: 'Netflix',
+      status: 'Paid',
     },
     {
       name: 'Domain – Namecheap',
@@ -48,7 +52,8 @@ export const BILLING_STATE_DEFAULTS: BillingStateModel = {
       currency: 'USD',
       frequency: 'yearly',
       description: 'Annual domain renewal via Namecheap',
-      company: 'Namecheap'
+      company: 'Namecheap',
+      status: 'Paid',
     }
   ],
   dynamicBilling: [
@@ -58,7 +63,8 @@ export const BILLING_STATE_DEFAULTS: BillingStateModel = {
       amount: 20,
       frequency: 'monthly',
       description: 'Monthly water utility bill (based on usage)',
-      company: 'Indah Water Selangor'
+      company: 'Indah Water Selangor',
+      status: 'Pending',
     },
     {
       name: 'Utilities – Electricity',
@@ -66,7 +72,8 @@ export const BILLING_STATE_DEFAULTS: BillingStateModel = {
       amount: 120,
       frequency: 'monthly',
       description: 'Monthly electricity bill (based on usage)',
-      company: 'TNB Malaysia'
+      company: 'TNB Malaysia',
+      status: 'Pending',
     },
     {
       name: 'Mortgage – Home',
@@ -74,7 +81,8 @@ export const BILLING_STATE_DEFAULTS: BillingStateModel = {
       currency: 'MYR',
       frequency: 'monthly',
       description: 'Monthly house rental payment',
-      company: 'RHB Banking'
+      company: 'RHB Banking',
+      status: 'Pending',
     },
   ]
 };

@@ -39,4 +39,5 @@ export interface LocalBillingItem {
   company?: string;
   orderNumber?: string;
   product?: string;
+  status?: string;
 }

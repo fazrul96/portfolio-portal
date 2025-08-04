@@ -18,6 +18,7 @@ import {BillingItemCategory, BillingSummaryDto, LocalBillingItem} from '../../sh
 import {formatDisplayDate} from '../../shared/utils/date.utils';
 import {PaymentStripeComponent} from '../../shared/components/payment-stripe/payment-stripe.component';
 import {CurrencyCode} from '../../shared/enums/currency.enum';
+import {MatTooltip} from '@angular/material/tooltip';
 
 @Component({
   selector: 'app-billing',
@@ -28,7 +29,8 @@ import {CurrencyCode} from '../../shared/enums/currency.enum';
     MatButton,
     MatIcon,
     BillingHistoryComponent,
-    BillingSubscriptionComponent
+    BillingSubscriptionComponent,
+    MatTooltip
   ],
   templateUrl: './billing.component.html',
   styleUrl: './billing.component.scss'
@@ -116,6 +118,7 @@ export class BillingComponent implements OnInit, OnDestroy {
       startDate: bill.startDate ?? formatDisplayDate(new Date().toISOString()),
       orderNumber: `INV20250801-FIXED-${i + 1}`,
       product: bill.name,
+      status: 'Paid',
     }));
 
     const dynamicMapped = this.dynamicBilling.map((bill, i) => ({
@@ -125,12 +128,14 @@ export class BillingComponent implements OnInit, OnDestroy {
       startDate: bill.startDate ?? formatDisplayDate(new Date().toISOString()),
       orderNumber: `INV20250801-DYNAMIC-${i + 1}`,
       product: bill.name,
+      status: 'Paid',
     }));
 
     const cloudMapped: LocalBillingItem[] = this.cloudBilling.map((bill, i) => ({
       ...bill,
       amount: bill.amount ?? 0,
       orderNumber: bill.orderNumber ?? `INV20250801-CLOUD-${i + 1}`,
+      status: 'Paid',
     }));
 
     return {

@@ -1,36 +1,39 @@
-@if (billingHistory.length > 0) {
+@if (allBillings.length > 0) {
   <mat-card class="history-card">
     <mat-accordion multi>
-      @for (item of billingHistory; track $index) {
+      @for (item of allBillings; track $index) {
         <mat-expansion-panel>
           <mat-expansion-panel-header>
             <mat-panel-title>
               <mat-icon class="category-icon" aria-hidden="true">
-                {{ getCategoryIcon(item.category) }}
+                {{ getCategoryIcon(item.name) }}
               </mat-icon>
-              {{ item.method }} — {{ item.category }}
+              {{ item.name }}
             </mat-panel-title>
             <mat-panel-description>
-              RM{{ item.amount }} • {{ item.date | date:'mediumDate' }}
+              <span class="panel-info">
+                RM{{ item.amount.toFixed(2) }} • {{ item.startDate | date:'mediumDate' }}
+              </span>
               <span class="badge status {{ item.status.toLowerCase() }}">{{ item.status }}</span>
             </mat-panel-description>
+
           </mat-expansion-panel-header>
 
           <div class="invoice-body">
             <div class="invoice-section">
               <h4>Service Details</h4>
-              <p><strong>Service:</strong> {{ item.method }}</p>
-              <p><strong>Category:</strong> {{ item.category }}</p>
+              <p><strong>Service:</strong> {{ item.name }}</p>
+              <p><strong>Company:</strong> {{ item.company }}</p>
               <p><strong>Description:</strong> {{ item.description || 'N/A' }}</p>
             </div>
 
             <div class="invoice-section">
               <h4>Billing Info</h4>
-              <p><strong>Amount:</strong> RM{{ item.amount }}</p>
+              <p><strong>Amount:</strong> RM{{ item.amount.toFixed(2) }}</p>
               <p><strong>Status:</strong>
                 <span class="badge status {{ item.status.toLowerCase() }}">{{ item.status }}</span>
               </p>
-              <p><strong>Billing Date:</strong> {{ item.date | date:'mediumDate' }}</p>
+              <p><strong>Billing Date:</strong> {{ item.startDate | date:'mediumDate' }}</p>
             </div>
           </div>
         </mat-expansion-panel>
