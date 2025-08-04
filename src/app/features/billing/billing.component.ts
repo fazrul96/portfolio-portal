@@ -14,7 +14,7 @@ import {BillingHistoryComponent} from '../billing-history/billing-history.compon
 import {BillingSubscriptionComponent} from '../billing-subscription/billing-subscription.component';
 import {GetPreviousMonthByService, GetPreviousMonthSummary} from '../../store/billing/billing.action';
 import {BillingState} from '../../store/billing/billing.state';
-import {BillingSummaryDto} from '../../shared/types/billing.type';
+import {BillingItemCategory, BillingSummaryDto, LocalBillingItem} from '../../shared/types/billing.type';
 import {formatDisplayDate} from '../../shared/utils/date.utils';
 import {PaymentStripeComponent} from '../../shared/components/payment-stripe/payment-stripe.component';
 import {CurrencyCode} from '../../shared/enums/currency.enum';
@@ -44,7 +44,9 @@ export class BillingComponent implements OnInit, OnDestroy {
   readonly isAdmin: Signal<boolean> = this.userService.isAdmin;
 
   previousMonthSummary: BillingSummaryDto | null = null;
-  billingServices: any[] = [];
+  cloudBilling: LocalBillingItem[] = [];
+  fixedBilling: LocalBillingItem[] = [];
+  dynamicBilling: LocalBillingItem[] = [];
 
   ngOnInit(): void {
     this.store.dispatch(new GetPreviousMonthSummary());
@@ -54,7 +56,19 @@ export class BillingComponent implements OnInit, OnDestroy {
       .pipe(takeUntil(this.unsubscribe$))
       .subscribe(summary => {
         this.previousMonthSummary = summary;
-        this.populateBillingServices();
+        this.populateCloudBilling();
+      });
+
+    this.store.select(BillingState.fixedBilling)
+      .pipe(takeUntil(this.unsubscribe$))
+      .subscribe(fixed => {
+        this.fixedBilling = fixed ?? [];
+      });
+
+    this.store.select(BillingState.dynamicBilling)
+      .pipe(takeUntil(this.unsubscribe$))
+      .subscribe(dynamic => {
+        this.dynamicBilling = dynamic ?? [];
       });
   }
 
@@ -63,17 +77,17 @@ export class BillingComponent implements OnInit, OnDestroy {
     this.unsubscribe$.complete();
   }
 
-  private populateBillingServices(): void {
+  private populateCloudBilling(): void {
     const summary = this.previousMonthSummary;
 
     if (!summary) return;
 
-    this.billingServices = [
+    this.cloudBilling = [
       {
         name: 'AWS Cloud',
         icon: 'cloud',
         description: 'Cloud infrastructure billing',
-        amount: summary.totalCost?.toFixed(2),
+        amount: summary.totalCost ?? 0,
         currency: summary.currency ?? CurrencyCode.USD,
         startDate: formatDisplayDate(summary.startDate),
         company: 'Amazon Web Services',
@@ -84,7 +98,7 @@ export class BillingComponent implements OnInit, OnDestroy {
         name: 'Namecheap',
         icon: 'dns',
         description: 'Domain and DNS billing',
-        amount: '12.99',
+        amount: summary.totalCost ?? 0,
         currency: summary.currency ?? CurrencyCode.USD,
         startDate: formatDisplayDate(summary.startDate),
         company: 'Namecheap Inc.',
@@ -92,6 +106,38 @@ export class BillingComponent implements OnInit, OnDestroy {
         product: 'Domains & Hosting',
       }
     ];
+  }
+
+  get allBillings(): BillingItemCategory {
+    const fixedMapped = this.fixedBilling.map((bill, i) => ({
+      ...bill,
+      icon: 'fact_check',
+      amount: bill.amount ?? 0,
+      startDate: bill.startDate ?? formatDisplayDate(new Date().toISOString()),
+      orderNumber: `INV20250801-FIXED-${i + 1}`,
+      product: bill.name,
+    }));
+
+    const dynamicMapped = this.dynamicBilling.map((bill, i) => ({
+      ...bill,
+      icon: 'bolt',
+      amount: bill.amount ?? 0,
+      startDate: bill.startDate ?? formatDisplayDate(new Date().toISOString()),
+      orderNumber: `INV20250801-DYNAMIC-${i + 1}`,
+      product: bill.name,
+    }));
+
+    const cloudMapped: LocalBillingItem[] = this.cloudBilling.map((bill, i) => ({
+      ...bill,
+      amount: bill.amount ?? 0,
+      orderNumber: bill.orderNumber ?? `INV20250801-CLOUD-${i + 1}`,
+    }));
+
+    return {
+      fixed: fixedMapped,
+      dynamic: dynamicMapped,
+      cloud: cloudMapped
+    };
   }
 
   openPaymentDialog(item: any): void {

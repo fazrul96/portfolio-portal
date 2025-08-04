@@ -3,32 +3,95 @@
   <mat-tab-group class="billing-tabs">
     <mat-tab label="Summary">
       <div class="billing-summary-grid">
-        @for (item of billingServices; track $index) {
-          <mat-card class="summary-card">
-            <div class="card-content">
-              <div class="card-icon-container">
-                <mat-icon>{{ item.icon }}</mat-icon>
-              </div>
-              <div class="card-details">
-                <h3 class="card-title">{{ item.name }}</h3>
-                <p class="card-date">Usage from {{ item?.startDate }}</p>
-                <p class="card-amount">
-                  {{ item?.currency }} {{ item?.amount }}
-                </p>
-                <p class="card-description">
-                  {{ item?.description }}
-                </p>
-              </div>
-              @if (isAdmin()) {
-                <div class="card-actions">
-                  <button mat-raised-button color="accent" (click)="openPaymentDialog(item)">
-                    <mat-icon>credit_card</mat-icon>Pay Now
-                  </button>
+        <h3 class="section-subtitle">Fixed Billing</h3>
+        <div class="summary-grid">
+          @for (item of allBillings.fixed; track $index) {
+            <mat-card class="summary-card">
+              <div class="card-content">
+                <div class="card-icon-container">
+                  <mat-icon>{{ item.icon }}</mat-icon>
                 </div>
-              }
-            </div>
-          </mat-card>
-        }
+                <div class="card-details">
+                  <h3 class="card-title">{{ item.name }}</h3>
+                  <p class="card-date">Usage from {{ item?.startDate }}</p>
+                  <p class="card-amount">
+                    {{ item?.currency }} {{ item?.amount }}
+                  </p>
+                  <p class="card-description">
+                    {{ item?.description }}
+                  </p>
+                </div>
+                @if (isAdmin()) {
+                  <div class="card-actions">
+                    <button mat-raised-button color="accent" (click)="openPaymentDialog(item)">
+                      <mat-icon>credit_card</mat-icon>Pay Now
+                    </button>
+                  </div>
+                }
+              </div>
+            </mat-card>
+          }
+        </div>
+
+        <h3 class="section-subtitle">Dynamic Billing</h3>
+        <div class="summary-grid">
+          @for (item of allBillings.dynamic; track $index) {
+            <mat-card class="summary-card">
+              <div class="card-content">
+                <div class="card-icon-container">
+                  <mat-icon>{{ item.icon }}</mat-icon>
+                </div>
+                <div class="card-details">
+                  <h3 class="card-title">{{ item.name }}</h3>
+                  <p class="card-date">Usage from {{ item?.startDate }}</p>
+                  <p class="card-amount">
+                    {{ item?.currency }} {{ item?.amount }}
+                  </p>
+                  <p class="card-description">
+                    {{ item?.description }}
+                  </p>
+                </div>
+                @if (isAdmin()) {
+                  <div class="card-actions">
+                    <button mat-raised-button color="accent" (click)="openPaymentDialog(item)">
+                      <mat-icon>credit_card</mat-icon>Pay Now
+                    </button>
+                  </div>
+                }
+              </div>
+            </mat-card>
+          }
+        </div>
+
+        <h3 class="section-subtitle">Cloud Billing</h3>
+        <div class="summary-grid">
+          @for (item of allBillings.cloud; track $index) {
+            <mat-card class="summary-card">
+              <div class="card-content">
+                <div class="card-icon-container">
+                  <mat-icon>{{ item.icon }}</mat-icon>
+                </div>
+                <div class="card-details">
+                  <h3 class="card-title">{{ item.name }}</h3>
+                  <p class="card-date">Usage from {{ item?.startDate }}</p>
+                  <p class="card-amount">
+                    {{ item?.currency }} {{ item?.amount }}
+                  </p>
+                  <p class="card-description">
+                    {{ item?.description }}
+                  </p>
+                </div>
+                @if (isAdmin()) {
+                  <div class="card-actions">
+                    <button mat-raised-button color="accent" (click)="openPaymentDialog(item)">
+                      <mat-icon>credit_card</mat-icon>Pay Now
+                    </button>
+                  </div>
+                }
+              </div>
+            </mat-card>
+          }
+        </div>
       </div>
     </mat-tab>
 

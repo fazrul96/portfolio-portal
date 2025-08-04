@@ -1,7 +1,8 @@
 import {
   ChangeDetectionStrategy,
   Component,
-  EventEmitter, Inject,
+  EventEmitter,
+  Inject,
   inject,
   OnInit,
   Output,
@@ -15,7 +16,7 @@ import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import {MatButton} from '@angular/material/button';
 import {MatDivider} from '@angular/material/divider';
-import {MatCard} from '@angular/material/card';
+import {MatCard, MatCardActions, MatCardContent, MatCardHeader, MatCardTitle} from '@angular/material/card';
 import {PaymentAction} from '../../enums/payment-action.enum';
 import {injectStripe, StripeElementsDirective, StripePaymentElementComponent, StripeServiceInterface} from 'ngx-stripe';
 import {StripePaymentElementOptions} from '@stripe/stripe-js';
@@ -32,6 +33,7 @@ import {
   DefaultLayoutGapDirective
 } from 'ng-flex-layout';
 import {MAT_DIALOG_DATA} from '@angular/material/dialog';
+import {MatTooltip} from '@angular/material/tooltip';
 
 @Component({
   selector: 'app-payment-stripe',
@@ -52,6 +54,11 @@ import {MAT_DIALOG_DATA} from '@angular/material/dialog';
     DefaultLayoutGapDirective,
     DefaultFlexDirective,
     DefaultLayoutAlignDirective,
+    MatCardHeader,
+    MatCardTitle,
+    MatCardContent,
+    MatCardActions,
+    MatTooltip,
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './payment-stripe.component.html',

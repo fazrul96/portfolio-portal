@@ -21,3 +21,22 @@ export interface ServiceBreakdownItem {
   category: string;
   description: string;
 }
+
+export interface BillingItemCategory {
+  fixed: LocalBillingItem[];
+  dynamic: LocalBillingItem[];
+  cloud: LocalBillingItem[];
+}
+
+export interface LocalBillingItem {
+  name: string;
+  amount?: number;
+  currency: string;
+  frequency?: 'monthly' | 'yearly';
+  description?: string;
+  icon?: string;
+  startDate?: string;
+  company?: string;
+  orderNumber?: string;
+  product?: string;
+}

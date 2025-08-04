@@ -1,9 +1,8 @@
 .payment-container {
   max-width: 960px;
-  margin: 40px auto;
   border-radius: 16px;
   padding: 24px;
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
 }
 
 .payment-grid {
@@ -22,7 +21,7 @@
 }
 
 .stripe-wrapper {
-  padding: 1.25rem;
+  padding: 1rem;
   border-radius: 8px;
   text-align: center;
 }
@@ -50,8 +49,16 @@
 }
 
 .payment-summary {
-  padding: 1.5rem;
-  border-radius: 8px;
+  .order-summary-header {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .order-summary-header .mat-icon {
+    font-size: 24px;
+    color: #666;
+  }
 
   .section-title {
     font-size: 1.25rem;

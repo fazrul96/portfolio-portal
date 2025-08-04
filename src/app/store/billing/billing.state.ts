@@ -5,7 +5,7 @@ import {HttpResponseBody, HttpResponseBodyMedium} from '../../core/models/http-b
 import {BILLING_STATE_DEFAULTS, BillingStateModel} from './billing.state.model';
 import {BillingService} from '../../core/services/api/aws/billing.service';
 import {GetPreviousMonthByService, GetPreviousMonthSummary} from './billing.action';
-import {BillingSummaryDto} from '../../shared/types/billing.type';
+import {BillingSummaryDto, LocalBillingItem} from '../../shared/types/billing.type';
 
 @State<BillingStateModel>({
   name: 'BillingState',
@@ -25,6 +25,17 @@ export class BillingState {
   static previousMonthServiceBreakdown(state: BillingStateModel): any[] | null {
     return state.previousMonthServices;
   }
+
+  @Selector()
+  static fixedBilling(state: BillingStateModel): LocalBillingItem[] | null {
+    return state.fixedBilling;
+  }
+
+  @Selector()
+  static dynamicBilling(state: BillingStateModel): LocalBillingItem[] | null {
+    return state.dynamicBilling;
+  }
+
   @Action(GetPreviousMonthSummary)
   getPreviousMonthItem(ctx: StateContext<BillingStateModel>){
     return this.billingService.getPreviousMonthSummary().pipe(

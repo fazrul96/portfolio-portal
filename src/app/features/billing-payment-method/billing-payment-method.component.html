@@ -1,0 +1,44 @@
+<div class="payment-methods-list">
+  <cdk-accordion class="accordion">
+    @for (provider of providers; track provider.id) {
+      <cdk-accordion-item #accordionItem="cdkAccordionItem" class="accordion-item">
+          <button
+            class="accordion-item-header"
+            (click)="accordionItem.toggle()"
+            tabindex="0"
+            [attr.id]="'accordion-header-' + provider"
+            [attr.aria-expanded]="accordionItem.expanded"
+            [attr.aria-controls]="'accordion-body-' + provider"
+          >
+            <div>
+              <mat-icon matIconButton> {{ provider.icon }} </mat-icon>
+              <span>{{ provider.name }}</span>
+            </div>
+
+            <mat-icon matIconButton>
+              <i [ngClass]="accordionItem.expanded ? 'fa-solid fa-chevron-up' : 'fa-solid fa-chevron-down'" aria-hidden="true"></i>
+            </mat-icon>
+          </button>
+
+          @if (accordionItem.expanded) {
+            <section
+              class="accordion-item-body"
+              [@expandCollapse]="accordionItem.expanded ? 'expanded' : 'collapsed'"
+              [attr.id]="'accordion-body-' + provider"
+              [attr.aria-labelledby]="'accordion-header-' + provider"
+            >
+              @if (provider.id === 'stripe') {
+                <app-payment-stripe></app-payment-stripe>
+              } @else {
+                <div class="not-ready-state">
+                  <mat-icon>construction</mat-icon>
+                  <h3>{{ provider.name }} Integration Coming Soon</h3>
+                  <p>We're working on enabling this provider. Stay tuned!</p>
+                </div>
+              }
+            </section>
+          }
+        </cdk-accordion-item>
+    }
+  </cdk-accordion>
+</div>
