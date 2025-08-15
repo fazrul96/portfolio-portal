@@ -1,0 +1,171 @@
+<ng-container>
+  <div class="electric-bill-header">
+    <div class="input-group">
+      <mat-form-field appearance="outline">
+        <mat-label>Billing Period</mat-label>
+        <mat-date-range-input [rangePicker]="rangePicker">
+          <input matStartDate placeholder="Start date" [(ngModel)]="startDate" />
+          <input matEndDate placeholder="End date" [(ngModel)]="endDate" />
+        </mat-date-range-input>
+        <mat-hint>MM/DD/YYYY – MM/DD/YYYY</mat-hint>
+        <mat-datepicker-toggle matIconSuffix [for]="rangePicker"></mat-datepicker-toggle>
+        <mat-date-range-picker #rangePicker>
+          <mat-date-range-picker-actions>
+            <button mat-button matDateRangePickerCancel>Cancel</button>
+            <button mat-raised-button color="primary" matDateRangePickerApply>Apply</button>
+          </mat-date-range-picker-actions>
+        </mat-date-range-picker>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="usage-input">
+        <mat-label>Total Usage (kWh)</mat-label>
+        <input matInput type="number" [(ngModel)]="totalUsage" />
+      </mat-form-field>
+    </div>
+
+    <button mat-raised-button color="primary" (click)="calculateBill()">
+      <mat-icon>calculate</mat-icon> Calculate Bill
+    </button>
+  </div>
+
+  <div class="summary-grid">
+    <mat-card class="summary-item">
+      <h4>Total Usage</h4>
+      <p>{{ totalUsage }} kWh</p>
+    </mat-card>
+    <mat-card class="summary-item">
+      <h4>Estimated Bill</h4>
+      <p>{{ estimatedBill | currency:'MYR' }}</p>
+    </mat-card>
+    <mat-card class="summary-item">
+      <h4>Days Remaining</h4>
+      <p>{{ daysRemaining }} days</p>
+    </mat-card>
+  </div>
+
+  <div class="tier-bar">
+    @for (tier of tiers; track $index) {
+      <div class="tier-segment"
+        [style.width.%]="tier.percent"
+        [style.background]="tier.color">
+        <span>{{ tier.used }} kWh</span>
+        <small>RM{{ tier.amount | number:'1.2-2' }}</small>
+      </div>
+    }
+  </div>
+
+  <div class="cost-breakdown-grid">
+    <mat-card class="usage-card over-600">
+      <div class="card-header">
+        <h3><mat-icon>flash_on</mat-icon>
+          Penggunaan <span class="highlight">> 600 kWh</span>
+        </h3>
+      </div>
+      <table class="styled-table">
+        <thead>
+        <tr>
+          <th>Category</th>
+          <th class="numeric">Rate (RM)</th>
+          <th class="numeric">Amount (RM)</th>
+        </tr>
+        </thead>
+        <tbody>
+          @for (row of over600Data; track $index) {
+            <tr>
+              <td>{{ row.category }}</td>
+              <td class="numeric">{{ row.rate | number:'1.4-4' }}</td>
+              <td class="numeric">{{ row.amount }}</td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    </mat-card>
+
+    <mat-card class="usage-card under-600">
+      <div class="card-header">
+        <h3><mat-icon>bolt</mat-icon>
+          Penggunaan <span class="highlight">≤ 600 kWh</span>
+        </h3>
+      </div>
+      <table class="styled-table">
+        <thead>
+        <tr>
+          <th>Category</th>
+          <th class="numeric">Rate (RM)</th>
+          <th class="numeric">Amount (RM)</th>
+        </tr>
+        </thead>
+        <tbody>
+          @for (row of under600Data; track $index) {
+            <tr>
+              <td>{{ row.category }}</td>
+              <td class="numeric">{{ row.rate | number:'1.4-4' }}</td>
+              <td class="numeric">{{ row.amount }}</td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    </mat-card>
+  </div>
+
+  <mat-card class="tariff-comparison">
+    <div class="card-header comparison-header">
+      <mat-icon>compare_arrows</mat-icon>
+      <h3>Tariff Comparison</h3>
+    </div>
+    <table class="styled-table comparison-table">
+      <thead>
+      <tr>
+        <th>kWh</th>
+        <th class="numeric">Old Tariff (RM)</th>
+        <th class="numeric">New Tariff (RM)</th>
+        <th class="numeric">Difference (RM)</th>
+      </tr>
+      </thead>
+      <tbody>
+        @for (row of tariffComparison; track $index) {
+          <tr>
+            <td>{{ row.kwh }}</td>
+            <td class="numeric">{{ row.oldTariff | number:'1.2-2' }}</td>
+            <td class="numeric">{{ row.newTariff | number:'1.2-2' }}</td>
+            <td class="numeric" [ngClass]="{'negative': row.diff > 0, 'positive': row.diff < 0}">
+              {{ row.diff | number:'1.2-2' }}
+            </td>
+          </tr>
+        }
+      </tbody>
+    </table>
+  </mat-card>
+
+  <div class="chart-summary-grid">
+    <mat-card class="summary-card profit">
+      <mat-icon>trending_up</mat-icon>
+      <div>
+        <h4>Total Savings</h4>
+        <p>{{ totalSavings | currency:'MYR' }}</p>
+      </div>
+    </mat-card>
+
+    <mat-card class="summary-card loss">
+      <mat-icon>trending_down</mat-icon>
+      <div>
+        <h4>Total Extra Cost</h4>
+        <p>{{ totalExtra | currency:'MYR' }}</p>
+      </div>
+    </mat-card>
+    <mat-card class="chart-card">
+      <ngx-charts-pie-chart
+        [results]="billingData"
+        [doughnut]="false"
+        [explodeSlices]="false"
+        [animations]="true"
+        [scheme]="colorScheme"
+        [view]="[400, 200]"
+        [labels]="true"
+        [legend]="false"
+        [labelFormatting]="formatLabel"
+      >
+      </ngx-charts-pie-chart>
+    </mat-card>
+  </div>
+</ng-container>

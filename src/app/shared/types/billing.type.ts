@@ -41,3 +41,34 @@ export interface LocalBillingItem {
   product?: string;
   status?: string;
 }
+
+export interface UsageBreakdown {
+  category: string;
+  rate: number;
+  amount: number;
+}
+
+export interface TariffComparisonRow {
+  kwh: number;
+  oldTariff: number;
+  newTariff: number;
+  diff: number;
+}
+
+export interface BillingResponse {
+  startDate: string;
+  endDate: string;
+  totalUsage: number;
+  over600Data: UsageBreakdown[];
+  under600Data: UsageBreakdown[];
+  tariffComparison: TariffComparisonRow[];
+}
+
+export interface Tier {
+  name: string;
+  used: number;
+  rate: number;
+  amount: number;
+  percent: number;
+  color: string;
+}

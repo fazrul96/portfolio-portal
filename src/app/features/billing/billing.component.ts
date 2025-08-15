@@ -19,6 +19,7 @@ import {formatDisplayDate} from '../../shared/utils/date.utils';
 import {PaymentStripeComponent} from '../../shared/components/payment-stripe/payment-stripe.component';
 import {CurrencyCode} from '../../shared/enums/currency.enum';
 import {MatTooltip} from '@angular/material/tooltip';
+import {BillingCalculatorComponent} from '../billing-calculator/billing-calculator.component';
 
 @Component({
   selector: 'app-billing',
@@ -30,7 +31,8 @@ import {MatTooltip} from '@angular/material/tooltip';
     MatIcon,
     BillingHistoryComponent,
     BillingSubscriptionComponent,
-    MatTooltip
+    MatTooltip,
+    BillingCalculatorComponent
   ],
   templateUrl: './billing.component.html',
   styleUrl: './billing.component.scss'
